@@ -1,5 +1,6 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga';
 import path from 'path';
+import { UserModel } from './models';
 import mongo from './mongo';
 import permissions from './permissions';
 import Helpers from './utils/helpers';
@@ -14,9 +15,9 @@ const server = new GraphQLServer({
   typeDefs: path.join(__dirname, 'graphql', 'schema.graphql'),
   resolvers: [],
   middlewares: [permissions],
-  context(request) {
+  async context(request) {
     return {
-      userId: Helpers.getUserId(request),
+      user: await UserModel.findById(Helpers.getUserId(request)),
       pubsub,
     };
   },

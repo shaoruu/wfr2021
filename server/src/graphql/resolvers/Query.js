@@ -1,8 +1,8 @@
-import { PledgeModel, UserModel } from '../../models';
+import { PledgeModel } from '../../models';
 
 const Query = {
-  me(_, __, { userId }) {
-    return UserModel.findById(userId);
+  me(_, __, { user }) {
+    return user;
   },
   pledge(_, { id }) {
     return PledgeModel.findById(id);

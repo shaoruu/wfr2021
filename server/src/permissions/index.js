@@ -2,7 +2,7 @@ import { allow, rule, shield } from 'graphql-shield';
 
 const isAuthenticated = rule({ cache: 'contextual' })(
   async (parent, args, ctx, info) => {
-    return ctx.userId;
+    return !!ctx.user;
   },
 );
 

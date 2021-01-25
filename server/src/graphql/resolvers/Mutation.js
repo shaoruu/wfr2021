@@ -44,24 +44,27 @@ const UserMutations = {
   pledgeTo(
     parent,
     { input: { flatDonation, perLapDonation, pledgerId } },
-    { userId },
+    { user },
   ) {
-    return Helpers.makePledge(flatDonation, perLapDonation, pledgerId, userId);
+    return Helpers.makePledge(flatDonation, perLapDonation, pledgerId, user.id);
   },
   pledgeMe(
     parent,
     { input: { flatDonation, perLapDonation, receiverId } },
-    { userId },
+    { user },
   ) {
-    return Helpers.makePledge(flatDonation, perLapDonation, userId, receiverId);
+    return Helpers.makePledge(
+      flatDonation,
+      perLapDonation,
+      user.id,
+      receiverId,
+    );
   },
   async pledgeEvent(
     parent,
     { input: { flatDonation, perLapDonation } },
-    { userId },
+    { user: pledger },
   ) {
-    const pledger = await UserModel.findById(userId);
-
     const pledge = new PledgeModel({
       flatDonation,
       perLapDonation,
@@ -73,8 +76,7 @@ const UserMutations = {
 
     return pledge;
   },
-  async buyTShirt(parent, { input }, { userId }) {
-    const buyer = await UserModel.findById(userId);
+  async buyTShirt(parent, { input }, { user: buyer }) {
     let tShirtOrder = await TShirtOrderModel.findOne({
       buyer,
     });
