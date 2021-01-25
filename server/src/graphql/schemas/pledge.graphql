@@ -1,0 +1,29 @@
+type Pledge {
+  id: ID!
+
+  flatDonation: Int!
+  perLapDonation: Int!
+  collected: Boolean!
+
+  eventWide: Boolean!
+
+  pledger: User!
+  receiver: User!
+}
+
+input PledgeToInput {
+  flatDonation: Int!
+  perLapDonation: Int!
+  pledgerId: ID!
+}
+
+input PledgeMeInput {
+  flatDonation: Int!
+  perLapDonation: Int!
+  receiverId: ID!
+}
+
+input PledgeEventInput {
+  flatDonation: Int!
+  perLapDonation: Int!
+}

@@ -1,0 +1,30 @@
+type User {
+  id: ID!
+
+  username: String!
+  email: String!
+  confirmed: Boolean!
+  schoolId: String!
+  password: String!
+  goalLaps: Int!
+  lapsRan: Int!
+  isAdmin: Boolean!
+  paid: Boolean!
+
+  pledges: [Pledge!]!
+  received: [Pledge!]!
+  eventWide: [Pledge!]!
+  tShirtOrder: TShirtOrder!
+}
+
+input RegisterInput {
+  username: String!
+  email: String!
+  schoolId: String
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}

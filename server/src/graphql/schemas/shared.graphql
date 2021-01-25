@@ -1,0 +1,10 @@
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}

@@ -1,0 +1,14 @@
+type TShirtOrder {
+  pickedUp: Boolean!
+  sCount: Int!
+  mCount: Int!
+  lCount: Int!
+
+  buyer: User!
+}
+
+input BuyTShirtInput {
+  sCount: Int!
+  mCount: Int!
+  lCount: Int!
+}

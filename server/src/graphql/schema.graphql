@@ -1,0 +1,27 @@
+# import * from './schemas/shared.graphql'
+# import * from './schemas/user.graphql'
+# import * from './schemas/pledge.graphql'
+# import * from './schemas/tShirtOrder.graphql'
+
+type Query {
+  # User Queries
+  me: User!
+
+  # Pledge Queries
+  pledge(id: ID!): Pledge!
+  pledges(): [Pledge!]!
+}
+
+type Mutation {
+  # User Mutations
+  register(input: RegisterInput): AuthPayload!
+  login(input: LoginInput!): AuthPayload!
+
+  # Pledge Mutations
+  pledgeTo(input: PledgeToInput!): Pledge!
+  pledgeMe(input: PledgeMeInput!): Pledge!
+  pledgeEvent(input: PledgeEventInput!): Pledge!
+
+  # TShirt Mutations
+  buyTShirt(input: BuyTShirtInput!): TShirtOrder!
+}
