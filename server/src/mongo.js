@@ -1,21 +1,24 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+
+mongoose.Promise = global.Promise;
 
 function connectMongo() {
   mongoose.connect(process.env.MONGO_URL, {
+    useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+    useUnifiedTopology: true,
+  });
 
-  const db = mongoose.connection
+  const db = mongoose.connection;
 
-  db.on('error', console.error.bind(console, 'connection error:'))
+  db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function () {
-    console.log('mongo connected!')
-  })
+    console.log('mongo connected!');
+  });
 }
 
 const mongo = {
-  connect: connectMongo
-}
+  connect: connectMongo,
+};
 
-export default mongo
+export default mongo;

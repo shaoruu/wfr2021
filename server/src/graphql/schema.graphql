@@ -9,7 +9,7 @@ type Query {
 
   # Pledge Queries
   pledge(id: ID!): Pledge!
-  pledges(): [Pledge!]!
+  pledges: [Pledge!]!
 }
 
 type Mutation {
