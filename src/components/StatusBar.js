@@ -63,13 +63,13 @@ const StatusBar = () => {
           <li>
             <h3>Pledged Total</h3>
             <Money>
-              NT <span>10 + 60G</span>
+              NT<span>10 + 60G</span>
             </Money>
           </li>
           <li>
             <h3>Received Total</h3>
             <Money>
-              NT <span>130 + 50G</span>
+              NT<span>130 + 50G</span>
             </Money>
           </li>
         </StatusData>
@@ -83,7 +83,7 @@ const StatusBar = () => {
           <li>
             <h3>Pledges Combined</h3>
             <Money>
-              NT <span>100000 + 1200G</span>
+              NT<span>100000 + 1200G</span>
             </Money>
           </li>
         </StatusData>

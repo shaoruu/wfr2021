@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Money from '../components/Money';
+import { THEME_COLOR_3 } from '../config';
 
 const PledgeWrapper = styled.div`
   display: block;
@@ -11,6 +12,10 @@ const PledgeWrapper = styled.div`
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   margin-right: 2em;
+
+  & h2 {
+    color: ${THEME_COLOR_3};
+  }
 
   & ul {
     display: flex;
@@ -31,12 +36,12 @@ const Pledge = ({ username, perLapDonation, flatDonation }) => {
       <ul>
         <li>
           <Money>
-            Per Lap Donation: <span>NT {perLapDonation}</span>
+            Per Lap Donation: NT<span>{perLapDonation}</span>
           </Money>
         </li>
         <li>
           <Money>
-            Flat Donation: <span>NT {flatDonation}</span>
+            Flat Donation: NT<span>{flatDonation}</span>
           </Money>
         </li>
       </ul>

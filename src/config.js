@@ -1,5 +1,5 @@
 // Dimensions
-export const NAVBAR_WIDTH = '10em';
+export const NAVBAR_WIDTH = '12em';
 export const NAVBAR_BUTTON_DIM = '1.8em';
 
 // Colors

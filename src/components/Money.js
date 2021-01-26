@@ -5,7 +5,7 @@ const Money = styled.p`
   color: ${THEME_COLOR_0};
 
   & span {
-    background: #00000033;
+    background: #00000011;
     padding: 5px;
     border-radius: 10px;
   }
