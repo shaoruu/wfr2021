@@ -1,5 +1,5 @@
 import {
-  IoPersonOutline,
+  IoCashOutline,
   IoSettingsOutline,
   IoShirtOutline,
   IoStatsChartOutline,
@@ -65,16 +65,15 @@ const NavBar = () => {
           text="Dashboard"
           icon={<IoStatsChartOutline size={NAVBAR_BUTTON_DIM} />}
         ></NavButton>
-
+        <NavButton
+          to="/pledge"
+          text="Pledge"
+          icon={<IoCashOutline size={NAVBAR_BUTTON_DIM} />}
+        ></NavButton>
         <NavButton
           to="/purchase"
           text="Purchase"
           icon={<IoShirtOutline size={NAVBAR_BUTTON_DIM} />}
-        ></NavButton>
-        <NavButton
-          to="/profile"
-          text="Profile"
-          icon={<IoPersonOutline size={NAVBAR_BUTTON_DIM} />}
         ></NavButton>
         <NavButton
           to="/settings"

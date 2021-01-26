@@ -1,22 +1,10 @@
 import styled from 'styled-components';
-import { THEME_COLOR_0 } from '../config';
 import Pledge from './Pledge';
+import SectionTitle from './SectionTitle';
 
 const Wrapper = styled.div`
   width: 100%;
-  /* background: ${THEME_COLOR_0}; */
   margin-top: 3em;
-`;
-
-const Title = styled.h2`
-  color: ${THEME_COLOR_0};
-
-  &::before {
-    content: '';
-    background: gray;
-    width: 50px;
-    height: 100px;
-  }
 `;
 
 const PledgesWrapper = styled.div`
@@ -32,7 +20,7 @@ const PledgesWrapper = styled.div`
 const LatestPledges = () => {
   return (
     <Wrapper>
-      <Title>Latest Pledges</Title>
+      <SectionTitle>Latest Pledges</SectionTitle>
       <PledgesWrapper>
         <Pledge username="User 1" perLapDonation="30" flatDonation="1000" />
         <Pledge username="User 2" perLapDonation="300" flatDonation="0" />

@@ -3,6 +3,7 @@ export const NAVBAR_WIDTH = '12em';
 export const NAVBAR_BUTTON_DIM = '1.8em';
 
 // Colors
+export const THEME_COLOR_B = '#E5ECF5';
 export const THEME_COLOR_0 = '#9EAFC3';
 export const THEME_COLOR_1 = '#F3F8FF';
 export const THEME_COLOR_2 = '#1479FF';

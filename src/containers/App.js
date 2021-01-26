@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import NavBar from '../components/NavBar';
 import { NAVBAR_WIDTH, THEME_COLOR_1 } from '../config';
 import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
+import Pledge from './pages/Pledge';
 import Purchase from './pages/Purchase';
 import Settings from './pages/Settings';
 
@@ -28,11 +28,11 @@ function App() {
           <Route path="/dashboard">
             <Dashboard />
           </Route>
+          <Route path="/pledge">
+            <Pledge />
+          </Route>
           <Route path="/purchase">
             <Purchase />
-          </Route>
-          <Route path="/profile">
-            <Profile />
           </Route>
           <Route path="/settings">
             <Settings />
