@@ -13,7 +13,7 @@ const logoWidth = '2.8em';
 
 const Wrapper = styled.div`
   width: ${NAVBAR_WIDTH};
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   height: 100vh;

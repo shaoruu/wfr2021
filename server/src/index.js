@@ -1,8 +1,8 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga';
 import path from 'path';
+import resolvers from './graphql/resolvers';
 import { UserModel } from './models';
 import mongo from './mongo';
-import permissions from './permissions';
 import Helpers from './utils/helpers';
 
 require('dotenv-defaults').config();
@@ -13,8 +13,7 @@ const pubsub = new PubSub();
 
 const server = new GraphQLServer({
   typeDefs: path.join(__dirname, 'graphql', 'schema.graphql'),
-  resolvers: [],
-  middlewares: [permissions],
+  resolvers,
   async context(request) {
     return {
       user: await UserModel.findById(Helpers.getUserId(request)),

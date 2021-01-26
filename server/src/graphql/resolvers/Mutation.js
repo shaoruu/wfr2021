@@ -3,7 +3,7 @@ import { PledgeModel, TShirtOrderModel, UserModel } from '../../models';
 import Helpers from '../../utils/helpers';
 
 const UserMutations = {
-  async signup(parent, { input }) {
+  async register(parent, { input }) {
     const { password, ...args } = input;
 
     const hashedPassword = Helpers.hashPassword(password);

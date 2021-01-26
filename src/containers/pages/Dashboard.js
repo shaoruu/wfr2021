@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import LatestPledges from '../../components/LatestPledges';
+import MyPledges from '../../components/MyPledges';
 import StatusBar from '../../components/StatusBar';
 import { THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
 
@@ -9,6 +10,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
 `;
 
 const TitleBar = styled.div`
@@ -35,6 +37,7 @@ const Dashboard = () => {
       </TitleBar>
       <StatusBar />
       <LatestPledges />
+      <MyPledges />
     </Wrapper>
   );
 };

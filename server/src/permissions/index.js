@@ -9,6 +9,7 @@ const isAuthenticated = rule({ cache: 'contextual' })(
 const permissions = shield({
   Query: {
     '*': allow,
+    me: isAuthenticated,
   },
   Mutation: {
     '*': allow,
