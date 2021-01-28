@@ -1,18 +1,16 @@
 import styled from 'styled-components';
 import Fitness from '../assets/fitness.svg';
 import { THEME_COLOR_0, THEME_COLOR_1, THEME_COLOR_3 } from '../config';
+import Card from './Card';
 import Money from './Money';
 
-const StatusBarWrapper = styled.div`
-  border-radius: 20px;
+const StatusBarWrapper = styled(Card)`
   background: ${THEME_COLOR_3};
   height: 16em;
   width: 100%;
-  padding: 2em;
   display: flex;
   align-items: space-around;
   justify-content: flex-start;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   & img {
     height: 100%;

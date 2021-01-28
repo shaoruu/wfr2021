@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 import Money from '../components/Money';
 import { THEME_COLOR_3 } from '../config';
+import Card from './Card';
 
-const PledgeWrapper = styled.div`
-  display: block;
-  background: white;
+const PledgeWrapper = styled(Card)`
   min-width: 17em;
   max-width: 17em;
   height: 100%;
-  padding: 2em;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   margin-right: 2em;
 
   & h2 {

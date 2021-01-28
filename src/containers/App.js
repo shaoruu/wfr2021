@@ -9,8 +9,8 @@ import NavBar from '../components/NavBar';
 import { NAVBAR_WIDTH, THEME_COLOR_1 } from '../config';
 import Dashboard from './pages/Dashboard';
 import Pledge from './pages/Pledge';
-import Purchase from './pages/Purchase';
-import Settings from './pages/Settings';
+import Products from './pages/Products';
+import Runner from './pages/Runner';
 
 const Content = styled.div`
   margin-left: ${NAVBAR_WIDTH};
@@ -31,11 +31,11 @@ function App() {
           <Route path="/pledge">
             <Pledge />
           </Route>
-          <Route path="/purchase">
-            <Purchase />
+          <Route path="/products">
+            <Products />
           </Route>
-          <Route path="/settings">
-            <Settings />
+          <Route path="/runner">
+            <Runner />
           </Route>
           <Redirect to="/dashboard" />
         </Switch>

@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import { GENERAL_TRANSITION, THEME_COLOR_0, THEME_COLOR_1 } from '../config';
 import Money from './Money';
 import Status from './Status';
+import StyledSection from './StyledSection';
 import Table, { TableTitle } from './Table';
-
-const Wrapper = styled.section``;
 
 const addPledgeDim = '1.5em';
 
@@ -37,7 +36,7 @@ const AddPledge = styled(NavLink)`
 
 const PledgeTable = () => {
   return (
-    <Wrapper>
+    <StyledSection>
       <TableTitle>
         Pledged To
         <AddPledge to="/pledge">
@@ -101,7 +100,7 @@ const PledgeTable = () => {
           ))}
         </tbody>
       </Table>
-    </Wrapper>
+    </StyledSection>
   );
 };
 

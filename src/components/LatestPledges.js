@@ -5,6 +5,7 @@ import SectionTitle from './SectionTitle';
 const Wrapper = styled.div`
   width: 100%;
   margin-top: 3em;
+  margin-bottom: 2em;
 `;
 
 const PledgesWrapper = styled.div`

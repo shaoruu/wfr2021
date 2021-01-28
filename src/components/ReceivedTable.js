@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import Money from './Money';
+import StyledSection from './StyledSection';
 import Table, { TableTitle } from './Table';
-
-const Wrapper = styled.section``;
 
 const Status = styled.div`
   padding: 5px 8px;
@@ -23,7 +22,7 @@ const Received = styled(Status)`
 
 const ReceivedTable = () => {
   return (
-    <Wrapper>
+    <StyledSection>
       <TableTitle>Received From</TableTitle>
       <Table>
         <thead>
@@ -75,7 +74,7 @@ const ReceivedTable = () => {
           ))}
         </tbody>
       </Table>
-    </Wrapper>
+    </StyledSection>
   );
 };
 

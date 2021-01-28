@@ -9,8 +9,9 @@ import {
   THEME_COLOR_4,
   THEME_COLOR_B,
 } from '../config';
+import StyledSection from './StyledSection';
 
-const Wrapper = styled.section`
+const Wrapper = styled(StyledSection)`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -63,7 +64,7 @@ const TShirtAd = () => {
     <Wrapper>
       <Title>Want a Walk For Refugees t-shirt?</Title>
       <SubTitle>All profit made are going to #BLM!!</SubTitle>
-      <GetOneNow to="/purchase">Get one now!</GetOneNow>
+      <GetOneNow to="/products">Get one now!</GetOneNow>
       <img src={Shop} alt="shop" />
     </Wrapper>
   );

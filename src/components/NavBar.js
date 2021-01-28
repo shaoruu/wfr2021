@@ -1,6 +1,6 @@
 import {
   IoCashOutline,
-  IoSettingsOutline,
+  IoPersonOutline,
   IoShirtOutline,
   IoStatsChartOutline,
 } from 'react-icons/io5';
@@ -71,14 +71,14 @@ const NavBar = () => {
           icon={<IoCashOutline size={NAVBAR_BUTTON_DIM} />}
         ></NavButton>
         <NavButton
-          to="/purchase"
-          text="Purchase"
+          to="/products"
+          text="Products"
           icon={<IoShirtOutline size={NAVBAR_BUTTON_DIM} />}
         ></NavButton>
         <NavButton
-          to="/settings"
-          text="Settings"
-          icon={<IoSettingsOutline size={NAVBAR_BUTTON_DIM} />}
+          to="/runner"
+          text="Runner"
+          icon={<IoPersonOutline size={NAVBAR_BUTTON_DIM} />}
         ></NavButton>
       </ButtonWrappers>
     </Wrapper>
