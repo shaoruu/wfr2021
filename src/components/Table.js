@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { THEME_COLOR_0, THEME_COLOR_3, THEME_COLOR_4 } from '../config';
+import { device, THEME_COLOR_0, THEME_COLOR_3, THEME_COLOR_4 } from '../config';
 
 export const TableTitle = styled.h3`
   color: ${THEME_COLOR_4};
@@ -42,7 +42,11 @@ const Table = styled.table`
 
   & th,
   & td {
-    padding: 1em 1.2em;
+    padding: 0.4em 0.6em;
+
+    @media ${device.tablet} {
+      padding: 1em 1.2em;
+    }
   }
 
   & tbody tr {
