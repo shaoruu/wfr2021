@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 import MyPledges from '../../components/MyPledges';
-import { THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
+import { device, THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
 
 const Wrapper = styled.div`
-  padding: 2em 4em;
+  padding: 2em 2.4em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   position: relative;
-  height: 100vh;
+
+  @media ${device.tablet} {
+    padding: 2em 4em;
+    min-height: 100vh;
+  }
 `;
 
 const TitleBar = styled.div`

@@ -1,20 +1,25 @@
 import styled from 'styled-components';
 import LatestPledges from '../../components/LatestPledges';
 import StatusBar from '../../components/StatusBar';
-import { quotes, THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
+import { device, quotes, THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
 
 const Wrapper = styled.div`
-  padding: 2em 4em;
+  padding: 2em 2.4em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  position: relative;
-  min-height: 100vh;
+
+  @media ${device.tablet} {
+    padding: 2em 4em;
+    min-height: 100vh;
+  }
 `;
 
 const TitleBar = styled.div`
   margin-bottom: 2em;
+  padding: 1em;
+  padding-bottom: 0;
 
   & h1 {
     color: ${THEME_COLOR_3};
@@ -25,6 +30,10 @@ const TitleBar = styled.div`
   & p {
     color: ${THEME_COLOR_0};
     font-size: 1em;
+  }
+
+  @media ${device.tablet} {
+    padding: 0;
   }
 `;
 

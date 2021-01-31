@@ -1,18 +1,28 @@
 import styled from 'styled-components';
+import { device } from '../config';
 
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 30em;
+
+  @media ${device.tablet} {
+    height: 30em;
+  }
 `;
 
 const Grid = styled.div`
   width: 100%;
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    align-items: flex-start;
+    flex-direction: row;
+  }
 `;
 
 const SectionHolder = ({ children }) => {

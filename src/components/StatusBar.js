@@ -1,25 +1,39 @@
 import styled from 'styled-components';
 import Fitness from '../assets/fitness.svg';
-import { THEME_COLOR_0, THEME_COLOR_1, THEME_COLOR_3 } from '../config';
+import { device, THEME_COLOR_0, THEME_COLOR_1, THEME_COLOR_3 } from '../config';
 import Card from './Card';
 import Money from './Money';
 
 const StatusBarWrapper = styled(Card)`
   background: ${THEME_COLOR_3};
-  height: 16em;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: space-around;
   justify-content: flex-start;
 
   & img {
-    height: 100%;
+    width: 100%;
+
+    @media ${device.tablet} {
+      width: unset;
+      height: 100%;
+    }
+  }
+
+  @media ${device.tablet} {
+    height: 16em;
+    flex-direction: row;
   }
 `;
 
 const StatusContent = styled.div`
-  margin: auto 3em;
   color: ${THEME_COLOR_1};
+  margin-top: 2em;
+
+  @media ${device.tablet} {
+    margin: auto 3em;
+  }
 `;
 
 const StatusTitle = styled.div`
@@ -38,13 +52,23 @@ const StatusTitle = styled.div`
 const StatusData = styled.ul`
   list-style: none;
   display: flex;
+  flex-direction: column;
 
   & li {
-    margin-right: 3em;
+    margin-bottom: 1em;
 
     & h3 {
       margin-bottom: 0.6em;
     }
+
+    @media ${device.tablet} {
+      margin: 0;
+      margin-right: 3em;
+    }
+  }
+
+  @media ${device.tablet} {
+    flex-direction: row;
   }
 `;
 

@@ -12,12 +12,12 @@ const Table = styled.table`
   border-collapse: collapse;
   font-size: 0.9em;
   font-family: sans-serif;
-  min-width: 400px;
   text-align: center;
   display: block;
-  overflow-y: scroll;
   max-height: 28em;
   position: relative;
+  width: 100%;
+  overflow: auto;
 
   & thead {
     color: ${THEME_COLOR_3};

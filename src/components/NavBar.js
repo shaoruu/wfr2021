@@ -6,50 +6,76 @@ import {
 } from 'react-icons/io5';
 import styled from 'styled-components';
 import LOGO from '../assets/logo.png';
-import { NAVBAR_BUTTON_DIM, NAVBAR_WIDTH, THEME_COLOR_2 } from '../config';
+import { device, NAVBAR_MOBILE, NAVBAR_WIDTH, THEME_COLOR_2 } from '../config';
 import NavButton from './NavButton';
 
-const logoWidth = '2.8em';
-
 const Wrapper = styled.div`
-  width: ${NAVBAR_WIDTH};
+  z-index: 10000;
+  background: white;
   position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
+  bottom: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: ${NAVBAR_MOBILE};
   /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
+
+  @media ${device.tablet} {
+    bottom: auto;
+    top: 0;
+    height: 100vh;
+    flex-direction: column;
+    width: ${NAVBAR_WIDTH};
+  }
 `;
 
 const TitleWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: ${THEME_COLOR_2};
-  margin-bottom: 4em;
+  margin-right: 1em;
+
+  @media ${device.tablet} {
+    margin: 0;
+    flex-direction: column;
+    margin-bottom: 4em;
+  }
 `;
 
 const TitleLogo = styled.img`
-  width: ${logoWidth};
-  height: ${logoWidth};
   border-radius: 50%;
-  margin-bottom: 0.5em;
+  width: 2em;
+  height: 2em;
+  margin-right: 0.5em;
+
+  @media ${device.tablet} {
+    width: 2.8em;
+    height: 2.8em;
+    margin: 0;
+    margin-bottom: 0.5em;
+  }
 `;
 
 const Title = styled.h1`
-  font-size: 1.6em;
+  font-size: 1.1em;
+
+  @media ${device.tablet} {
+    font-size: 1.6em;
+  }
 `;
 
 const ButtonWrappers = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media ${device.tablet} {
+    overflow: auto;
+    flex-direction: column;
+  }
 `;
 
 const NavBar = () => {
@@ -63,22 +89,22 @@ const NavBar = () => {
         <NavButton
           to="/dashboard"
           text="Dashboard"
-          icon={<IoStatsChartOutline size={NAVBAR_BUTTON_DIM} />}
+          icon={<IoStatsChartOutline className="nav-button-icon" />}
         ></NavButton>
         <NavButton
           to="/pledge"
           text="Pledge"
-          icon={<IoCashOutline size={NAVBAR_BUTTON_DIM} />}
+          icon={<IoCashOutline className="nav-button-icon" />}
         ></NavButton>
         <NavButton
           to="/products"
           text="Products"
-          icon={<IoShirtOutline size={NAVBAR_BUTTON_DIM} />}
+          icon={<IoShirtOutline className="nav-button-icon" />}
         ></NavButton>
         <NavButton
           to="/runner"
           text="Runner"
-          icon={<IoPersonOutline size={NAVBAR_BUTTON_DIM} />}
+          icon={<IoPersonOutline className="nav-button-icon" />}
         ></NavButton>
       </ButtonWrappers>
     </Wrapper>
