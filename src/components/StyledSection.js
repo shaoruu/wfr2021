@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+
 import { device, THEME_COLOR_1 } from '../config';
+
 import Card from './Card';
 
 const StyledSection = styled(Card)`

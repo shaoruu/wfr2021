@@ -1,5 +1,7 @@
-import { GraphQLServer, PubSub } from 'graphql-yoga';
 import path from 'path';
+
+import { GraphQLServer, PubSub } from 'graphql-yoga';
+
 import resolvers from './graphql/resolvers';
 import { UserModel } from './models';
 import mongo from './mongo';

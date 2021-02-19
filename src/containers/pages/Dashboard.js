@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import LatestPledges from '../../components/LatestPledges';
 import StatusBar from '../../components/StatusBar';
 import { device, quotes, THEME_COLOR_0, THEME_COLOR_3 } from '../../config';

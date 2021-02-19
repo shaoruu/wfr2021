@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+
 import Background from '../assets/oldbg.jpg';
+
 import StyledSection from './StyledSection';
 
 const Wrapper = styled(StyledSection)`

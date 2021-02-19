@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+
 import Shop from '../assets/shop.svg';
 import {
   device,
@@ -10,6 +11,7 @@ import {
   THEME_COLOR_4,
   THEME_COLOR_B,
 } from '../config';
+
 import StyledSection from './StyledSection';
 
 const Wrapper = styled(StyledSection)`

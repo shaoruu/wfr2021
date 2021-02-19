@@ -5,8 +5,10 @@ import {
   IoStatsChartOutline,
 } from 'react-icons/io5';
 import styled from 'styled-components';
+
 import LOGO from '../assets/logo.png';
 import { device, NAVBAR_MOBILE, NAVBAR_WIDTH, THEME_COLOR_2 } from '../config';
+
 import NavButton from './NavButton';
 
 const Wrapper = styled.div`

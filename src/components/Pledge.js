@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+
 import Money from '../components/Money';
 import { THEME_COLOR_3 } from '../config';
+
 import Card from './Card';
 
 const PledgeWrapper = styled(Card)`

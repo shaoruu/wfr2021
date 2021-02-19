@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+
 import Fitness from '../assets/fitness.svg';
 import { device, THEME_COLOR_0, THEME_COLOR_1, THEME_COLOR_3 } from '../config';
+
 import Card from './Card';
 import Money from './Money';
 

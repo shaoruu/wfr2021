@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import Cart from '../../assets/cart.svg';
 import TShirtPng from '../../assets/tshirt.png';
 import Card from '../../components/Card';

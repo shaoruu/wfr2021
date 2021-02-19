@@ -1,7 +1,9 @@
 import { IoAddOutline, IoPencilSharp } from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { GENERAL_TRANSITION, THEME_COLOR_0, THEME_COLOR_1 } from '../config';
+
 import Money from './Money';
 import Status from './Status';
 import StyledSection from './StyledSection';

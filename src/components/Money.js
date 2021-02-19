@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { THEME_COLOR_0 } from '../config';
 
 const Money = styled.p`

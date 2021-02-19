@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+
 import { PledgeModel, UserModel } from '../models';
 
 class Helpers {

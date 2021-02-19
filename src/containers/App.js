@@ -5,8 +5,10 @@ import {
   Switch,
 } from 'react-router-dom';
 import styled from 'styled-components';
+
 import NavBar from '../components/NavBar';
 import { device, NAVBAR_MOBILE, NAVBAR_WIDTH, THEME_COLOR_1 } from '../config';
+
 import Dashboard from './pages/Dashboard';
 import Pledge from './pages/Pledge';
 import Products from './pages/Products';

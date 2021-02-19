@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { device, THEME_COLOR_0, THEME_COLOR_3, THEME_COLOR_4 } from '../config';
 
 export const TableTitle = styled.h3`

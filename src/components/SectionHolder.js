@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { device } from '../config';
 
 const Wrapper = styled.div`
