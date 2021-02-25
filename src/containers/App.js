@@ -3,6 +3,7 @@ import {
   Redirect,
   Route,
   Switch,
+<<<<<<< Updated upstream
 } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -13,6 +14,19 @@ import Dashboard from './pages/Dashboard';
 import Pledge from './pages/Pledge';
 import Products from './pages/Products';
 import Runner from './pages/Runner';
+=======
+} from "react-router-dom";
+import styled from "styled-components";
+import NavBar from "../components/NavBar";
+import { device, NAVBAR_MOBILE, NAVBAR_WIDTH, THEME_COLOR_1 } from "../config";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Pledge from "./pages/Pledge";
+import Products from "./pages/Products";
+import Runner from "./pages/Runner";
+import "bootstrap/dist/css/bootstrap.min.css";
+>>>>>>> Stashed changes
 
 const Content = styled.div`
   z-index: 0;
@@ -30,7 +44,8 @@ const Content = styled.div`
 function App() {
   return (
     <Router>
-      <NavBar />
+      <Login></Login>
+      {/*<NavBar />
       <Content>
         <Switch>
           <Route path="/dashboard">
@@ -47,7 +62,7 @@ function App() {
           </Route>
           <Redirect to="/dashboard" />
         </Switch>
-      </Content>
+      </Content>*/}
     </Router>
   );
 }
