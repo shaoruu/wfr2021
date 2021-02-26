@@ -1,7 +1,8 @@
 type User {
   id: ID!
 
-  username: String!
+  firstName: String!
+  lastName: String!
   email: String!
   confirmed: Boolean!
   schoolId: String!
@@ -18,10 +19,12 @@ type User {
 }
 
 input RegisterInput {
-  username: String!
+  firstName: String!
+  lastName: String!
   email: String!
   schoolId: String
   password: String!
+  goalLaps: Int
 }
 
 input LoginInput {
