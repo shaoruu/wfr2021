@@ -13,21 +13,11 @@ import { useAuth } from '../contexts/authContext';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 import Pledge from './pages/Pledge';
 import Products from './pages/Products';
 import Register from './pages/Register';
 import Runner from './pages/Runner';
-
-const AuthContent = styled.div`
-  z-index: 0;
-  background-color: ${THEME_COLOR_1};
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-`;
 
 const CoreContent = styled.div`
   z-index: 0;
@@ -66,51 +56,42 @@ const PrivateRoute = ({ children, ...rest }) => {
 };
 
 function App() {
-  const AuthPages = () => {
-    return (
-      <AuthContent>
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-        </Switch>
-      </AuthContent>
-    );
-  };
-
-  const CorePages = () => {
-    return (
-      <CoreContent>
-        <NavBar />
-        <Switch>
-          <PrivateRoute path="/dashboard">
-            <Dashboard />
-          </PrivateRoute>
-          <PrivateRoute path="/pledge">
-            <Pledge />
-          </PrivateRoute>
-          <PrivateRoute path="/products">
-            <Products />
-          </PrivateRoute>
-          <PrivateRoute path="/runner">
-            <Runner />
-          </PrivateRoute>
-          <Redirect to="/" />
-        </Switch>
-      </CoreContent>
-    );
-  };
+  const CorePages = () => (
+    <CoreContent>
+      <Switch>
+        <PrivateRoute path="/dashboard">
+          <Dashboard />
+        </PrivateRoute>
+        <PrivateRoute path="/pledge">
+          <Pledge />
+        </PrivateRoute>
+        <PrivateRoute path="/products">
+          <Products />
+        </PrivateRoute>
+        <PrivateRoute path="/runner">
+          <Runner />
+        </PrivateRoute>
+        <Redirect to="/" />
+      </Switch>
+    </CoreContent>
+  );
 
   return (
     <Router>
+      <NavBar />
       <Switch>
         <Route exact path="/">
           <Home />
         </Route>
-        <Route component={AuthPages} />
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/logout">
+          <Logout />
+        </Route>
         <Route component={CorePages} />
       </Switch>
     </Router>

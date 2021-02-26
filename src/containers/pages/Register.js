@@ -1,11 +1,15 @@
+import { useApolloClient } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
+import AuthContent from '../../components/AuthContent';
 import Card from '../../components/Card';
 import { THEME_COLOR_3, THEME_COLOR_4 } from '../../config';
 import { useAuth } from '../../contexts/authContext';
+import { setCookie } from '../../utils';
 
 const Wrapper = styled(Card)`
   margin: auto;
@@ -32,6 +36,10 @@ const RegisterForm = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  & > small {
+    margin-top: 1em;
+  }
 
   & div {
     display: flex;
@@ -73,7 +81,7 @@ const RegisterForm = styled.form`
 const schema = yup.object().shape({
   firstName: yup.string().required('First name is required.'),
   lastName: yup.string().required('Last name is required.'),
-  email: yup.string().email().required('Email is required.'),
+  email: yup.string().email('Email invalid.').required('Email is required.'),
   password: yup
     .string()
     .min(8, 'Password must be 8 characters or more.')
@@ -86,84 +94,106 @@ const schema = yup.object().shape({
 });
 
 const Register = () => {
+  const client = useApolloClient();
+  const history = useHistory();
+
   const { register, handleSubmit, reset, errors } = useForm({
     resolver: yupResolver(schema),
   });
-  const { register: regMutate } = useAuth();
+  const { data, register: regMutate } = useAuth();
+
+  if (data) {
+    return <Redirect to="/dashboard" />;
+  }
+
   const onSubmit = async (data) => {
-    await regMutate({
+    const {
+      data: {
+        register: { token },
+      },
+    } = await regMutate({
       variables: data,
     });
-    // reset();
+
+    setCookie(token);
+    await client.cache.reset();
+    history.push('/dashboard');
+
+    reset();
   };
 
   return (
-    <Wrapper>
-      <Title>Register To Walk</Title>
+    <AuthContent>
+      <Wrapper>
+        <Title>Register To Walk</Title>
 
-      <RegisterForm onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <p>First Name</p>
-          <input
-            name="firstName"
-            placeholder="First Name"
-            ref={register({ required: true })}
-          />
-          <small>{errors.firstName?.message}</small>
-        </div>
-        <div>
-          <p>Last Name</p>
-          <input
-            name="lastName"
-            placeholder="Last Name"
-            ref={register({ required: true })}
-          />
-          <small>{errors.lastName?.message}</small>
-        </div>
-        <div>
-          <p>Email</p>
-          <input
-            name="email"
-            type="email"
-            placeholder="TAS Email"
-            ref={register({ required: true })}
-          />
-          <small>{errors.email?.message}</small>
-        </div>
-        <div>
-          <p>TAS School ID</p>
-          <input
-            name="schoolId"
-            placeholder="School ID (8 Digits)"
-            ref={register()}
-            minLength="8"
-            maxLength="8"
-          />
-          <small>{errors.schoolId?.message}</small>
-        </div>
-        <div>
-          <p>Password</p>
-          <input
-            name="password"
-            type="password"
-            placeholder="Password (Do not forget!)"
-            ref={register({ required: true })}
-          />
-          <small>{errors.password?.message}</small>
-        </div>
-        <div>
-          <p>Goal Laps Name</p>
-          <input
-            name="goal"
-            type="number"
-            placeholder="Goal Laps (ex: 20)"
-            ref={register({ required: true })}
-          />
-          <small>{errors.goalLaps?.message}</small>
-        </div>
-        <input type="submit" value="Join the Run!" />
-      </RegisterForm>
-    </Wrapper>
+        <RegisterForm onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <p>First Name</p>
+            <input
+              name="firstName"
+              placeholder="First Name"
+              ref={register({ required: true })}
+            />
+            <small>{errors.firstName?.message}</small>
+          </div>
+          <div>
+            <p>Last Name</p>
+            <input
+              name="lastName"
+              placeholder="Last Name"
+              ref={register({ required: true })}
+            />
+            <small>{errors.lastName?.message}</small>
+          </div>
+          <div>
+            <p>Email</p>
+            <input
+              name="email"
+              type="email"
+              placeholder="TAS Email"
+              ref={register({ required: true })}
+            />
+            <small>{errors.email?.message}</small>
+          </div>
+          <div>
+            <p>TAS School ID</p>
+            <input
+              name="schoolId"
+              placeholder="School ID (8 Digits)"
+              ref={register()}
+              minLength="8"
+              maxLength="8"
+            />
+            <small>{errors.schoolId?.message}</small>
+          </div>
+          <div>
+            <p>Password</p>
+            <input
+              name="password"
+              type="password"
+              placeholder="Password (Do not forget!)"
+              ref={register({ required: true })}
+            />
+            <small>{errors.password?.message}</small>
+          </div>
+          <div>
+            <p>Goal Laps Name</p>
+            <input
+              name="goal"
+              type="number"
+              placeholder="Goal Laps (ex: 20)"
+              ref={register({ required: true })}
+            />
+            <small>{errors.goalLaps?.message}</small>
+          </div>
+          <input type="submit" value="Join the Run!" />
+          <small>
+            Already have an account? <Link to="/login">Login here.</Link>
+          </small>
+        </RegisterForm>
+      </Wrapper>
+    </AuthContent>
   );
 };
 

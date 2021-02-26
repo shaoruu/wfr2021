@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import LOGO from '../assets/logo.png';
 import { device, NAVBAR_MOBILE, NAVBAR_WIDTH, THEME_COLOR_2 } from '../config';
+import { useAuth } from '../contexts/authContext';
 
 import NavButton from './NavButton';
 
@@ -81,7 +82,9 @@ const ButtonWrappers = styled.div`
 `;
 
 const NavBar = () => {
-  return (
+  const { data } = useAuth();
+
+  return data ? (
     <Wrapper>
       <TitleWrapper>
         <TitleLogo src={LOGO} alt="logo" />
@@ -110,6 +113,8 @@ const NavBar = () => {
         ></NavButton>
       </ButtonWrappers>
     </Wrapper>
+  ) : (
+    <></>
   );
 };
 

@@ -1,11 +1,13 @@
 type User {
   id: ID!
 
+  fullName: String!
+
   firstName: String!
   lastName: String!
   email: String!
   confirmed: Boolean!
-  schoolId: String!
+  schoolId: String
   password: String!
   goalLaps: Int!
   lapsRan: Int!
@@ -16,6 +18,11 @@ type User {
   received: [Pledge!]!
   eventWide: [Pledge!]!
   tShirtOrder: TShirtOrder!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  data: User!
 }
 
 input RegisterInput {

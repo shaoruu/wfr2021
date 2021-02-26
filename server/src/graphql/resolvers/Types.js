@@ -37,6 +37,9 @@ const Types = {
     },
   },
   User: {
+    fullName(parent) {
+      return parent.firstName + ' ' + parent.lastName;
+    },
     pledges(parent) {
       return getPledges(parent.id);
     },

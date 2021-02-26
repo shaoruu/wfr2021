@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import { PledgeModel, UserModel } from '../models';
 
+const APP_SECRET = process.env.APP_SECRET || 'appsecret123';
+
 class Helpers {
   static hashPassword = (password) => {
     if (password.length < 8) {
@@ -19,10 +21,14 @@ class Helpers {
 
     if (header) {
       const token = header.replace('Bearer ', '');
-      const verifiedToken = jwt.verify(
-        token,
-        process.env.APP_SECRET || 'appsecret123',
-      );
+      let verifiedToken;
+
+      try {
+        verifiedToken = jwt.verify(token, APP_SECRET);
+      } catch (e) {
+        console.log('invalid signature');
+        return null;
+      }
 
       return verifiedToken && verifiedToken.userId;
     }
@@ -31,7 +37,7 @@ class Helpers {
   };
 
   static generateToken = (userId) => {
-    return jwt.sign({ userId }, 'thisisasecret', { expiresIn: '7 days' });
+    return jwt.sign({ userId }, APP_SECRET, { expiresIn: '7 days' });
   };
 
   static makePledge = async (

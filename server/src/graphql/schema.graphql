@@ -25,3 +25,7 @@ type Mutation {
   # TShirt Mutations
   buyTShirt(input: BuyTShirtInput!): TShirtOrder!
 }
+
+type Subscription {
+  user: UserSubscriptionPayload!
+}

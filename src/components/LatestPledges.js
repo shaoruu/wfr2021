@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { THEME_COLOR_0, THEME_COLOR_4 } from '../config';
 
 import Pledge from './Pledge';
 import SectionTitle from './SectionTitle';
@@ -17,18 +20,40 @@ const PledgesWrapper = styled.div`
   overflow-x: auto;
   padding: 2em 0;
   padding-left: 1em;
+
+  & * {
+    background: ${THEME_COLOR_0}22;
+    padding: 1em;
+    border-radius: 15px;
+    color: ${THEME_COLOR_4}88;
+  }
+
+  & a {
+    background: none;
+  }
 `;
 
-const LatestPledges = () => {
+const LatestPledges = ({ pledges }) => {
   return (
     <Wrapper>
       <SectionTitle>Latest Pledges</SectionTitle>
       <PledgesWrapper>
-        <Pledge username="User 1" perLapDonation="30" flatDonation="1000" />
-        <Pledge username="User 2" perLapDonation="300" flatDonation="0" />
-        <Pledge username="User 3" perLapDonation="2000" flatDonation="5" />
-        <Pledge username="User 4" perLapDonation="500" flatDonation="5550" />
-        <Pledge username="User 5" perLapDonation="6000" flatDonation="500" />
+        {pledges.length ? (
+          pledges.map(
+            ({ pledger: { fullName }, flatDonation, perLapDonation }) => (
+              <Pledge
+                username={fullName}
+                perLapDonation={perLapDonation}
+                flatDonation={flatDonation}
+              />
+            ),
+          )
+        ) : (
+          <p>
+            No pledges or receives yet.{' '}
+            <Link to="/pledge">Start pledging!</Link>
+          </p>
+        )}
       </PledgesWrapper>
     </Wrapper>
   );

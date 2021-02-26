@@ -1,8 +1,11 @@
+import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
+import FullPageSpinner from '../../components/FullPageSpinner';
 import LatestPledges from '../../components/LatestPledges';
 import StatusBar from '../../components/StatusBar';
 import { device, quotes, THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
+import { DASHBOARD_QUERY } from '../../graphql/queries';
 
 const Wrapper = styled.div`
   padding: 2em 2.4em;
@@ -39,14 +42,21 @@ const TitleBar = styled.div`
 `;
 
 const Dashboard = () => {
+  const { data, loading } = useQuery(DASHBOARD_QUERY);
+
+  if (loading) return <FullPageSpinner />;
+  const {
+    me: { fullName, pledges, received, eventWide },
+  } = data;
+
   return (
     <Wrapper>
       <TitleBar>
-        <h1>Hi, Ian Huang</h1>
+        <h1>Hi, {fullName}</h1>
         <p>{quotes[Math.floor(quotes.length * Math.random())]}</p>
       </TitleBar>
-      <StatusBar />
-      <LatestPledges />
+      <StatusBar pledges={pledges} received={received} eventWide={eventWide} />
+      <LatestPledges pledges={received} />
       {/* <MyPledges /> */}
       {/* TODO: ADD PLEDGE STATS */}
     </Wrapper>

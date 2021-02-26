@@ -74,7 +74,19 @@ const StatusData = styled.ul`
   }
 `;
 
-const StatusBar = () => {
+const pledgesToString = (pledges) => {
+  let flatTotal = 0;
+  let perLapTotal = 0;
+
+  pledges.forEach(({ flatDonation, perLapDonation }) => {
+    flatTotal += flatDonation;
+    perLapTotal += perLapDonation;
+  });
+
+  return flatTotal + ' + ' + perLapTotal + 'G';
+};
+
+const StatusBar = ({ pledges, received, eventWide }) => {
   return (
     <StatusBarWrapper>
       <img src={Fitness} alt="runner start" />
@@ -87,13 +99,13 @@ const StatusBar = () => {
           <li>
             <h3>Pledged Total</h3>
             <Money>
-              NT<span>10 + 60G</span>
+              NT<span>{pledgesToString(pledges)}</span>
             </Money>
           </li>
           <li>
             <h3>Received Total</h3>
             <Money>
-              NT<span>130 + 50G</span>
+              NT<span>{pledgesToString(received)}</span>
             </Money>
           </li>
         </StatusData>
@@ -107,7 +119,10 @@ const StatusBar = () => {
           <li>
             <h3>Pledges Combined</h3>
             <Money>
-              NT<span>100000 + 1200G</span>
+              NT
+              <span>
+                {pledgesToString([...pledges, ...received, ...eventWide])}
+              </span>
             </Money>
           </li>
         </StatusData>

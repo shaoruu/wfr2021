@@ -7,7 +7,7 @@ const UserMutations = {
   async register(parent, { input }) {
     const { password, ...args } = input;
 
-    const hashedPassword = Helpers.hashPassword(password);
+    const hashedPassword = await Helpers.hashPassword(password);
     const user = new UserModel({
       password: hashedPassword,
       ...args,
