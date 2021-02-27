@@ -13,6 +13,7 @@ export const DASHBOARD_QUERY = gql`
     me {
       fullName
       pledges {
+        collected
         flatDonation
         perLapDonation
         pledger {

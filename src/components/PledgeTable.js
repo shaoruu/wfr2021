@@ -2,7 +2,13 @@ import { IoAddOutline, IoPencilSharp } from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { GENERAL_TRANSITION, THEME_COLOR_0, THEME_COLOR_1 } from '../config';
+import Nothing from '../assets/nothing1.svg';
+import {
+  GENERAL_TRANSITION,
+  THEME_COLOR_0,
+  THEME_COLOR_1,
+  THEME_COLOR_2,
+} from '../config';
 
 import Money from './Money';
 import Status from './Status';
@@ -36,7 +42,16 @@ const AddPledge = styled(NavLink)`
   }
 `;
 
-const PledgeTable = () => {
+const NoPledges = styled.div`
+  text-align: center;
+  color: ${THEME_COLOR_2}BB;
+
+  & img {
+    width: 20em;
+  }
+`;
+
+const PledgeTable = ({ pledges }) => {
   return (
     <StyledSection>
       <TableTitle>
@@ -56,52 +71,49 @@ const PledgeTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Anson Ong</td>
-            <td>
-              <Money>
-                NT<span>30</span>
-              </Money>
-            </td>
-            <td>
-              <Money>
-                NT<span>30</span>
-              </Money>
-            </td>
-            <td>
-              <Status.Received>Received</Status.Received>
-            </td>
-            <td className="pencil-edit">
-              <IoPencilSharp />
-            </td>
-          </tr>
-          {[0, 0, 0, 0, 0].map((_, key) => (
-            <tr key={key}>
-              <td>Anson Ong</td>
-              <td>
-                <Money>
-                  NT<span>30</span>
-                </Money>
-              </td>
-              <td>
-                <Money>
-                  NT<span>30</span>
-                </Money>
-              </td>
-              <td>
-                {key % 2 === 0 ? (
-                  <Status.Pending>Pending</Status.Pending>
-                ) : (
-                  <Status.Received>Received</Status.Received>
-                )}
-              </td>
-              <td className="pencil-edit">
-                <IoPencilSharp />
-              </td>
-            </tr>
-          ))}
+          {pledges.map(
+            ({
+              collected,
+              flatDonation,
+              perLapDonation,
+              pledger: { fullName: pledgerName },
+              receiver: { fullName: receiverName },
+            }) => (
+              <tr>
+                <td>{pledgerName}</td>
+                <td>
+                  <Money>
+                    NT<span>{perLapDonation}</span>
+                  </Money>
+                </td>
+                <td>
+                  <Money>
+                    NT<span>{flatDonation}</span>
+                  </Money>
+                </td>
+                <td>
+                  {collected ? (
+                    <Status.Received>Received</Status.Received>
+                  ) : (
+                    <Status.Pending>Pending</Status.Pending>
+                  )}
+                </td>
+                <td className="pencil-edit">
+                  <IoPencilSharp />
+                </td>
+              </tr>
+            ),
+          )}
         </tbody>
       </Table>
+      {pledges.length ? (
+        <></>
+      ) : (
+        <NoPledges>
+          <p>No Pledges Yet.</p>
+          <img src={Nothing} alt="nothing" />
+        </NoPledges>
+      )}
     </StyledSection>
   );
 };
