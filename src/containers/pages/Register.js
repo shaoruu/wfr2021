@@ -105,7 +105,6 @@ const Register = () => {
   const { data } = useAuth();
   const [regMutate] = useMutation(REGISTER_MUTATION, {
     onError(error) {
-      console.log('what');
       setError('server', {
         type: 'server',
         message: error.message,

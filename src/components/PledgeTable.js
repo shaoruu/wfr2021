@@ -113,7 +113,6 @@ const PledgeTable = ({ pledges, toggleForm, setToDelete }) => {
                 <td
                   className="pencil-remove"
                   onClick={() => {
-                    console.log(id);
                     setToDelete(id);
                   }}
                 >

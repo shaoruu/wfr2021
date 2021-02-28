@@ -8,7 +8,6 @@ import Logo from '../../assets/logo.png';
 import Shape1 from '../../assets/shape1.svg';
 import Shape2 from '../../assets/shape2.svg';
 import {
-  THEME_COLOR_0,
   THEME_COLOR_1,
   THEME_COLOR_2,
   THEME_COLOR_3,
