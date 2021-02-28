@@ -43,6 +43,7 @@ const Pledge = () => {
   const { data, loading } = useQuery(DASHBOARD_QUERY);
 
   if (loading) return <FullPageSpinner />;
+
   const {
     me: { pledges, received },
   } = data;

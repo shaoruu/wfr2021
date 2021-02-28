@@ -72,7 +72,7 @@ const PledgeTable = ({ pledges, toggleForm }) => {
       <Table>
         <thead>
           <tr>
-            <th>Receiver</th>
+            <th>Runner</th>
             <th>Per Lap Donation</th>
             <th>Flat Donation</th>
             <th>Status</th>

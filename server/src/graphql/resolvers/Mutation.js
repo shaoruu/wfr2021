@@ -42,34 +42,52 @@ const UserMutations = {
       token: Helpers.generateToken(user.id),
     };
   },
-  pledgeTo(
+  async pledgeTo(
     parent,
     { input: { flatDonation, perLapDonation, receiverEmail } },
-    { user },
+    { user, pubsub },
   ) {
-    return Helpers.makePledge(
+    const pledge = Helpers.makePledge(
       flatDonation,
       perLapDonation,
       user.email,
       receiverEmail,
     );
+
+    pubsub.publish(`user ${user.id}`, {
+      user: {
+        mutation: 'UPDATED',
+        data: await UserModel.findById(user.id),
+      },
+    });
+
+    return pledge;
   },
-  pledgeMe(
+  async pledgeMe(
     parent,
     { input: { flatDonation, perLapDonation, pledgerEmail } },
-    { user },
+    { user, pubsub },
   ) {
-    return Helpers.makePledge(
+    const pledge = Helpers.makePledge(
       flatDonation,
       perLapDonation,
       pledgerEmail,
       user.email,
     );
+
+    pubsub.publish(`user ${user.id}`, {
+      user: {
+        mutation: 'UPDATED',
+        data: await UserModel.findById(user.id),
+      },
+    });
+
+    return pledge;
   },
   async pledgeEvent(
     parent,
     { input: { flatDonation, perLapDonation } },
-    { user: pledger },
+    { user: pledger, pubsub },
   ) {
     const pledge = new PledgeModel({
       flatDonation,
@@ -80,9 +98,16 @@ const UserMutations = {
 
     await pledge.save();
 
+    pubsub.publish(`user ${pledger.id}`, {
+      user: {
+        mutation: 'UPDATED',
+        data: await UserModel.findById(pledger.id),
+      },
+    });
+
     return pledge;
   },
-  async buyTShirt(parent, { input }, { user: buyer }) {
+  async buyTShirt(parent, { input }, { user: buyer, pubsub }) {
     let tShirtOrder = await TShirtOrderModel.findOne({
       buyer,
     });
@@ -98,6 +123,13 @@ const UserMutations = {
     tShirtOrder.lCount = input.lCount;
 
     await tShirtOrder.save();
+
+    pubsub.publish(`user ${buyer.id}`, {
+      user: {
+        mutation: 'UPDATED',
+        data: await UserModel.findById(buyer.id),
+      },
+    });
 
     return tShirtOrder;
   },

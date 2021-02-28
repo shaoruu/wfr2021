@@ -12,7 +12,7 @@ import {
   THEME_COLOR_4,
 } from '../config';
 import { PLEDGE_TO_MUTATION } from '../graphql/mutations';
-import { DASHBOARD_QUERY, USER_EMAILS_QUERY } from '../graphql/queries';
+import { USER_EMAILS_QUERY } from '../graphql/queries';
 
 import Card from './Card';
 import FullPageSpinner from './FullPageSpinner';
@@ -132,14 +132,12 @@ const schema = yup.object().shape({
   flatDonation: yup.number().required('Flat donation is required.'),
 });
 
-const PledgeForm = ({ toggleForm, show }) => {
+const PledgeEditForm = ({ toggleForm, show }) => {
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const { loading, data } = useQuery(USER_EMAILS_QUERY);
-  const [pledgeTo] = useMutation(PLEDGE_TO_MUTATION, {
-    refetchQueries: [{ query: DASHBOARD_QUERY }],
-  });
+  const [pledgeTo] = useMutation(PLEDGE_TO_MUTATION);
 
   if (loading) {
     return (
@@ -154,6 +152,7 @@ const PledgeForm = ({ toggleForm, show }) => {
   const { users } = data;
 
   const onSubmit = async (data) => {
+    console.log(data);
     pledgeTo({
       variables: data,
     });
@@ -220,4 +219,4 @@ const PledgeForm = ({ toggleForm, show }) => {
   );
 };
 
-export default PledgeForm;
+export default PledgeEditForm;
