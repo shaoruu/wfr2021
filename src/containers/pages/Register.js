@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { Link, Redirect, useHistory } from 'react-router-dom';
@@ -7,8 +7,10 @@ import * as yup from 'yup';
 
 import AuthContent from '../../components/AuthContent';
 import Card from '../../components/Card';
+import FormLogo from '../../components/FormLogo';
 import { THEME_COLOR_3, THEME_COLOR_4 } from '../../config';
 import { useAuth } from '../../contexts/authContext';
+import { REGISTER_MUTATION } from '../../graphql/mutations';
 import { setCookie } from '../../utils';
 
 const Wrapper = styled(Card)`
@@ -97,34 +99,48 @@ const Register = () => {
   const client = useApolloClient();
   const history = useHistory();
 
-  const { register, handleSubmit, reset, errors } = useForm({
+  const { register, handleSubmit, reset, errors, setError } = useForm({
     resolver: yupResolver(schema),
   });
-  const { data, register: regMutate } = useAuth();
+  const { data } = useAuth();
+  const [regMutate] = useMutation(REGISTER_MUTATION, {
+    onError(error) {
+      console.log('what');
+      setError('server', {
+        type: 'server',
+        message: error.message,
+      });
+    },
+  });
 
   if (data) {
     return <Redirect to="/dashboard" />;
   }
 
   const onSubmit = async (data) => {
-    const {
-      data: {
-        register: { token },
-      },
-    } = await regMutate({
+    const registerResults = await regMutate({
       variables: data,
     });
 
-    setCookie(token);
-    await client.cache.reset();
-    history.push('/dashboard');
+    if (registerResults) {
+      const {
+        data: {
+          register: { token },
+        },
+      } = registerResults;
 
-    reset();
+      setCookie(token);
+      await client.cache.reset();
+      history.push('/dashboard');
+
+      reset();
+    }
   };
 
   return (
     <AuthContent>
       <Wrapper>
+        <FormLogo />
         <Title>Register To Walk</Title>
 
         <RegisterForm onSubmit={handleSubmit(onSubmit)}>
@@ -186,6 +202,9 @@ const Register = () => {
               ref={register({ required: true })}
             />
             <small>{errors.goalLaps?.message}</small>
+          </div>
+          <div>
+            <small>{errors.server?.message}</small>
           </div>
           <input type="submit" value="Join the Run!" />
           <small>

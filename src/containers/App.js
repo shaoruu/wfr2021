@@ -59,28 +59,30 @@ const PrivateRoute = ({ children, ...rest }) => {
 
 function App() {
   const CorePages = () => (
-    <CoreContent>
-      <Switch>
-        <PrivateRoute path="/dashboard">
-          <Dashboard />
-        </PrivateRoute>
-        <PrivateRoute path="/pledge">
-          <Pledge />
-        </PrivateRoute>
-        <PrivateRoute path="/products">
-          <Products />
-        </PrivateRoute>
-        <PrivateRoute path="/runner">
-          <Runner />
-        </PrivateRoute>
-        <Redirect to="/" />
-      </Switch>
-    </CoreContent>
+    <>
+      <NavBar />
+      <CoreContent>
+        <Switch>
+          <PrivateRoute path="/dashboard">
+            <Dashboard />
+          </PrivateRoute>
+          <PrivateRoute path="/pledge">
+            <Pledge />
+          </PrivateRoute>
+          <PrivateRoute path="/products">
+            <Products />
+          </PrivateRoute>
+          <PrivateRoute path="/runner">
+            <Runner />
+          </PrivateRoute>
+          <Redirect to="/" />
+        </Switch>
+      </CoreContent>
+    </>
   );
 
   return (
     <Router>
-      <NavBar />
       <Switch>
         <Route exact path="/">
           <Home />

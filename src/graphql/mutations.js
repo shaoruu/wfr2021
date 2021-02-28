@@ -57,3 +57,9 @@ export const PLEDGE_TO_MUTATION = gql`
     }
   }
 `;
+
+export const REMOVE_PLEDGE_MUTATION = gql`
+  mutation RemovePledge($id: ID!) {
+    removePledge(id: $id)
+  }
+`;

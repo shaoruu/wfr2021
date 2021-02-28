@@ -7,6 +7,8 @@ import {
   THEME_COLOR_4,
   THEME_COLOR_C,
 } from '../config';
+import { REMOVE_PLEDGE_MUTATION } from '../graphql/mutations';
+import { DASHBOARD_QUERY } from '../graphql/queries';
 
 import Card from './Card';
 
@@ -61,6 +63,10 @@ const Controls = styled.section`
 `;
 
 const DeletePledgeForm = ({ toDelete, setToDelete }) => {
+  const [removePledge] = useMutation(REMOVE_PLEDGE_MUTATION, {
+    refetchQueries: [{ query: DASHBOARD_QUERY }],
+  });
+
   return (
     <Wrapper>
       <Body>
@@ -69,7 +75,7 @@ const DeletePledgeForm = ({ toDelete, setToDelete }) => {
         <Controls>
           <button
             className="delete-pledge-cancel"
-            onClick={(e) => {
+            onClick={() => {
               setToDelete(null);
             }}
           >
@@ -77,7 +83,8 @@ const DeletePledgeForm = ({ toDelete, setToDelete }) => {
           </button>
           <button
             className="delete-pledge-confirm"
-            onClick={(e) => {
+            onClick={async () => {
+              await removePledge({ variables: { id: toDelete } });
               setToDelete(null);
             }}
           >

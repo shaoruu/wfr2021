@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { IoAddOutline, IoTrashBinOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 
@@ -89,12 +87,12 @@ const PledgeTable = ({ pledges, toggleForm, setToDelete }) => {
                 collected,
                 flatDonation,
                 perLapDonation,
-                pledger: { fullName: pledgerName },
+                receiver: { fullName: receiverName },
               },
               i,
             ) => (
               <tr key={'pledge-table' + id}>
-                <td>{pledgerName}</td>
+                <td>{receiverName}</td>
                 <td>
                   <Money>
                     NT<span>{perLapDonation}</span>

@@ -8,7 +8,7 @@ const getPledges = async (userId) => {
 
 const getReceived = async (userId) => {
   return PledgeModel.find({
-    received: await UserModel.findById(userId),
+    receiver: await UserModel.findById(userId),
   });
 };
 

@@ -4,6 +4,7 @@ import {
   IoShirtOutline,
   IoStatsChartOutline,
 } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import LOGO from '../assets/logo.png';
@@ -84,37 +85,39 @@ const ButtonWrappers = styled.div`
 const NavBar = () => {
   const { data } = useAuth();
 
-  return data ? (
-    <Wrapper>
-      <TitleWrapper>
-        <TitleLogo src={LOGO} alt="logo" />
-        <Title>W4R</Title>
-      </TitleWrapper>
-      <ButtonWrappers>
-        <NavButton
-          to="/dashboard"
-          text="Dashboard"
-          icon={<IoStatsChartOutline className="nav-button-icon" />}
-        ></NavButton>
-        <NavButton
-          to="/pledge"
-          text="Pledge"
-          icon={<IoCashOutline className="nav-button-icon" />}
-        ></NavButton>
-        <NavButton
-          to="/products"
-          text="Products"
-          icon={<IoShirtOutline className="nav-button-icon" />}
-        ></NavButton>
-        <NavButton
-          to="/runner"
-          text="Runner"
-          icon={<IoPersonOutline className="nav-button-icon" />}
-        ></NavButton>
-      </ButtonWrappers>
-    </Wrapper>
-  ) : (
-    <></>
+  return (
+    !!data && (
+      <Wrapper>
+        <TitleWrapper>
+          <Link to="/">
+            <TitleLogo src={LOGO} alt="logo" />
+          </Link>
+          <Title>W4R</Title>
+        </TitleWrapper>
+        <ButtonWrappers>
+          <NavButton
+            to="/dashboard"
+            text="Dashboard"
+            icon={<IoStatsChartOutline className="nav-button-icon" />}
+          ></NavButton>
+          <NavButton
+            to="/pledge"
+            text="Pledge"
+            icon={<IoCashOutline className="nav-button-icon" />}
+          ></NavButton>
+          <NavButton
+            to="/products"
+            text="Products"
+            icon={<IoShirtOutline className="nav-button-icon" />}
+          ></NavButton>
+          <NavButton
+            to="/runner"
+            text="Runner"
+            icon={<IoPersonOutline className="nav-button-icon" />}
+          ></NavButton>
+        </ButtonWrappers>
+      </Wrapper>
+    )
   );
 };
 

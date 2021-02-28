@@ -44,6 +44,8 @@ const Pledge = () => {
   const [toDelete, setToDelete] = useState(null);
   const { data, loading } = useQuery(DASHBOARD_QUERY);
 
+  console.log(data);
+
   if (loading) return <FullPageSpinner />;
 
   const {

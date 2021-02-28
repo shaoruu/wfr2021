@@ -7,6 +7,9 @@ const UserMutations = {
   async register(parent, { input }) {
     const { password, ...args } = input;
 
+    const existing = await UserModel.findOne({ email: args.email });
+    if (existing) throw new Error('Email already in use.');
+
     const hashedPassword = await Helpers.hashPassword(password);
     const user = new UserModel({
       password: hashedPassword,
@@ -132,6 +135,11 @@ const UserMutations = {
     });
 
     return tShirtOrder;
+  },
+  async removePledge(parent, { id }) {
+    await PledgeModel.findByIdAndRemove(id);
+
+    return true;
   },
 };
 

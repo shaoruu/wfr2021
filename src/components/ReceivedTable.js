@@ -44,7 +44,6 @@ const ReceivedTable = ({ received }) => {
                 flatDonation,
                 perLapDonation,
                 pledger: { fullName: pledgerName },
-                receiver: { fullName: receiverName },
               },
               i,
             ) => (

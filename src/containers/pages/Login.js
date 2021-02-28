@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { Link, Redirect, useHistory } from 'react-router-dom';
@@ -7,8 +7,10 @@ import * as yup from 'yup';
 
 import AuthContent from '../../components/AuthContent';
 import Card from '../../components/Card';
+import FormLogo from '../../components/FormLogo';
 import { THEME_COLOR_0, THEME_COLOR_1, THEME_COLOR_3 } from '../../config';
 import { useAuth } from '../../contexts/authContext';
+import { LOGIN_MUTATION } from '../../graphql/mutations';
 import { setCookie } from '../../utils';
 
 const Wrapper = styled(Card)`
@@ -95,10 +97,18 @@ const Login = () => {
   const client = useApolloClient();
   const history = useHistory();
 
-  const { register, handleSubmit, errors, reset } = useForm({
+  const { register, handleSubmit, errors, reset, setError, watch } = useForm({
     resolver: yupResolver(schema),
   });
-  const { data, login } = useAuth();
+  const { data } = useAuth();
+  const [login] = useMutation(LOGIN_MUTATION, {
+    onError(error) {
+      setError('server', {
+        type: 'server',
+        message: error.message,
+      });
+    },
+  });
 
   if (data) {
     return <Redirect to="/dashboard" />;
@@ -109,22 +119,31 @@ const Login = () => {
   // }, []);
 
   const onSubmit = async (data) => {
-    const {
-      data: {
-        login: { token },
-      },
-    } = await login({ variables: data });
+    const loginResults = await login({
+      variables: data,
+    });
 
-    setCookie(token);
-    await client.cache.reset();
-    history.push('/dashboard');
+    if (loginResults) {
+      const {
+        data: {
+          login: { token },
+        },
+      } = loginResults;
 
-    reset();
+      setCookie(token);
+      await client.cache.reset();
+      history.push('/dashboard');
+
+      reset();
+    }
   };
+
+  watch();
 
   return (
     <AuthContent>
       <Wrapper>
+        <FormLogo />
         <Titles>Login to WFR 2021!</Titles>
 
         <LoginForm onSubmit={handleSubmit(onSubmit)}>
@@ -146,6 +165,9 @@ const Login = () => {
               ref={register({ required: true })}
             />
             <small>{errors.password?.message}</small>
+          </div>
+          <div>
+            <small>{errors.server?.message}</small>
           </div>
           <input type="submit"></input>
           <small>
