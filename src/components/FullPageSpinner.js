@@ -11,13 +11,14 @@ const ellipsis = keyframes`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: 100000;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0;
+  flex: 1;
 
   & #loading:after {
     overflow: hidden;

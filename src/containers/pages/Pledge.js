@@ -1,8 +1,11 @@
+import { useState } from 'react';
+
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
 import FullPageSpinner from '../../components/FullPageSpinner';
 import MyPledges from '../../components/MyPledges';
+import PledgeForm from '../../components/PledgeForm';
 import { device, THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
 import { DASHBOARD_QUERY } from '../../graphql/queries';
 
@@ -36,6 +39,7 @@ const TitleBar = styled.div`
 `;
 
 const Pledge = () => {
+  const [showPledge, setShowPledge] = useState(false);
   const { data, loading } = useQuery(DASHBOARD_QUERY);
 
   if (loading) return <FullPageSpinner />;
@@ -43,13 +47,22 @@ const Pledge = () => {
     me: { pledges, received },
   } = data;
 
+  const toggleForm = () => {
+    setShowPledge(!showPledge);
+  };
+
   return (
     <Wrapper>
+      {showPledge && <PledgeForm toggleForm={toggleForm} show={showPledge} />}
       <TitleBar>
         <h1>My Donations</h1>
         <p>Click the "+" next to "Pledged To" to add a pledge!</p>
       </TitleBar>
-      <MyPledges pledges={pledges} received={received} />
+      <MyPledges
+        pledges={pledges}
+        received={received}
+        toggleForm={toggleForm}
+      />
     </Wrapper>
   );
 };

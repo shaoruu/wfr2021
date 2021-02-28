@@ -60,7 +60,7 @@ const userSchema = new Schema({
   tShirts: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'TShirt',
+      ref: 'TShirtOrder',
     },
   ],
 });

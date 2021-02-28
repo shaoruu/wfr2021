@@ -6,6 +6,7 @@
 type Query {
   # User Queries
   me: User
+  users: [User!]!
 
   # Pledge Queries
   pledge(id: ID!): Pledge!

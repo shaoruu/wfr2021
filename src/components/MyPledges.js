@@ -3,10 +3,10 @@ import ReceivedTable from './ReceivedTable';
 import SectionHolder from './SectionHolder';
 import TShirtAd from './TShirtAd';
 
-const MyPledges = ({ pledges, received }) => {
+const MyPledges = ({ pledges, received, toggleForm }) => {
   return (
     <SectionHolder>
-      <PledgeTable pledges={pledges} />
+      <PledgeTable pledges={pledges} toggleForm={toggleForm} />
       <ReceivedTable received={received} />
       <TShirtAd />
     </SectionHolder>

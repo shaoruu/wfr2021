@@ -14,13 +14,13 @@ type Pledge {
 input PledgeToInput {
   flatDonation: Int!
   perLapDonation: Int!
-  pledgerId: ID!
+  receiverEmail: String!
 }
 
 input PledgeMeInput {
   flatDonation: Int!
   perLapDonation: Int!
-  receiverId: ID!
+  pledgerEmail: String!
 }
 
 input PledgeEventInput {

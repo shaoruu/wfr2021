@@ -43,11 +43,11 @@ class Helpers {
   static makePledge = async (
     flatDonation,
     perLapDonation,
-    pledgerId,
-    receiverId,
+    pledgerEmail,
+    receiverEmail,
   ) => {
-    const pledger = await UserModel.findById(pledgerId);
-    const receiver = await UserModel.findById(receiverId);
+    const pledger = await UserModel.findOne({ email: pledgerEmail });
+    const receiver = await UserModel.findOne({ email: receiverEmail });
 
     const pledge = new PledgeModel({
       flatDonation,
@@ -57,6 +57,12 @@ class Helpers {
     });
 
     await pledge.save();
+
+    pledger.pledges.push(pledge.id);
+    await pledger.save();
+
+    receiver.received.push(pledge.id);
+    await receiver.save();
 
     return pledge;
   };

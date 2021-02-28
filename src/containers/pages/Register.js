@@ -50,7 +50,7 @@ const RegisterForm = styled.form`
     margin: 0.4em 0;
   }
 
-  & div p {
+  & div label {
     color: ${THEME_COLOR_3};
     font-size: 0.8em;
     margin-left: 0.4em;
@@ -129,7 +129,7 @@ const Register = () => {
 
         <RegisterForm onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <p>First Name</p>
+            <label htmlFor="firstName">First Name</label>
             <input
               name="firstName"
               placeholder="First Name"
@@ -138,7 +138,7 @@ const Register = () => {
             <small>{errors.firstName?.message}</small>
           </div>
           <div>
-            <p>Last Name</p>
+            <label htmlFor="lastName">Last Name</label>
             <input
               name="lastName"
               placeholder="Last Name"
@@ -147,7 +147,7 @@ const Register = () => {
             <small>{errors.lastName?.message}</small>
           </div>
           <div>
-            <p>Email</p>
+            <label htmlFor="email">Email</label>
             <input
               name="email"
               type="email"
@@ -157,7 +157,7 @@ const Register = () => {
             <small>{errors.email?.message}</small>
           </div>
           <div>
-            <p>TAS School ID</p>
+            <label htmlFor="schoolId">TAS School ID</label>
             <input
               name="schoolId"
               placeholder="School ID (8 Digits)"
@@ -168,7 +168,7 @@ const Register = () => {
             <small>{errors.schoolId?.message}</small>
           </div>
           <div>
-            <p>Password</p>
+            <label htmlFor="password">Password</label>
             <input
               name="password"
               type="password"
@@ -178,9 +178,9 @@ const Register = () => {
             <small>{errors.password?.message}</small>
           </div>
           <div>
-            <p>Goal Laps Name</p>
+            <label htmlFor="goalLaps">Goal Laps Name</label>
             <input
-              name="goal"
+              name="goalLaps"
               type="number"
               placeholder="Goal Laps (ex: 20)"
               ref={register({ required: true })}

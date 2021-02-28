@@ -29,6 +29,8 @@ const CoreContent = styled.div`
     padding: 0;
     margin-left: ${NAVBAR_WIDTH};
     min-height: 100vh;
+    height: 100vh;
+    overflow: auto;
   }
 `;
 

@@ -24,6 +24,7 @@ export const DASHBOARD_QUERY = gql`
         }
       }
       received {
+        collected
         flatDonation
         perLapDonation
         pledger {
@@ -34,6 +35,7 @@ export const DASHBOARD_QUERY = gql`
         }
       }
       eventWide {
+        collected
         flatDonation
         perLapDonation
         pledger {
@@ -43,6 +45,14 @@ export const DASHBOARD_QUERY = gql`
           fullName
         }
       }
+    }
+  }
+`;
+
+export const USER_EMAILS_QUERY = gql`
+  query UserEmails {
+    users {
+      email
     }
   }
 `;

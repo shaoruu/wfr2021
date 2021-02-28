@@ -8,7 +8,7 @@ const getPledges = async (userId) => {
 
 const getReceived = async (userId) => {
   return PledgeModel.find({
-    receiver: await UserModel.findById(userId),
+    received: await UserModel.findById(userId),
   });
 };
 
@@ -25,8 +25,8 @@ const getTShirtOrder = async (userId) => {
   });
 };
 
-const getPledger = async (pledgerId) => {
-  return UserModel.findById(pledgerId);
+const getUser = async (userId) => {
+  return UserModel.findById(userId);
 };
 
 const Types = {
@@ -56,7 +56,11 @@ const Types = {
   Pledge: {
     pledger(parent) {
       const { pledger } = parent || {};
-      return getPledger(pledger.id);
+      return getUser(pledger);
+    },
+    receiver(parent) {
+      const { receiver } = parent || {};
+      return getUser(receiver);
     },
   },
 };

@@ -60,7 +60,7 @@ const LoginForm = styled.form`
     margin: 0.4em 0;
   }
 
-  & div p {
+  & div label {
     color: ${THEME_COLOR_0};
     font-size: 0.8em;
     margin-left: 0.4em;
@@ -129,7 +129,7 @@ const Login = () => {
 
         <LoginForm onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <p>Email</p>
+            <label htmlFor="email">Email</label>
             <input
               name="email"
               placeholder="TAS Email"
@@ -138,7 +138,7 @@ const Login = () => {
             <small>{errors.email?.message}</small>
           </div>
           <div>
-            <p>Password</p>
+            <label htmlFor="password">Password</label>
             <input
               name="password"
               type="password"

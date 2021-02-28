@@ -1,8 +1,6 @@
 import { IoAddOutline, IoPencilSharp } from 'react-icons/io5';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Nothing from '../assets/nothing1.svg';
 import {
   GENERAL_TRANSITION,
   THEME_COLOR_0,
@@ -17,7 +15,7 @@ import Table, { TableTitle } from './Table';
 
 const addPledgeDim = '1.5em';
 
-const AddPledge = styled(NavLink)`
+const AddPledge = styled.button`
   border: none;
   background: ${THEME_COLOR_1};
   color: ${THEME_COLOR_0};
@@ -45,20 +43,31 @@ const AddPledge = styled(NavLink)`
 const NoPledges = styled.div`
   text-align: center;
   color: ${THEME_COLOR_2}BB;
+  height: 70%;
+  line-height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  & img {
-    width: 20em;
+  & span {
+    background: ${THEME_COLOR_1};
+    padding: 0.1em 0.2em;
+    border-radius: 15px;
   }
 `;
 
-const PledgeTable = ({ pledges }) => {
+const PledgeTable = ({ pledges, toggleForm }) => {
+  const AddPledgeButton = () => (
+    <AddPledge onClick={toggleForm}>
+      <IoAddOutline />
+    </AddPledge>
+  );
+
   return (
     <StyledSection>
       <TableTitle>
         Pledged To
-        <AddPledge to="/pledge">
-          <IoAddOutline />
-        </AddPledge>
+        {!!pledges.length && <AddPledgeButton />}
       </TableTitle>
       <Table>
         <thead>
@@ -72,14 +81,17 @@ const PledgeTable = ({ pledges }) => {
         </thead>
         <tbody>
           {pledges.map(
-            ({
-              collected,
-              flatDonation,
-              perLapDonation,
-              pledger: { fullName: pledgerName },
-              receiver: { fullName: receiverName },
-            }) => (
-              <tr>
+            (
+              {
+                collected,
+                flatDonation,
+                perLapDonation,
+                pledger: { fullName: pledgerName },
+                receiver: { fullName: receiverName },
+              },
+              i,
+            ) => (
+              <tr key={'pledge-table' + i}>
                 <td>{pledgerName}</td>
                 <td>
                   <Money>
@@ -106,12 +118,10 @@ const PledgeTable = ({ pledges }) => {
           )}
         </tbody>
       </Table>
-      {pledges.length ? (
-        <></>
-      ) : (
+      {!!!pledges.length && (
         <NoPledges>
-          <p>No Pledges Yet.</p>
-          <img src={Nothing} alt="nothing" />
+          <p>No Pledges Yet </p>
+          <AddPledgeButton />
         </NoPledges>
       )}
     </StyledSection>

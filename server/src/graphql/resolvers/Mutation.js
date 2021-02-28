@@ -44,21 +44,26 @@ const UserMutations = {
   },
   pledgeTo(
     parent,
-    { input: { flatDonation, perLapDonation, pledgerId } },
-    { user },
-  ) {
-    return Helpers.makePledge(flatDonation, perLapDonation, pledgerId, user.id);
-  },
-  pledgeMe(
-    parent,
-    { input: { flatDonation, perLapDonation, receiverId } },
+    { input: { flatDonation, perLapDonation, receiverEmail } },
     { user },
   ) {
     return Helpers.makePledge(
       flatDonation,
       perLapDonation,
-      user.id,
-      receiverId,
+      user.email,
+      receiverEmail,
+    );
+  },
+  pledgeMe(
+    parent,
+    { input: { flatDonation, perLapDonation, pledgerEmail } },
+    { user },
+  ) {
+    return Helpers.makePledge(
+      flatDonation,
+      perLapDonation,
+      pledgerEmail,
+      user.email,
     );
   },
   async pledgeEvent(

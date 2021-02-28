@@ -39,3 +39,21 @@ export const REGISTER_MUTATION = gql`
     }
   }
 `;
+
+export const PLEDGE_TO_MUTATION = gql`
+  mutation PledgeTo(
+    $receiverEmail: String!
+    $perLapDonation: Int!
+    $flatDonation: Int!
+  ) {
+    pledgeTo(
+      input: {
+        receiverEmail: $receiverEmail
+        perLapDonation: $perLapDonation
+        flatDonation: $flatDonation
+      }
+    ) {
+      perLapDonation
+    }
+  }
+`;
