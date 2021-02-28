@@ -29,6 +29,7 @@ export const THEME_COLOR_1 = '#F3F8FF';
 export const THEME_COLOR_2 = '#1479FF';
 export const THEME_COLOR_3 = '#193B68';
 export const THEME_COLOR_4 = '#232259';
+export const THEME_COLOR_C = '#cc2355';
 
 // Times
 export const GENERAL_TRANSITION = '0.2s';

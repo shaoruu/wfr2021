@@ -1,4 +1,6 @@
-import { IoAddOutline, IoPencilSharp } from 'react-icons/io5';
+import { useState } from 'react';
+
+import { IoAddOutline, IoTrashBinOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 
 import {
@@ -56,7 +58,7 @@ const NoPledges = styled.div`
   }
 `;
 
-const PledgeTable = ({ pledges, toggleForm }) => {
+const PledgeTable = ({ pledges, toggleForm, setToDelete }) => {
   const AddPledgeButton = () => (
     <AddPledge onClick={toggleForm}>
       <IoAddOutline />
@@ -76,22 +78,22 @@ const PledgeTable = ({ pledges, toggleForm }) => {
             <th>Per Lap Donation</th>
             <th>Flat Donation</th>
             <th>Status</th>
-            <th>Edit</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {pledges.map(
             (
               {
+                id,
                 collected,
                 flatDonation,
                 perLapDonation,
                 pledger: { fullName: pledgerName },
-                receiver: { fullName: receiverName },
               },
               i,
             ) => (
-              <tr key={'pledge-table' + i}>
+              <tr key={'pledge-table' + id}>
                 <td>{pledgerName}</td>
                 <td>
                   <Money>
@@ -110,8 +112,14 @@ const PledgeTable = ({ pledges, toggleForm }) => {
                     <Status.Pending>Pending</Status.Pending>
                   )}
                 </td>
-                <td className="pencil-edit">
-                  <IoPencilSharp />
+                <td
+                  className="pencil-remove"
+                  onClick={() => {
+                    console.log(id);
+                    setToDelete(id);
+                  }}
+                >
+                  <IoTrashBinOutline />
                 </td>
               </tr>
             ),

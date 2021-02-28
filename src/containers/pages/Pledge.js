@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
+import DeletePledgeForm from '../../components/DeletePledgeForm';
 import FullPageSpinner from '../../components/FullPageSpinner';
 import MyPledges from '../../components/MyPledges';
 import PledgeForm from '../../components/PledgeForm';
@@ -40,6 +41,7 @@ const TitleBar = styled.div`
 
 const Pledge = () => {
   const [showPledge, setShowPledge] = useState(false);
+  const [toDelete, setToDelete] = useState(null);
   const { data, loading } = useQuery(DASHBOARD_QUERY);
 
   if (loading) return <FullPageSpinner />;
@@ -54,7 +56,10 @@ const Pledge = () => {
 
   return (
     <Wrapper>
-      {showPledge && <PledgeForm toggleForm={toggleForm} show={showPledge} />}
+      {showPledge && <PledgeForm toggleForm={toggleForm} />}
+      {!!toDelete && (
+        <DeletePledgeForm toDelete={toDelete} setToDelete={setToDelete} />
+      )}
       <TitleBar>
         <h1>My Donations</h1>
         <p>Click the "+" next to "Pledged To" to add a pledge!</p>
@@ -63,6 +68,7 @@ const Pledge = () => {
         pledges={pledges}
         received={received}
         toggleForm={toggleForm}
+        setToDelete={setToDelete}
       />
     </Wrapper>
   );

@@ -10,6 +10,7 @@ import {
   THEME_COLOR_1,
   THEME_COLOR_3,
   THEME_COLOR_4,
+  THEME_COLOR_C,
 } from '../config';
 import { PLEDGE_TO_MUTATION } from '../graphql/mutations';
 import { DASHBOARD_QUERY, USER_EMAILS_QUERY } from '../graphql/queries';
@@ -115,12 +116,12 @@ const Controls = styled.section`
   }
 
   & input[type='submit'] {
-    background: ${THEME_COLOR_3};
+    background: ${THEME_COLOR_3}dd;
     color: white;
   }
 
   & button {
-    background: #cc2355;
+    background: ${THEME_COLOR_C}dd;
     color: white;
     margin: 0.5em 0;
   }
@@ -132,7 +133,7 @@ const schema = yup.object().shape({
   flatDonation: yup.number().required('Flat donation is required.'),
 });
 
-const PledgeForm = ({ toggleForm, show }) => {
+const PledgeForm = ({ toggleForm }) => {
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
@@ -143,7 +144,7 @@ const PledgeForm = ({ toggleForm, show }) => {
 
   if (loading) {
     return (
-      <Wrapper show={show}>
+      <Wrapper>
         <Body>
           <FullPageSpinner />
         </Body>

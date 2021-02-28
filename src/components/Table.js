@@ -63,13 +63,14 @@ const Table = styled.table`
     color: #009879;
   }
 
-  & tbody tr .pencil-edit {
+  & tbody tr .pencil-remove {
+    user-select: none;
     width: fit-content;
     cursor: pointer;
     color: ${THEME_COLOR_0};
   }
 
-  & tbody tr .pencil-edit:hover {
+  & tbody tr .pencil-remove:hover {
     color: black;
   }
 `;

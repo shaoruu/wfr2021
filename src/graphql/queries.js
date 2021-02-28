@@ -14,6 +14,7 @@ export const DASHBOARD_QUERY = gql`
     me {
       fullName
       pledges {
+        id
         collected
         flatDonation
         perLapDonation
@@ -25,6 +26,7 @@ export const DASHBOARD_QUERY = gql`
         }
       }
       received {
+        id
         collected
         flatDonation
         perLapDonation
@@ -36,6 +38,7 @@ export const DASHBOARD_QUERY = gql`
         }
       }
       eventWide {
+        id
         collected
         flatDonation
         perLapDonation
