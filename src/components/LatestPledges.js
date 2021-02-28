@@ -21,16 +21,16 @@ const PledgesWrapper = styled.div`
   padding: 2em 0;
   padding-left: 1em;
 
-  & * {
-    background: ${THEME_COLOR_0}22;
-    padding: 1em;
-    border-radius: 15px;
-    color: ${THEME_COLOR_4}88;
-  }
-
   & a {
     background: none;
   }
+`;
+
+const NoPledges = styled.p`
+  background: ${THEME_COLOR_0}22;
+  padding: 1em;
+  border-radius: 15px;
+  color: ${THEME_COLOR_4}88;
 `;
 
 const LatestPledges = ({ pledges }) => {
@@ -49,10 +49,10 @@ const LatestPledges = ({ pledges }) => {
             ),
           )
         ) : (
-          <p>
+          <NoPledges>
             No pledges or receives yet.{' '}
             <Link to="/pledge">Start pledging!</Link>
-          </p>
+          </NoPledges>
         )}
       </PledgesWrapper>
     </Wrapper>
