@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { useApolloClient, useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -88,6 +90,9 @@ const schema = yup.object().shape({
     .string()
     .min(8, 'Password must be 8 characters or more.')
     .required('Password is required.'),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
   schoolId: yup
     .string()
     .matches(/^[0-9]{8}$/, 'School ID must be 8 digits.')
@@ -99,7 +104,7 @@ const Register = () => {
   const client = useApolloClient();
   const history = useHistory();
 
-  const { register, handleSubmit, reset, errors, setError } = useForm({
+  const { register, handleSubmit, reset, errors, setError, watch } = useForm({
     resolver: yupResolver(schema),
   });
   const { data } = useAuth();
@@ -111,12 +116,17 @@ const Register = () => {
       });
     },
   });
+  const password = useRef({});
+
+  password.current = watch('password', '');
 
   if (data) {
     return <Redirect to="/dashboard" />;
   }
 
   const onSubmit = async (data) => {
+    delete data.passwordConfirmation;
+
     const registerResults = await regMutate({
       variables: data,
     });
@@ -191,6 +201,16 @@ const Register = () => {
               ref={register({ required: true })}
             />
             <small>{errors.password?.message}</small>
+          </div>
+          <div>
+            <label htmlFor="passwordConfirmation">Confirm Password</label>
+            <input
+              name="passwordConfirmation"
+              type="password"
+              placeholder="Confirm Password"
+              ref={register({ required: true })}
+            />
+            <small>{errors.passwordConfirmation?.message}</small>
           </div>
           <div>
             <label htmlFor="goalLaps">Goal Laps Name</label>
