@@ -39,7 +39,9 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const Body = styled(Card)``;
+const Body = styled(Card)`
+  width: 400px;
+`;
 
 const Form = styled.form`
   display: flex;
