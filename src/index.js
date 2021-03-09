@@ -59,7 +59,19 @@ const client = new ApolloClient({
   ssrMode: !process.browser,
   ssrForceFetchDelay: 100,
   link: authLink.concat(splitLink),
-  cache: new InMemoryCache().restore({}),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          pledges: {
+            merge(_, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
+    },
+  }).restore({}),
 });
 
 ReactDOM.render(

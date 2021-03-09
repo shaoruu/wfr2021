@@ -56,6 +56,16 @@ export const PLEDGE_TO_MUTATION = gql`
   }
 `;
 
+export const PLEDGE_EVENT_MUTATION = gql`
+  mutation PledgeEvent($perLapDonation: Int!, $flatDonation: Int!) {
+    pledgeEvent(
+      input: { perLapDonation: $perLapDonation, flatDonation: $flatDonation }
+    ) {
+      perLapDonation
+    }
+  }
+`;
+
 export const REMOVE_PLEDGE_MUTATION = gql`
   mutation RemovePledge($id: ID!) {
     removePledge(id: $id)

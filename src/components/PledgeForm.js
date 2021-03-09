@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useMutation, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -12,7 +14,10 @@ import {
   THEME_COLOR_4,
   THEME_COLOR_C,
 } from '../config';
-import { PLEDGE_TO_MUTATION } from '../graphql/mutations';
+import {
+  PLEDGE_EVENT_MUTATION,
+  PLEDGE_TO_MUTATION,
+} from '../graphql/mutations';
 import { DASHBOARD_QUERY, USER_EMAILS_QUERY } from '../graphql/queries';
 
 import ActionButton from './ActionButton';
@@ -70,6 +75,23 @@ const Form = styled.form`
     margin: 0.4em 0;
   }
 
+  & div.isEventWide {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+
+    input {
+      width: fit-content;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+
+  & section {
+    display: flex;
+  }
+
   & div label {
     color: ${THEME_COLOR_0};
     font-size: 0.8em;
@@ -78,9 +100,6 @@ const Form = styled.form`
 
   & div small {
     color: red;
-  }
-
-  & input {
   }
 
   & select {
@@ -141,7 +160,11 @@ const PledgeForm = ({ toggleForm }) => {
     resolver: yupResolver(schema),
   });
   const { loading, data } = useQuery(USER_EMAILS_QUERY);
+  const [isEventWide, setIsEventWide] = useState(false);
   const [pledgeTo] = useMutation(PLEDGE_TO_MUTATION, {
+    refetchQueries: [{ query: DASHBOARD_QUERY }],
+  });
+  const [pledgeEvent] = useMutation(PLEDGE_EVENT_MUTATION, {
     refetchQueries: [{ query: DASHBOARD_QUERY }],
   });
 
@@ -158,9 +181,16 @@ const PledgeForm = ({ toggleForm }) => {
   const { users } = data;
 
   const onSubmit = async (data) => {
-    pledgeTo({
-      variables: data,
-    });
+    console.log(data)
+    if (isEventWide) {
+      await pledgeEvent({
+        variables: data,
+      });
+    } else {
+      pledgeTo({
+        variables: data,
+      });
+    }
     reset();
     toggleForm();
   };
@@ -170,19 +200,31 @@ const PledgeForm = ({ toggleForm }) => {
       <Body>
         <Title>Make a pledge!</Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label htmlFor="receiverEmail">Runner</label>
-            <select
-              placeholder="Select a runner"
-              name="receiverEmail"
-              ref={register({ required: true })}
-            >
-              {users.map(({ email }, i) => (
-                <option key={'option' + i}>{email}</option>
-              ))}
-            </select>
-            <small>{errors.receiverEmail?.message}</small>
+          <div className="isEventWide">
+            <label htmlFor="isEventWide">Pledge event-wide</label>
+            <input
+              type="checkbox"
+              checked={isEventWide}
+              onChange={() => setIsEventWide(!isEventWide)}
+              name="isEventWide"
+            />
           </div>
+
+          {!isEventWide && (
+            <div>
+              <label htmlFor="receiverEmail">Runner</label>
+              <select
+                placeholder="Select a runner"
+                name="receiverEmail"
+                ref={register({ required: true })}
+              >
+                {users.map(({ email }, i) => (
+                  <option key={'option' + i}>{email}</option>
+                ))}
+              </select>
+              <small>{errors.receiverEmail?.message}</small>
+            </div>
+          )}
 
           <div>
             <label htmlFor="perLapDonation">Per Lap Donation (NT)</label>

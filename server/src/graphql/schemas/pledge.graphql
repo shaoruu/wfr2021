@@ -8,7 +8,7 @@ type Pledge {
   eventWide: Boolean!
 
   pledger: User!
-  receiver: User!
+  receiver: User
 }
 
 input PledgeToInput {

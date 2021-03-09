@@ -56,6 +56,10 @@ const NoPledges = styled.div`
   }
 `;
 
+const EventWide = styled.span`
+  color: green;
+`
+
 const PledgeTable = ({ pledges, toggleForm, setToDelete }) => {
   const AddPledgeButton = () => (
     <AddPledge onClick={toggleForm}>
@@ -87,12 +91,12 @@ const PledgeTable = ({ pledges, toggleForm, setToDelete }) => {
                 collected,
                 flatDonation,
                 perLapDonation,
-                receiver: { fullName: receiverName },
+                receiver
               },
               i,
             ) => (
               <tr key={'pledge-table' + id}>
-                <td>{receiverName}</td>
+                <td>{receiver ? receiver.fullName : <EventWide>Event-Wide</EventWide>}</td>
                 <td>
                   <Money>
                     NT<span>{perLapDonation}</span>

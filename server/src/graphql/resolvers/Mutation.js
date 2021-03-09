@@ -77,7 +77,7 @@ const UserMutations = {
     { input: { flatDonation, perLapDonation, receiverEmail } },
     { user, pubsub },
   ) {
-    const pledge = Helpers.makePledge(
+    const pledge = await Helpers.makePledge(
       flatDonation,
       perLapDonation,
       user.email,
@@ -98,7 +98,7 @@ const UserMutations = {
     { input: { flatDonation, perLapDonation, pledgerEmail } },
     { user, pubsub },
   ) {
-    const pledge = Helpers.makePledge(
+    const pledge = await Helpers.makePledge(
       flatDonation,
       perLapDonation,
       pledgerEmail,
