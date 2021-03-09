@@ -17,6 +17,7 @@ type Mutation {
   # User Mutations
   register(input: RegisterInput): AuthPayload!
   login(input: LoginInput!): AuthPayload!
+  confirm(id: ID!): Boolean!
 
   # Pledge Mutations
   pledgeTo(input: PledgeToInput!): Pledge!

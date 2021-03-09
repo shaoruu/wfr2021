@@ -15,6 +15,7 @@ import {
 import { PLEDGE_TO_MUTATION } from '../graphql/mutations';
 import { DASHBOARD_QUERY, USER_EMAILS_QUERY } from '../graphql/queries';
 
+import ActionButton from './ActionButton';
 import Card from './Card';
 import FullPageSpinner from './FullPageSpinner';
 
@@ -104,11 +105,10 @@ const Form = styled.form`
 
 const Controls = styled.section`
   display: flex;
-  align-items: centeryupResolver;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
 
-  & input[type='submit'],
   & button {
     padding: 1em;
     flex: 0.45;
@@ -117,12 +117,13 @@ const Controls = styled.section`
     border: none;
   }
 
-  & input[type='submit'] {
+  & button:first-of-type {
     background: ${THEME_COLOR_3}dd;
     color: white;
+    margin: 0.5em 0;
   }
 
-  & button {
+  & button:last-of-type {
     background: ${THEME_COLOR_C}dd;
     color: white;
     margin: 0.5em 0;
@@ -206,7 +207,7 @@ const PledgeForm = ({ toggleForm }) => {
           </div>
 
           <Controls>
-            <button
+            <ActionButton
               onClick={(e) => {
                 e.preventDefault();
                 toggleForm();
@@ -214,8 +215,8 @@ const PledgeForm = ({ toggleForm }) => {
               }}
             >
               Cancel
-            </button>
-            <input type="submit" />
+            </ActionButton>
+            <ActionButton type="submit">Submit</ActionButton>
           </Controls>
         </Form>
       </Body>

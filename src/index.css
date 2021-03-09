@@ -32,3 +32,7 @@ code {
 .react-autosuggest__container {
   position: relative;
 }
+
+a {
+  text-decoration: none;
+}

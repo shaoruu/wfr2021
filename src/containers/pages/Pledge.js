@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
+import Popular from '../../assets/popular.svg';
 import DeletePledgeForm from '../../components/DeletePledgeForm';
 import FullPageSpinner from '../../components/FullPageSpinner';
 import MyPledges from '../../components/MyPledges';
@@ -37,6 +38,11 @@ const TitleBar = styled.div`
     color: ${THEME_COLOR_0};
     font-size: 1em;
   }
+
+  & > img {
+    margin: 5em 0;
+    width: 20em;
+  }
 `;
 
 const Pledge = () => {
@@ -47,7 +53,7 @@ const Pledge = () => {
   if (loading) return <FullPageSpinner />;
 
   const {
-    me: { pledges, received },
+    me: { pledges, received, confirmed },
   } = data;
 
   const toggleForm = () => {
@@ -56,20 +62,32 @@ const Pledge = () => {
 
   return (
     <Wrapper>
-      {showPledge && <PledgeForm toggleForm={toggleForm} />}
-      {!!toDelete && (
-        <DeletePledgeForm toDelete={toDelete} setToDelete={setToDelete} />
+      {confirmed ? (
+        <>
+          {showPledge && <PledgeForm toggleForm={toggleForm} />}
+          {!!toDelete && (
+            <DeletePledgeForm toDelete={toDelete} setToDelete={setToDelete} />
+          )}
+          <TitleBar>
+            <h1>My Donations</h1>
+            <p>Click the "+" next to "Pledged To" to add a pledge!</p>
+          </TitleBar>
+          <MyPledges
+            pledges={pledges}
+            received={received}
+            toggleForm={toggleForm}
+            setToDelete={setToDelete}
+          />
+        </>
+      ) : (
+        <>
+          <TitleBar>
+            <h1>My Donations</h1>
+            <p>Check your inbox. Confirm your email to start pledging :)</p>
+            <img src={Popular} alt="letter" />
+          </TitleBar>
+        </>
       )}
-      <TitleBar>
-        <h1>My Donations</h1>
-        <p>Click the "+" next to "Pledged To" to add a pledge!</p>
-      </TitleBar>
-      <MyPledges
-        pledges={pledges}
-        received={received}
-        toggleForm={toggleForm}
-        setToDelete={setToDelete}
-      />
     </Wrapper>
   );
 };

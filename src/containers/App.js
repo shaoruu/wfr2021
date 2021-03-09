@@ -10,6 +10,7 @@ import NavBar from '../components/NavBar';
 import { device, NAVBAR_MOBILE, NAVBAR_WIDTH, THEME_COLOR_1 } from '../config';
 import { useAuth } from '../contexts/authContext';
 
+import Confirm from './pages/Confirm';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -95,6 +96,9 @@ function App() {
         </Route>
         <Route path="/logout">
           <Logout />
+        </Route>
+        <Route path="/confirm">
+          <Confirm />
         </Route>
         <Route component={CorePages} />
       </Switch>

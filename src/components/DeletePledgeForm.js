@@ -37,12 +37,11 @@ const Body = styled(Card)``;
 
 const Controls = styled.section`
   display: flex;
-  align-items: centeryupResolver;
+  margin-top: 1em;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-top: 1em;
 
-  & input[type='submit'],
   & button {
     padding: 1em;
     flex: 0.45;
@@ -51,14 +50,16 @@ const Controls = styled.section`
     border: none;
   }
 
-  & .delete-pledge-confirm {
+  & button:first-of-type {
     background: ${THEME_COLOR_3}dd;
     color: white;
+    margin: 0.5em 0;
   }
 
-  & .delete-pledge-cancel {
+  & button:last-of-type {
     background: ${THEME_COLOR_C}dd;
     color: white;
+    margin: 0.5em 0;
   }
 `;
 

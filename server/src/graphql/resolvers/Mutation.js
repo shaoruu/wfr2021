@@ -32,6 +32,7 @@ const UserMutations = {
     });
 
     await user.save();
+    await Helpers.sendConfirmation(user.email, user.id);
 
     return {
       user,
@@ -59,6 +60,17 @@ const UserMutations = {
       user,
       token: Helpers.generateToken(user.id),
     };
+  },
+  async confirm(parent, { id }) {
+    const user = await UserModel.findById(id);
+
+    if (!user) throw new Error('Unable to confirm.');
+
+    user.confirmed = true;
+    await user.save();
+    console.log(user);
+
+    return true;
   },
   async pledgeTo(
     parent,

@@ -5,6 +5,7 @@ export const ME_QUERY = gql`
     me {
       id
       fullName
+      confirmed
     }
   }
 `;
@@ -13,6 +14,7 @@ export const DASHBOARD_QUERY = gql`
   query DashboardQuery {
     me {
       fullName
+      confirmed
       pledges {
         id
         collected

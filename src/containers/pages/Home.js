@@ -7,6 +7,7 @@ import Background3 from '../../assets/background3.jpg';
 import Logo from '../../assets/logo.png';
 import Shape1 from '../../assets/shape1.svg';
 import Shape2 from '../../assets/shape2.svg';
+import ActionButton from '../../components/ActionButton';
 import {
   THEME_COLOR_1,
   THEME_COLOR_2,
@@ -104,7 +105,7 @@ const ImageHolder = styled.div`
       margin: 0.3em 0;
     }
 
-    & a {
+    & button {
       font-size: 2em;
       margin: 0;
     }
@@ -130,7 +131,7 @@ const ReadyToRun = styled.div`
       font-weight: 100;
     }
 
-    & a {
+    & button {
       text-decoration: none;
       padding: 1em 3em;
       font-size: 1.3em;
@@ -155,22 +156,6 @@ const RegularNavButton = styled.a`
   }
 `;
 
-const ActionButton = styled(Link)`
-  display: block;
-  margin: 0 0.6em;
-  text-decoration: none;
-  cursor: pointer;
-  background: ${THEME_COLOR_4};
-  padding: 0.5em 1em;
-  border-radius: 5px;
-  color: ${THEME_COLOR_1};
-
-  &:hover {
-    text-decoration: underline;
-    color: ${THEME_COLOR_B};
-  }
-`;
-
 const WhiteActionButton = styled(ActionButton)`
   background: ${THEME_COLOR_1};
   border: 1px solid black;
@@ -178,6 +163,7 @@ const WhiteActionButton = styled(ActionButton)`
 
   &:hover {
     color: ${THEME_COLOR_3};
+    text-decoration: underline;
   }
 `;
 
@@ -331,8 +317,12 @@ const Home = () => {
         <RegularNavButton href="#2021theme">2021 Theme</RegularNavButton>
         <RegularNavButton href="#two-events">Walkathon</RegularNavButton>
         <RegularNavButton href="#two-events">Teacher Karaoke</RegularNavButton>
-        <ActionButton to="/login">Login</ActionButton>
-        <ActionButton to="/register">Register</ActionButton>
+        <Link to="/login">
+          <ActionButton>Login</ActionButton>
+        </Link>
+        <Link to="/register">
+          <ActionButton>Register</ActionButton>
+        </Link>
       </NavBar>
       <IntroSection>
         <ImageHolder className="image-holder">
@@ -343,7 +333,9 @@ const Home = () => {
               WALKING FOR:
               <span>BLACK LIVES MATTER✊🏿</span>
             </p>
-            <ActionButton to="/register">Donate Now</ActionButton>
+            <Link to="/register">
+              <ActionButton>Donate Now</ActionButton>
+            </Link>
           </div>
         </ImageHolder>
         <ReadyToRun>
@@ -352,8 +344,12 @@ const Home = () => {
             <h3>Sign up for 2021 Walkathon</h3>
           </div>
           <div>
-            <ActionButton to="/register">Register</ActionButton>
-            <WhiteActionButton to="#aboutus">Learn More</WhiteActionButton>
+            <Link to="/register">
+              <ActionButton>Register</ActionButton>
+            </Link>
+            <Link to="#aboutus">
+              <WhiteActionButton>Learn More</WhiteActionButton>
+            </Link>
           </div>
         </ReadyToRun>
       </IntroSection>

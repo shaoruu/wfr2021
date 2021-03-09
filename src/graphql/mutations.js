@@ -61,3 +61,9 @@ export const REMOVE_PLEDGE_MUTATION = gql`
     removePledge(id: $id)
   }
 `;
+
+export const CONFIRM_ACCOUNT_MUTATION = gql`
+  mutation ConfirmAccount($id: ID!) {
+    confirm(id: $id)
+  }
+`;
