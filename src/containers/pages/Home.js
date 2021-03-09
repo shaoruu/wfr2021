@@ -90,7 +90,7 @@ const ImageHolder = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 700px;
+    /* width: 700px; */
 
     & span {
       color: black;
@@ -330,8 +330,8 @@ const Home = () => {
           <div>
             <h1>WALK FOR REFUGEES</h1>
             <p>
-              WALKING FOR:
-              <span>BLACK LIVES MATTER✊🏿</span>
+              WALKING FOR:{' '}
+              <span>BLACK LIVES✊🏿</span>
             </p>
             <Link to="/register">
               <ActionButton>Donate Now</ActionButton>
@@ -387,7 +387,7 @@ const Home = () => {
         </div>
         <div>
           <h1>
-            2021 THEME: <span>#BLM</span>
+            2021 THEME: <span>#BlackLives</span>
           </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac proin

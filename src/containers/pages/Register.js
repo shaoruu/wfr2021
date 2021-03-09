@@ -61,8 +61,15 @@ const RegisterForm = styled.form`
     margin-left: 0.4em;
   }
 
-  & div small {
+  & div > small {
     color: red;
+  }
+
+  & div .error {
+    color: red;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1em;
   }
 
   & input {
@@ -114,7 +121,7 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
   const { data } = useAuth();
-  const [regMutate] = useMutation(REGISTER_MUTATION, {
+  const [regMutate, { loading }] = useMutation(REGISTER_MUTATION, {
     onError(error) {
       console.log(error);
       setError('server', {
@@ -220,9 +227,13 @@ const Register = () => {
             <small>{errors.passwordConfirmation?.message}</small>
           </div>
           <div>
-            <small>{errors.server?.message}</small>
+            {errors.server && (
+              <small className="error">{errors.server?.message}</small>
+            )}
           </div>
-          <ActionButton type="submit">Join the Run!</ActionButton>
+          <ActionButton type="submit">
+            {loading ? 'Hold on...' : 'Join the Run!'}
+          </ActionButton>
           <small>
             Already have an account? <Link to="/login">Login here.</Link>
           </small>

@@ -113,7 +113,7 @@ const StatusBar = ({ pledges, received, eventWide }) => {
       <StatusContent>
         <StatusTitle>
           <h2>Event-wide Progression</h2>
-          <p>All money donated is going to #BLM!!!</p>
+          <p>All money donated is going to #BlackLives!!!</p>
         </StatusTitle>
         <StatusData>
           <li>

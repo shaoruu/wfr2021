@@ -69,8 +69,15 @@ const LoginForm = styled.form`
     margin-left: 0.4em;
   }
 
-  & div small {
+  & div > small {
     color: red;
+  }
+
+  & div .error {
+    color: red;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1em;
   }
 
   & input {
@@ -171,7 +178,9 @@ const Login = () => {
             <small>{errors.password?.message}</small>
           </div>
           <div>
-            <small>{errors.server?.message}</small>
+            {errors.server && (
+              <small className="error">{errors.server?.message}</small>
+            )}
           </div>
           <ActionButton type="submit">Login</ActionButton>
           <small>

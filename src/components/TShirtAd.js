@@ -90,7 +90,7 @@ const TShirtAd = () => {
   return (
     <Wrapper>
       <Title>Want a Walk For Refugees t-shirt?</Title>
-      <SubTitle>All profit made are going to #BLM!!</SubTitle>
+      <SubTitle>All profit made are going to #BlackLives!!</SubTitle>
       <GetOneNow to="/products">Get one now!</GetOneNow>
       <img src={Shop} alt="shop" />
     </Wrapper>
