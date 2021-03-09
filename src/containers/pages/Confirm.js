@@ -10,7 +10,7 @@ import ActionButton from '../../components/ActionButton';
 import AuthContent from '../../components/AuthContent';
 import Card from '../../components/Card';
 import FormLogo from '../../components/FormLogo';
-import { THEME_COLOR_2, THEME_COLOR_3, THEME_COLOR_4 } from '../../config';
+import { THEME_COLOR_3, THEME_COLOR_4 } from '../../config';
 import { useAuth } from '../../contexts/authContext';
 import { CONFIRM_ACCOUNT_MUTATION } from '../../graphql/mutations';
 
@@ -92,15 +92,15 @@ const Confirm = () => {
   }, []);
 
   return (
-    <AuthContent>
+    <AuthContent style={{ overflow: 'hidden' }}>
       <Wrapper>
         <Body>
           <Confetti active={activeConfetti} config={config} />
           <FormLogo />
           <h1>
             {confirmed
-              ? 'Successfully confirmed your email!'
-              : 'Your account has already been confirmed.'}
+              ? 'Your account has already been confirmed.'
+              : 'Successfully confirmed your email!'}
           </h1>
           <div>
             <ActionButton onClick={setOffConfetti} color={THEME_COLOR_4}>

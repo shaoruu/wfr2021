@@ -7,6 +7,7 @@ import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
+import ActionButton from '../../components/ActionButton';
 import AuthContent from '../../components/AuthContent';
 import Card from '../../components/Card';
 import FormLogo from '../../components/FormLogo';
@@ -74,11 +75,13 @@ const RegisterForm = styled.form`
     margin: 0.5em 0;
   }
 
-  & input[type='submit'] {
+  & button {
     border: none;
     cursor: pointer;
     background: ${THEME_COLOR_4};
     color: white;
+    width: 100%;
+    padding: 1em;
   }
 `;
 
@@ -95,7 +98,11 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Passwords must match'),
   schoolId: yup
     .string()
-    .test('len', 'Please enter a valid school ID.', val => val.length === 4 || val.length === 8)
+    .test(
+      'len',
+      'Please enter a valid school ID.',
+      (val) => val.length === 4 || val.length === 8,
+    )
     .required('School ID is required.'),
 });
 
@@ -109,7 +116,7 @@ const Register = () => {
   const { data } = useAuth();
   const [regMutate] = useMutation(REGISTER_MUTATION, {
     onError(error) {
-      console.log(error)
+      console.log(error);
       setError('server', {
         type: 'server',
         message: error.message,
@@ -215,7 +222,7 @@ const Register = () => {
           <div>
             <small>{errors.server?.message}</small>
           </div>
-          <input type="submit" value="Join the Run!" />
+          <ActionButton type="submit">Join the Run!</ActionButton>
           <small>
             Already have an account? <Link to="/login">Login here.</Link>
           </small>

@@ -5,6 +5,7 @@ import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
+import ActionButton from '../../components/ActionButton';
 import AuthContent from '../../components/AuthContent';
 import Card from '../../components/Card';
 import FormLogo from '../../components/FormLogo';
@@ -81,10 +82,13 @@ const LoginForm = styled.form`
     margin: 0.5em 0;
   }
 
-  & input[type='submit'] {
+  & button {
     cursor: pointer;
     background: ${THEME_COLOR_0};
     color: white;
+    width: 100%;
+    padding: 1em;
+    border: none;
   }
 `;
 
@@ -169,7 +173,7 @@ const Login = () => {
           <div>
             <small>{errors.server?.message}</small>
           </div>
-          <input type="submit"></input>
+          <ActionButton type="submit">Login</ActionButton>
           <small>
             Don't have an account? <Link to="/register">Register here.</Link>
           </small>
