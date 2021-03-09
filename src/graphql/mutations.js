@@ -18,8 +18,7 @@ export const REGISTER_MUTATION = gql`
     $lastName: String!
     $email: String!
     $password: String!
-    $schoolId: String
-    $goalLaps: Int
+    $schoolId: String!
   ) {
     register(
       input: {
@@ -28,7 +27,6 @@ export const REGISTER_MUTATION = gql`
         email: $email
         schoolId: $schoolId
         password: $password
-        goalLaps: $goalLaps
       }
     ) {
       token

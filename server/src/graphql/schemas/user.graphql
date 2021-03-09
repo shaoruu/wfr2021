@@ -7,7 +7,7 @@ type User {
   lastName: String!
   email: String!
   confirmed: Boolean!
-  schoolId: String
+  schoolId: String!
   password: String!
   goalLaps: Int!
   lapsRan: Int!
@@ -29,9 +29,8 @@ input RegisterInput {
   firstName: String!
   lastName: String!
   email: String!
-  schoolId: String
+  schoolId: String!
   password: String!
-  goalLaps: Int
 }
 
 input LoginInput {

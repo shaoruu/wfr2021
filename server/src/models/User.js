@@ -21,7 +21,7 @@ const userSchema = new Schema({
   schoolId: {
     type: String,
     unique: true,
-    default: '',
+    required: true,
   },
   password: {
     type: String,

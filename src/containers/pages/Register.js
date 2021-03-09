@@ -95,9 +95,8 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Passwords must match'),
   schoolId: yup
     .string()
-    .matches(/^[0-9]{8}$/, 'School ID must be 8 digits.')
-    .nullable(),
-  goalLaps: yup.number(),
+    .test('len', 'Please enter a valid school ID.', val => val.length === 4 || val.length === 8)
+    .required('School ID is required.'),
 });
 
 const Register = () => {
@@ -110,6 +109,7 @@ const Register = () => {
   const { data } = useAuth();
   const [regMutate] = useMutation(REGISTER_MUTATION, {
     onError(error) {
+      console.log(error)
       setError('server', {
         type: 'server',
         message: error.message,
@@ -211,16 +211,6 @@ const Register = () => {
               ref={register({ required: true })}
             />
             <small>{errors.passwordConfirmation?.message}</small>
-          </div>
-          <div>
-            <label htmlFor="goalLaps">Goal Laps Name</label>
-            <input
-              name="goalLaps"
-              type="number"
-              placeholder="Goal Laps (ex: 20)"
-              ref={register({ required: true })}
-            />
-            <small>{errors.goalLaps?.message}</small>
           </div>
           <div>
             <small>{errors.server?.message}</small>

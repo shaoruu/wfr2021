@@ -1,13 +1,28 @@
+import fs from 'fs';
+
 import bcrypt from 'bcryptjs';
 
 import { PledgeModel, TShirtOrderModel, UserModel } from '../../models';
 import Helpers from '../../utils/helpers';
+
+const id2emailSrcRAW = fs.readFileSync('./server/id2email.json');
+const id2email = JSON.parse(id2emailSrcRAW);
+
+const id2emailExists = (testId, testEmail) => {
+  console.log(testId, testEmail);
+  return !!id2email.find(
+    ({ id, email }) =>
+      id.toLowerCase() === testId && email.toLowerCase() === testEmail,
+  );
+};
 
 const UserMutations = {
   async register(parent, { input }) {
     const { password, ...args } = input;
 
     const existing = await UserModel.findOne({ email: args.email });
+    if (!id2emailExists(args.schoolId, args.email))
+      throw new Error('TAS ID and Email did not match any records.');
     if (existing) throw new Error('Email already in use.');
 
     const hashedPassword = await Helpers.hashPassword(password);
