@@ -40,8 +40,9 @@ const LatestPledges = ({ pledges }) => {
       <PledgesWrapper>
         {pledges.length ? (
           pledges.map(
-            ({ pledger: { fullName }, flatDonation, perLapDonation }) => (
+            ({ pledger: { fullName }, flatDonation, perLapDonation }, i) => (
               <Pledge
+                key={'pledges' + i}
                 username={fullName}
                 perLapDonation={perLapDonation}
                 flatDonation={flatDonation}

@@ -12,6 +12,18 @@ export const ME_QUERY = gql`
 
 export const DASHBOARD_QUERY = gql`
   query DashboardQuery {
+    pledges {
+      id
+      collected
+      flatDonation
+      perLapDonation
+      pledger {
+        fullName
+      }
+      receiver {
+        fullName
+      }
+    }
     me {
       fullName
       confirmed

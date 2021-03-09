@@ -46,8 +46,10 @@ const Dashboard = () => {
 
   if (loading) return <FullPageSpinner />;
   const {
-    me: { fullName, pledges, received, eventWide },
+    pledges: allPledges,
+    me: { fullName, pledges, received },
   } = data;
+
 
   return (
     <Wrapper>
@@ -55,8 +57,8 @@ const Dashboard = () => {
         <h1>Hi, {fullName}</h1>
         <p>{quotes[Math.floor(quotes.length * Math.random())]}</p>
       </TitleBar>
-      <StatusBar pledges={pledges} received={received} eventWide={eventWide} />
-      <LatestPledges pledges={received} />
+      <StatusBar pledges={pledges} received={received} allPledges={allPledges} />
+      <LatestPledges pledges={allPledges} />
       {/* <MyPledges /> */}
       {/* TODO: ADD PLEDGE STATS */}
     </Wrapper>

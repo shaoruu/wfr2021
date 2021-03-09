@@ -86,7 +86,7 @@ const pledgesToString = (pledges) => {
   return flatTotal + ' + ' + perLapTotal + 'G';
 };
 
-const StatusBar = ({ pledges, received, eventWide }) => {
+const StatusBar = ({ pledges, received, allPledges }) => {
   return (
     <StatusBarWrapper>
       <img src={Fitness} alt="runner start" />
@@ -120,9 +120,7 @@ const StatusBar = ({ pledges, received, eventWide }) => {
             <h3>Pledges Combined</h3>
             <Money>
               NT
-              <span>
-                {pledgesToString([...pledges, ...received, ...eventWide])}
-              </span>
+              <span>{pledgesToString(allPledges)}</span>
             </Money>
           </li>
         </StatusData>

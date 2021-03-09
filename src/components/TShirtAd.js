@@ -44,7 +44,7 @@ const Title = styled.h1`
 
 const SubTitle = styled.p`
   color: ${THEME_COLOR_0};
-  margin-top: 1em;
+  margin: 0.5em;
 
   @media ${device.tablet} {
     margin-top: none;
