@@ -14,9 +14,13 @@ const ActionButton = styled.button`
   color: ${THEME_COLOR_1};
   outline: none;
 
-  &:hover {
+  &:not(:disabled):hover {
     text-decoration: underline;
     color: ${THEME_COLOR_B};
+  }
+
+  &:disabled {
+    filter: grayscale(1);
   }
 `;
 
