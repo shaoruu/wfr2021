@@ -80,20 +80,20 @@ const ImageHolder = styled.div`
 
   & div {
     position: absolute;
-    top: 50%;
-    left: 5%;
-    transform: translateY(-50%);
-    background: #eef;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: ${THEME_COLOR_3}99;
     padding: 1em;
-    border-radius: 15px;
-    color: ${THEME_COLOR_4};
+    color: ${THEME_COLOR_B};
     font-family: Roboto;
     font-style: normal;
     font-weight: 800;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    /* width: 700px; */
+    align-items: center;
+    justify-content: center;
 
     & span {
       color: black;
@@ -111,6 +111,8 @@ const ImageHolder = styled.div`
     & button {
       font-size: 2em;
       margin: 0;
+      margin-top: 1em;
+      border: none;
     }
   }
 `;
@@ -344,11 +346,9 @@ const Home = () => {
           <div>
             <h1>WALK FOR REFUGEES</h1>
             <p>
-              WALKING FOR: <span>BLACK LIVES✊🏿</span>
+              WALKING FOR: <span>BLACK LIVES</span>
             </p>
-            <Link to="/register">
-              <ActionButton>Donate Now</ActionButton>
-            </Link>
+            <ActionButton>Donate Now</ActionButton>
           </div>
         </ImageHolder>
         <ReadyToRun>
