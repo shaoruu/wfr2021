@@ -74,3 +74,16 @@ export const USER_EMAILS_QUERY = gql`
     }
   }
 `;
+
+export const ME_TSHIRT_ORDER_QUERY = gql`
+  query MeTShirtOrder {
+    me {
+      confirmed
+      tShirtOrder {
+        sCount
+        mCount
+        lCount
+      }
+    }
+  }
+`;

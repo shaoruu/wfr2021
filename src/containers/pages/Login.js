@@ -112,7 +112,7 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
   const { data } = useAuth();
-  const [login] = useMutation(LOGIN_MUTATION, {
+  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
     onError(error) {
       setError('server', {
         type: 'server',
@@ -182,7 +182,9 @@ const Login = () => {
               <small className="error">{errors.server?.message}</small>
             )}
           </div>
-          <ActionButton type="submit">Login</ActionButton>
+          <ActionButton type="submit" disabled={loading}>
+            {loading ? 'Hold on...' : 'Login'}
+          </ActionButton>
           <small>
             Don't have an account? <Link to="/register">Register here.</Link>
           </small>

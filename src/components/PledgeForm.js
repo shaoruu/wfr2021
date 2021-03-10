@@ -118,7 +118,7 @@ const Form = styled.form`
     border-radius: 5px;
     outline: none;
     margin: 0.5em 0;
-    border: 2px solid black;
+    border: 1px solid gray;
   }
 `;
 
@@ -150,7 +150,7 @@ const Controls = styled.section`
 `;
 
 const schema = yup.object().shape({
-  receiverEmail: yup.string().required('Runner is required.'),
+  // receiverEmail: yup.string().required('Runner is required.'),
   perLapDonation: yup.number().required('Per lap donation is required.'),
   flatDonation: yup.number().required('Flat donation is required.'),
 });
@@ -181,7 +181,7 @@ const PledgeForm = ({ toggleForm }) => {
   const { users } = data;
 
   const onSubmit = async (data) => {
-    console.log(data)
+    console.log(data);
     if (isEventWide) {
       await pledgeEvent({
         variables: data,

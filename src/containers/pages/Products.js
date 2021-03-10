@@ -1,8 +1,10 @@
+import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
 import Cart from '../../assets/cart.svg';
 import TShirtPng from '../../assets/tshirt.png';
 import Card from '../../components/Card';
+import FullPageSpinner from '../../components/FullPageSpinner';
 import {
   GENERAL_TRANSITION,
   THEME_COLOR_0,
@@ -11,6 +13,7 @@ import {
   THEME_COLOR_4,
   THEME_COLOR_B,
 } from '../../config';
+import { ME_TSHIRT_ORDER_QUERY } from '../../graphql/queries';
 
 const quotes = ['T-shirts come in three sizes, S-M-L!'];
 
@@ -58,7 +61,7 @@ const TShirt = styled(Card)`
   align-items: center;
   justify-content: center;
   padding: 1.2em;
-  width: 14em;
+  width: 24em;
 
   &:not(:last-child) {
     margin-right: 2em;
@@ -94,6 +97,16 @@ const TShirt = styled(Card)`
 `;
 
 const Products = () => {
+  const { data, loading } = useQuery(ME_TSHIRT_ORDER_QUERY);
+
+  if (loading) return <FullPageSpinner />;
+
+  const {
+    me: { confirmed, tShirtOrder },
+  } = data;
+
+  console.log(tShirtOrder);
+
   return (
     <Wrapper>
       <TitleBar>
@@ -101,11 +114,6 @@ const Products = () => {
         <p>{quotes[Math.floor(Math.random() * quotes.length)]}</p>
       </TitleBar>
       <TShirtWrapper>
-        <TShirt>
-          <h2>W4R T</h2>
-          <img src={TShirtPng} alt="tshirt" />
-          <button>Order</button>
-        </TShirt>
         <TShirt>
           <h2>W4R T</h2>
           <img src={TShirtPng} alt="tshirt" />

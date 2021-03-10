@@ -20,7 +20,7 @@ const getEventWide = async (userId) => {
 };
 
 const getTShirtOrder = async (userId) => {
-  return TShirtOrderModel.find({
+  return TShirtOrderModel.findOne({
     buyer: await UserModel.findById(userId),
   });
 };

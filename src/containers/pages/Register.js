@@ -231,7 +231,7 @@ const Register = () => {
               <small className="error">{errors.server?.message}</small>
             )}
           </div>
-          <ActionButton type="submit">
+          <ActionButton type="submit" disabled={loading}>
             {loading ? 'Hold on...' : 'Join the Run!'}
           </ActionButton>
           <small>

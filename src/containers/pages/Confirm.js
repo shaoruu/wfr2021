@@ -106,7 +106,7 @@ const Confirm = () => {
             <ActionButton onClick={setOffConfetti} color={THEME_COLOR_4}>
               Cheers
             </ActionButton>
-            <Link to="/dashboard">
+            <Link to="/pledge">
               <ActionButton color={THEME_COLOR_3} to="/dashboard">
                 Start Pledging!
               </ActionButton>

@@ -34,6 +34,10 @@ const UserMutations = {
     await user.save();
     await Helpers.sendConfirmation(user.email, user.id);
 
+    // making an empty tshirt order
+    const tShirtOrder = new TShirtOrderModel({ buyer: user });
+    await tShirtOrder.save();
+
     return {
       user,
       token: Helpers.generateToken(user.id),
