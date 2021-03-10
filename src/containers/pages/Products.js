@@ -7,6 +7,7 @@ import Cart from '../../assets/cart.svg';
 import TShirtPng from '../../assets/tshirt.png';
 import Card from '../../components/Card';
 import FullPageSpinner from '../../components/FullPageSpinner';
+import Money from '../../components/Money';
 import TShirtOrderForm from '../../components/TShirtOrderForm';
 import {
   GENERAL_TRANSITION,
@@ -86,6 +87,11 @@ const TShirt = styled(Card)`
     color: ${THEME_COLOR_4};
   }
 
+  & h3 {
+    margin: 0;
+    margin-bottom: 1em;
+  }
+
   & img {
     width: 100%;
   }
@@ -143,6 +149,11 @@ const Products = () => {
             <TShirt>
               <h2>W4R T-Shirt</h2>
               <img src={TShirtPng} alt="tshirt" />
+              <h3>
+                <Money>
+                  NT <span>300</span>
+                </Money>
+              </h3>
               <small>
                 Your order(s): {sCount} small, {mCount} medium, {lCount} large
                 t-shirts.
