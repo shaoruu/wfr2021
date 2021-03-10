@@ -188,6 +188,33 @@ const UserMutations = {
 
     return true;
   },
+  async outsiderPledgeEvent(
+    parent,
+    { input: { flatDonation, perLapDonation, outsiderEmail, outsiderName } },
+  ) {
+    const pledge = new PledgeModel({
+      flatDonation,
+      perLapDonation,
+      outsiderEmail,
+      outsiderName,
+      createdAt: Date.now(),
+      eventWide: true,
+    });
+
+    await pledge.save();
+
+    // send email to pledger & receiver
+    // TODO: make this more protected.
+    await Helpers.sendEmail(
+      outsiderEmail,
+      'Donating to WalkForRefugees',
+      `Thank you for donating to our event!! Click this link if you want to cancel this pledge: ${
+        process.env.FRONTEND_URL || 'http://localhost:3000'
+      }/cancel/${pledge.id}`,
+    );
+
+    return true;
+  },
   async cancelPledge(parent, { id }) {
     await PledgeModel.findByIdAndRemove(id);
     return true;

@@ -111,3 +111,21 @@ export const OUTSIDER_PLEDGE_MUTATION = gql`
     )
   }
 `;
+
+export const OUTSIDER_PLEDGE_EVENT_MUTATION = gql`
+  mutation OutsiderPledgeEvent(
+    $flatDonation: Int!
+    $perLapDonation: Int!
+    $outsiderEmail: String!
+    $outsiderName: String!
+  ) {
+    outsiderPledgeEvent(
+      input: {
+        flatDonation: $flatDonation
+        perLapDonation: $perLapDonation
+        outsiderEmail: $outsiderEmail
+        outsiderName: $outsiderName
+      }
+    )
+  }
+`;

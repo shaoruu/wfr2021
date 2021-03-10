@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,7 +8,10 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { THEME_COLOR_3, THEME_COLOR_4, THEME_COLOR_C } from '../config';
-import { OUTSIDER_PLEDGE_MUTATION } from '../graphql/mutations';
+import {
+  OUTSIDER_PLEDGE_MUTATION,
+  OUTSIDER_PLEDGE_EVENT_MUTATION,
+} from '../graphql/mutations';
 import { DASHBOARD_QUERY } from '../graphql/queries';
 
 import ActionButton from './ActionButton';
@@ -69,10 +72,7 @@ const schema = yup.object().shape({
     .string()
     .email('Email invalid.')
     .required('Your email is required.'),
-  receiverEmail: yup
-    .string()
-    .email('Email invalid.')
-    .required("Runner's email is required."),
+  receiverEmail: yup.string().email('Email invalid.'),
   perLapDonation: yup
     .number()
     .typeError('Please enter a number.')
@@ -88,12 +88,19 @@ const schema = yup.object().shape({
 });
 
 const HomeDonateForm = ({ toggleForm }) => {
+  const [isEventWide, setIsEventWide] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const [outsiderPledge, { loading }] = useMutation(OUTSIDER_PLEDGE_MUTATION, {
     refetchQueries: [{ query: DASHBOARD_QUERY }],
   });
+  const [outsiderPledgeEvent, { loading: eventLoading }] = useMutation(
+    OUTSIDER_PLEDGE_EVENT_MUTATION,
+    {
+      refetchQueries: [{ query: DASHBOARD_QUERY }],
+    },
+  );
 
   useEffect(() => {
     const func = (e) => {
@@ -110,9 +117,15 @@ const HomeDonateForm = ({ toggleForm }) => {
   }, []);
 
   const onSubmit = async (data) => {
-    await outsiderPledge({
-      variables: data,
-    });
+    if (isEventWide) {
+      await outsiderPledgeEvent({
+        variables: data,
+      });
+    } else {
+      await outsiderPledge({
+        variables: data,
+      });
+    }
     reset();
     toggleForm();
   };
@@ -126,6 +139,16 @@ const HomeDonateForm = ({ toggleForm }) => {
           as a whole.
         </small>
         <Form onSubmit={handleSubmit(onSubmit)}>
+          <div className="isEventWide">
+            <label htmlFor="isEventWide">Pledge event-wide</label>
+            <input
+              type="checkbox"
+              checked={isEventWide}
+              onChange={() => setIsEventWide(!isEventWide)}
+              name="isEventWide"
+            />
+          </div>
+
           <div>
             <label htmlFor="outsiderName">Your Name</label>
             <input
@@ -146,15 +169,22 @@ const HomeDonateForm = ({ toggleForm }) => {
             <small>{errors.outsiderEmail?.message}</small>
           </div>
 
-          <div>
-            <label htmlFor="receiverEmail">Runner's Email</label>
-            <input
-              name="receiverEmail"
-              ref={register({ required: true })}
-              placeholder="Runner's school email"
-            />
-            <small>{errors.receiverEmail?.message}</small>
-          </div>
+          {!isEventWide && (
+            <div>
+              <label htmlFor="receiverEmail">Runner's Email</label>
+              <input
+                name="receiverEmail"
+                ref={register({
+                  required: {
+                    value: true,
+                    message: "Runner's email is required.",
+                  },
+                })}
+                placeholder="Runner's school email"
+              />
+              <small>{errors.receiverEmail?.message}</small>
+            </div>
+          )}
 
           <div>
             <label htmlFor="perLapDonation">Per Lap Donation (NT)</label>
@@ -193,7 +223,7 @@ const HomeDonateForm = ({ toggleForm }) => {
               Cancel
             </ActionButton>
             <ActionButton type="submit">
-              {loading ? (
+              {loading || eventLoading ? (
                 <>
                   Sending email
                   <Loading />

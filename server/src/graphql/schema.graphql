@@ -24,6 +24,7 @@ type Mutation {
   pledgeMe(input: PledgeMeInput!): Pledge!
   pledgeEvent(input: PledgeEventInput!): Pledge!
   outsiderPledge(input: OutsiderPledgeInput!): Boolean!
+  outsiderPledgeEvent(input: OutsiderPledgeEventInput!): Boolean!
   removePledge(id: ID!): Boolean!
   cancelPledge(id: ID!): Boolean!
 

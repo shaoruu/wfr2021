@@ -39,3 +39,10 @@ input OutsiderPledgeInput {
   outsiderName: String!
   receiverEmail: String!
 }
+
+input OutsiderPledgeEventInput {
+  flatDonation: Int!
+  perLapDonation: Int!
+  outsiderEmail: String!
+  outsiderName: String!
+}
