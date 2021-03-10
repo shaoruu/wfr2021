@@ -30,12 +30,12 @@
     "graphql": "^15.5.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server/src/index.js --ext js,graphql --watch server --exec babel-node",
-    "deploy": "yarn build && cross-env NODE_ENV=production yarn run server"
+    "start": "yarn build && cross-env NODE_ENV=production yarn run server"
   },
   "eslintConfig": {
     "extends": [
