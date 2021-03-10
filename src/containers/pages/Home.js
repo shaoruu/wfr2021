@@ -49,8 +49,19 @@ const NavBar = styled.nav`
     }
   }
 
-  & div {
+  & .flexer {
     flex: 1;
+  }
+
+  & div {
+    display: flex;
+    align-items: center;
+  }
+
+  & .hypers {
+    @media (max-width: 750px) {
+      display: none;
+    }
   }
 
   & a:first-of-type {
@@ -102,12 +113,21 @@ const ImageHolder = styled.div`
     }
 
     & h1 {
-      font-size: 3em;
+      font-size: 2em;
+
+      @media (min-width: 1300px) {
+        font-size: 3em;
+      }
     }
 
     & p {
-      font-size: 4em;
-      margin: 0.3em 0;
+      font-size: 3em;
+      text-align: center;
+
+      @media (min-width: 1300px) {
+        font-size: 4em;
+        margin: 0.3em 0;
+      }
     }
 
     & button {
@@ -124,24 +144,52 @@ const ReadyToRun = styled.div`
   align-items: center;
   justify-content: center;
   height: 30%;
+  padding: 1em 2em;
+
+  & .shortcuts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 1300px) {
+      flex-direction: column;
+    }
+  }
 
   & div {
-    margin: 0 6em;
+    @media (min-width: 1300px) {
+      margin: 0 6em;
+    }
 
     & h1 {
       font-size: 2em;
-      line-height: 2.3em;
+      line-height: 2em;
+
+      @media (min-width: 1300px) {
+        font-size: 2em;
+        line-height: 2.3em;
+      }
     }
 
     & h3 {
-      font-size: 3em;
-      font-weight: 100;
+      font-size: 1.6em;
+      line-height: 1.6em;
+
+      @media (min-width: 1300px) {
+        font-size: 3em;
+        font-weight: 100;
+      }
     }
 
     & button {
       text-decoration: none;
-      padding: 1em 3em;
-      font-size: 1.3em;
+      width: 100px;
+      margin: 0.4em;
+
+      @media (min-width: 1300px) {
+        font-size: 1.3em;
+        padding: 1em 3em;
+      }
     }
   }
 
@@ -181,6 +229,10 @@ const AboutUsSection = styled.section`
   padding: 4em;
   position: relative;
 
+  @media (max-width: 1300px) {
+    flex-direction: column;
+  }
+
   & div {
     & h1 {
       margin-bottom: 0.4em;
@@ -196,21 +248,36 @@ const AboutUsSection = styled.section`
       color: black;
       font-size: 1.2em;
     }
-
-    & img {
-      height: 200px;
-    }
   }
 
   & div:first-of-type {
-    width: 70%;
+    @media (min-width: 1300px) {
+      width: 70%;
+    }
   }
 
   & div:last-of-type {
-    width: 30%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2em;
+
+    & img {
+      width: 60vw;
+      height: auto;
+    }
+
+    @media (min-width: 1300px) {
+      margin: 0;
+      justify-content: flex-end;
+      width: 30%;
+
+      & img {
+        width: auto;
+        height: 200px;
+      }
+    }
   }
 
   & img.shape {
@@ -219,6 +286,7 @@ const AboutUsSection = styled.section`
     top: 50%;
     transform: translateY(-50%);
     z-index: -1;
+    max-width: 100vw;
     height: 80%;
   }
 `;
@@ -230,8 +298,14 @@ const Theme2021 = styled.section`
   padding: 4em;
   position: relative;
 
+  @media (max-width: 1300px) {
+    flex-direction: column-reverse;
+  }
+
   & div {
-    text-align: right;
+    @media (min-width: 1300px) {
+      text-align: right;
+    }
 
     & h1 {
       margin-bottom: 0.4em;
@@ -257,11 +331,31 @@ const Theme2021 = styled.section`
     width: 30%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    margin-top: 2em;
+    width: 100%;
+
+    & img {
+      width: 60vw;
+      height: auto;
+    }
+
+    @media (min-width: 1300px) {
+      margin: 0;
+      justify-content: flex-start;
+      width: 30%;
+
+      & img {
+        width: auto;
+        height: 200px;
+      }
+    }
   }
 
   & div:last-of-type {
-    width: 70%;
+    @media (min-width: 1300px) {
+      width: 70%;
+    }
   }
 
   & img.shape {
@@ -270,6 +364,7 @@ const Theme2021 = styled.section`
     top: 50%;
     transform: translateY(-50%);
     z-index: -1;
+    max-width: 100vw;
     height: 80%;
   }
 `;
@@ -281,8 +376,12 @@ const TwoEventsWrapper = styled.section`
   justify-content: center;
   padding: 5em 0;
 
+  @media (max-width: 1300px) {
+    flex-direction: column;
+  }
+
   & div {
-    width: 40%;
+    width: 80%;
     margin: 1em;
     padding: 2em;
     height: 20em;
@@ -292,6 +391,10 @@ const TwoEventsWrapper = styled.section`
     justify-content: space-around;
     background: white;
     border-radius: 15px;
+
+    @media (min-width: 1300px) {
+      width: 40%;
+    }
 
     & h1 {
       color: black;
@@ -328,30 +431,36 @@ const Home = () => {
             W4R
           </h1>
         </Link>
-        <div />
-        <RegularNavButton href="#aboutus">About Us</RegularNavButton>
-        <RegularNavButton href="#2021theme">2021 Theme</RegularNavButton>
-        <RegularNavButton href="#two-events">Walkathon</RegularNavButton>
-        <RegularNavButton href="#two-events">Teacher Karaoke</RegularNavButton>
-        {data ? (
-          <>
-            <Link to="/dashboard">
-              <ActionButton>Dashboard</ActionButton>
-            </Link>
-            <Link to="/logout">
-              <ActionButton>Logout</ActionButton>
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link to="/login">
-              <ActionButton>Login</ActionButton>
-            </Link>
-            <Link to="/register">
-              <ActionButton>Register</ActionButton>
-            </Link>
-          </>
-        )}
+        <div className="flexer" />
+        <div className="hypers">
+          <RegularNavButton href="#aboutus">About Us</RegularNavButton>
+          <RegularNavButton href="#2021theme">2021 Theme</RegularNavButton>
+          <RegularNavButton href="#two-events">Walkathon</RegularNavButton>
+          <RegularNavButton href="#two-events">
+            Teacher Karaoke
+          </RegularNavButton>
+        </div>
+        <div>
+          {data ? (
+            <>
+              <Link to="/dashboard">
+                <ActionButton>Dashboard</ActionButton>
+              </Link>
+              <Link to="/logout">
+                <ActionButton>Logout</ActionButton>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <ActionButton>Login</ActionButton>
+              </Link>
+              <Link to="/register">
+                <ActionButton>Register</ActionButton>
+              </Link>
+            </>
+          )}
+        </div>
       </NavBar>
       <IntroSection>
         <ImageHolder className="image-holder">
@@ -381,7 +490,7 @@ const Home = () => {
               {data ? 'Start making pledges!!!' : 'Sign up for 2021 Walkathon'}
             </h3>
           </div>
-          <div>
+          <div className="shortcuts">
             {data ? (
               <Link to="/dashboard">
                 <ActionButton>Dashboard</ActionButton>
