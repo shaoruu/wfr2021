@@ -12,8 +12,7 @@ import Card from '../../components/Card';
 import FormLogo from '../../components/FormLogo';
 import Loading from '../../components/Loading';
 import { THEME_COLOR_3, THEME_COLOR_4 } from '../../config';
-import { useAuth } from '../../contexts/authContext';
-import { CONFIRM_ACCOUNT_MUTATION } from '../../graphql/mutations';
+import { CONFIRM_PLEDGE_MUTATION } from '../../graphql/mutations';
 
 const config = {
   angle: 90,
@@ -49,14 +48,10 @@ const Body = styled(Card)`
   }
 `;
 
-const Confirm = () => {
+const Donate = () => {
   const { id } = useParams();
   const [activeConfetti, setActiveConfetti] = useState(false);
-  const [confirm, { loading }] = useMutation(CONFIRM_ACCOUNT_MUTATION);
-  const me = useAuth();
-
-  let confirmed;
-  if (me) confirmed = me.confirmed;
+  const [confirm, { loading }] = useMutation(CONFIRM_PLEDGE_MUTATION);
 
   const setOffConfetti = () => {
     const timeout = setTimeout(() => {
@@ -79,11 +74,7 @@ const Confirm = () => {
       });
     };
 
-    if (!confirmed) {
-      asyncFunc();
-    }
-
-    setOffConfetti();
+    asyncFunc().then(() => setOffConfetti());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -94,16 +85,12 @@ const Confirm = () => {
         <Body>
           <Confetti active={activeConfetti} config={config} />
           <FormLogo />
-          <h1>
-            {confirmed
-              ? 'Your account has already been confirmed.'
-              : 'Successfully confirmed your email!'}
-          </h1>
+          <h1>Successfully confirmed your pledge!!</h1>
           <div>
             <ActionButton onClick={setOffConfetti} color={THEME_COLOR_4}>
               Cheers
             </ActionButton>
-            <Link to="/pledge">
+            <Link to="/">
               <ActionButton
                 color={THEME_COLOR_3}
                 to="/dashboard"
@@ -115,7 +102,7 @@ const Confirm = () => {
                     <Loading />
                   </>
                 ) : (
-                  'Start Pledging!'
+                  'Home'
                 )}
               </ActionButton>
             </Link>
@@ -126,4 +113,4 @@ const Confirm = () => {
   );
 };
 
-export default Confirm;
+export default Donate;

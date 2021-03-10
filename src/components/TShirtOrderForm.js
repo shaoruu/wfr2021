@@ -15,6 +15,7 @@ import Backdrop from './Backdrop';
 import Card from './Card';
 import Form from './Form';
 import FullPageSpinner from './FullPageSpinner';
+import Loading from './Loading';
 
 const Title = styled.h1`
   font-size: 1.6em;
@@ -80,15 +81,18 @@ const PledgeForm = ({ toggleForm }) => {
   const { register, handleSubmit, errors, reset, setError } = useForm({
     resolver: yupResolver(schema),
   });
-  const [buyTShirt] = useMutation(BUY_TSHIRT_MUTATION, {
-    refetchQueries: [{ query: ME_TSHIRT_ORDER_QUERY }],
-    onError(error) {
-      setError('server', {
-        type: 'server',
-        message: 'Something went wrong...',
-      });
+  const [buyTShirt, { loading: loadingBuy }] = useMutation(
+    BUY_TSHIRT_MUTATION,
+    {
+      refetchQueries: [{ query: ME_TSHIRT_ORDER_QUERY }],
+      onError(error) {
+        setError('server', {
+          type: 'server',
+          message: 'Something went wrong...',
+        });
+      },
     },
-  });
+  );
 
   useEffect(() => {
     const func = (e) => {
@@ -172,7 +176,16 @@ const PledgeForm = ({ toggleForm }) => {
             >
               Cancel
             </ActionButton>
-            <ActionButton type="submit">Buy!</ActionButton>
+            <ActionButton type="submit">
+              {loadingBuy ? (
+                <>
+                  Buying
+                  <Loading />
+                </>
+              ) : (
+                'Buy!'
+              )}
+            </ActionButton>
           </Controls>
         </Form>
       </Body>

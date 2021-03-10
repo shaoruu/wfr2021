@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 import Money from '../components/Money';
-import { THEME_COLOR_0, THEME_COLOR_2, THEME_COLOR_3 } from '../config';
+import { THEME_COLOR_0, THEME_COLOR_3 } from '../config';
 
 import Card from './Card';
+
+const TITLE_SIZE = '1.4em';
 
 const PledgeWrapper = styled(Card)`
   min-width: 17em;
@@ -12,6 +14,7 @@ const PledgeWrapper = styled(Card)`
   margin-right: 2em;
 
   & h2 {
+    font-size: ${TITLE_SIZE};
     color: ${THEME_COLOR_3};
 
     & span {
@@ -37,6 +40,11 @@ const PledgeWrapper = styled(Card)`
   }
 `;
 
+const Outsider = styled.h3`
+  font-size: ${TITLE_SIZE};
+  color: purple;
+`;
+
 const Pledge = ({
   pledger,
   receiver,
@@ -46,7 +54,7 @@ const Pledge = ({
 }) => {
   return (
     <PledgeWrapper>
-      <h2>{pledger}</h2>
+      {pledger ? <h2>{pledger}</h2> : <Outsider>External Donor</Outsider>}
       <h2>
         <span>→ </span>
         {receiver}

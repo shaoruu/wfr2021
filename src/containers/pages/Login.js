@@ -9,6 +9,7 @@ import ActionButton from '../../components/ActionButton';
 import AuthContent from '../../components/AuthContent';
 import Card from '../../components/Card';
 import FormLogo from '../../components/FormLogo';
+import Loading from '../../components/Loading';
 import { THEME_COLOR_0, THEME_COLOR_1, THEME_COLOR_3 } from '../../config';
 import { useAuth } from '../../contexts/authContext';
 import { LOGIN_MUTATION } from '../../graphql/mutations';
@@ -183,7 +184,14 @@ const Login = () => {
             )}
           </div>
           <ActionButton type="submit" disabled={loading}>
-            {loading ? 'Hold up...' : 'Login'}
+            {loading ? (
+              <>
+                Hold up
+                <Loading />
+              </>
+            ) : (
+              'Login'
+            )}
           </ActionButton>
           <small>
             Don't have an account? <Link to="/register">Register here.</Link>

@@ -140,6 +140,64 @@ const UserMutations = {
 
     return pledge;
   },
+  async removePledge(parent, { id }) {
+    await PledgeModel.findByIdAndRemove(id);
+
+    return true;
+  },
+  async outsiderPledge(
+    parent,
+    { input: { flatDonation, perLapDonation, outsiderEmail, receiverEmail } },
+  ) {
+    const receiver = await UserModel.findOne({
+      email: receiverEmail,
+    });
+
+    if (!receiver) return false; // don't let them know it DNE
+
+    const pledge = new PledgeModel({
+      flatDonation,
+      perLapDonation,
+      outsiderEmail,
+      receiver,
+      createdAt: Date.now(),
+      confirmed: false,
+    });
+
+    await pledge.save();
+
+    // send email to pledger & receiver
+    // TODO: make this more protected.
+    await Helpers.sendEmail(
+      outsiderEmail,
+      'Donating to WalkForRefugees',
+      `Click this link to confirm donation to ${receiver.firstName} ${
+        receiver.lastName
+      }: ${process.env.FRONTEND_URL || 'http://localhost:3000'}/donate/${
+        pledge.id
+      }`,
+    );
+
+    return true;
+  },
+  async confirmPledge(parent, { id }) {
+    const pledge = await PledgeModel.findById(id);
+
+    if (!pledge) throw new Error('Unable to confirm pledge.');
+
+    pledge.confirmed = true;
+    await pledge.save();
+
+    // await Helpers.sendEmail(pledge.receiver)
+    const receiver = await UserModel.findById(pledge.receiver);
+    await Helpers.sendEmail(
+      receiver.email,
+      `You've received an external pledge!`,
+      `You've received a pledge from ${pledge.outsiderEmail} with flat donation of NT ${pledge.flatDonation} and per-lap donation of ${pledge.perLapDonation}!`,
+    );
+
+    return true;
+  },
   async buyTShirt(parent, { input }, { user: buyer, pubsub }) {
     let tShirtOrder = await TShirtOrderModel.findOne({
       buyer,
@@ -165,11 +223,6 @@ const UserMutations = {
     });
 
     return tShirtOrder;
-  },
-  async removePledge(parent, { id }) {
-    await PledgeModel.findByIdAndRemove(id);
-
-    return true;
   },
 };
 

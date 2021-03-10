@@ -5,10 +5,12 @@ type Pledge {
   perLapDonation: Int!
   collected: Boolean!
 
+  outsiderEmail: String
+  confirmed: Boolean!
   eventWide: Boolean!
   createdAt: String!
 
-  pledger: User!
+  pledger: User
   receiver: User
 }
 
@@ -27,4 +29,11 @@ input PledgeMeInput {
 input PledgeEventInput {
   flatDonation: Int!
   perLapDonation: Int!
+}
+
+input OutsiderPledgeInput {
+  flatDonation: Int!
+  perLapDonation: Int!
+  outsiderEmail: String!
+  receiverEmail: String!
 }

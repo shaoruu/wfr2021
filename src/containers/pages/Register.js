@@ -11,6 +11,7 @@ import ActionButton from '../../components/ActionButton';
 import AuthContent from '../../components/AuthContent';
 import Card from '../../components/Card';
 import FormLogo from '../../components/FormLogo';
+import Loading from '../../components/Loading';
 import { THEME_COLOR_3, THEME_COLOR_4 } from '../../config';
 import { useAuth } from '../../contexts/authContext';
 import { REGISTER_MUTATION } from '../../graphql/mutations';
@@ -231,7 +232,14 @@ const Register = () => {
             )}
           </div>
           <ActionButton type="submit" disabled={loading}>
-            {loading ? 'Hold up...' : 'Join the Run!'}
+            {loading ? (
+              <>
+                Hold up
+                <Loading />
+              </>
+            ) : (
+              'Join the Run!'
+            )}
           </ActionButton>
           <small>
             Already have an account? <Link to="/login">Login here.</Link>

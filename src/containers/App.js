@@ -12,6 +12,7 @@ import { useAuth } from '../contexts/authContext';
 
 import Confirm from './pages/Confirm';
 import Dashboard from './pages/Dashboard';
+import Donate from './pages/Donate';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -93,8 +94,11 @@ function App() {
         <Route path="/logout">
           <Logout />
         </Route>
-        <Route path="/confirm">
+        <Route path="/confirm/:id">
           <Confirm />
+        </Route>
+        <Route path="/donate/:id">
+          <Donate />
         </Route>
         <Route component={CorePages} />
       </Switch>

@@ -19,6 +19,7 @@ import Backdrop from './Backdrop';
 import Card from './Card';
 import Form from './Form';
 import FullPageSpinner from './FullPageSpinner';
+import Loading from './Loading';
 
 const Title = styled.h1`
   font-size: 1.6em;
@@ -80,12 +81,18 @@ const PledgeForm = ({ toggleForm }) => {
   });
   const { loading, data } = useQuery(USER_EMAILS_QUERY);
   const [isEventWide, setIsEventWide] = useState(false);
-  const [pledgeTo] = useMutation(PLEDGE_TO_MUTATION, {
-    refetchQueries: [{ query: DASHBOARD_QUERY }],
-  });
-  const [pledgeEvent] = useMutation(PLEDGE_EVENT_MUTATION, {
-    refetchQueries: [{ query: DASHBOARD_QUERY }],
-  });
+  const [pledgeTo, { loading: loadingPledgeTo }] = useMutation(
+    PLEDGE_TO_MUTATION,
+    {
+      refetchQueries: [{ query: DASHBOARD_QUERY }],
+    },
+  );
+  const [pledgeEvent, { loading: loadingPledgeEvent }] = useMutation(
+    PLEDGE_EVENT_MUTATION,
+    {
+      refetchQueries: [{ query: DASHBOARD_QUERY }],
+    },
+  );
 
   useEffect(() => {
     const func = (e) => {
@@ -190,7 +197,16 @@ const PledgeForm = ({ toggleForm }) => {
             >
               Cancel
             </ActionButton>
-            <ActionButton type="submit">Submit</ActionButton>
+            <ActionButton type="submit">
+              {loadingPledgeEvent || loadingPledgeTo ? (
+                <>
+                  Submitting
+                  <Loading />
+                </>
+              ) : (
+                'Submit'
+              )}
+            </ActionButton>
           </Controls>
         </Form>
       </Body>

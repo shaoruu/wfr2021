@@ -1,23 +1,21 @@
-import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { THEME_COLOR_3, THEME_COLOR_4, THEME_COLOR_C } from '../config';
-import {
-  PLEDGE_EVENT_MUTATION,
-  PLEDGE_TO_MUTATION,
-} from '../graphql/mutations';
+import { OUTSIDER_PLEDGE_MUTATION } from '../graphql/mutations';
 import { DASHBOARD_QUERY } from '../graphql/queries';
 
 import ActionButton from './ActionButton';
 import Backdrop from './Backdrop';
 import Card from './Card';
 import Form from './Form';
+import Loading from './Loading';
 
 const Title = styled.h1`
   font-size: 1.6em;
@@ -28,6 +26,14 @@ const Title = styled.h1`
 
 const Body = styled(Card)`
   width: 600px;
+
+  & > small {
+    text-align: center;
+    display: block;
+    color: ${THEME_COLOR_4}cc;
+    width: 80%;
+    margin: 1em auto 0 auto;
+  }
 `;
 
 const Controls = styled.section`
@@ -58,7 +64,8 @@ const Controls = styled.section`
 `;
 
 const schema = yup.object().shape({
-  // receiverEmail: yup.string().required('Runner is required.'),
+  outsiderEmail: yup.string().required('Your email is required.'),
+  receiverEmail: yup.string().required("Runner's email is required."),
   perLapDonation: yup
     .number()
     .typeError('Please enter a number.')
@@ -77,11 +84,7 @@ const HomeDonateForm = ({ toggleForm }) => {
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
-  const [isEventWide, setIsEventWide] = useState(false);
-  const [pledgeTo] = useMutation(PLEDGE_TO_MUTATION, {
-    refetchQueries: [{ query: DASHBOARD_QUERY }],
-  });
-  const [pledgeEvent] = useMutation(PLEDGE_EVENT_MUTATION, {
+  const [outsiderPledge, { loading }] = useMutation(OUTSIDER_PLEDGE_MUTATION, {
     refetchQueries: [{ query: DASHBOARD_QUERY }],
   });
 
@@ -100,15 +103,9 @@ const HomeDonateForm = ({ toggleForm }) => {
   }, []);
 
   const onSubmit = async (data) => {
-    if (isEventWide) {
-      await pledgeEvent({
-        variables: data,
-      });
-    } else {
-      await pledgeTo({
-        variables: data,
-      });
-    }
+    await outsiderPledge({
+      variables: data,
+    });
     reset();
     toggleForm();
   };
@@ -117,28 +114,30 @@ const HomeDonateForm = ({ toggleForm }) => {
     <Backdrop>
       <Body>
         <Title>Donate without an Account</Title>
+        <small>
+          For donations outside of TAS, we email the donor to confirm the
+          donation. Once confirmed, we then save the pledge to our database.
+        </small>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <div className="isEventWide">
-            <label htmlFor="isEventWide">Pledge event-wide</label>
+          <div>
+            <label htmlFor="outsiderEmail">Your Email</label>
             <input
-              type="checkbox"
-              checked={isEventWide}
-              onChange={() => setIsEventWide(!isEventWide)}
-              name="isEventWide"
+              name="outsiderEmail"
+              ref={register({ required: true })}
+              placeholder="Your personal email"
             />
+            <small>{errors.outsiderEmail?.message}</small>
           </div>
 
-          {!isEventWide && (
-            <div>
-              <label htmlFor="receiverEmail">Runner's Email</label>
-              <input
-                name="receiverEmail"
-                ref={register({ required: true })}
-                placeholder="Runner's school email"
-              />
-              <small>{errors.receiverEmail?.message}</small>
-            </div>
-          )}
+          <div>
+            <label htmlFor="receiverEmail">Runner's Email</label>
+            <input
+              name="receiverEmail"
+              ref={register({ required: true })}
+              placeholder="Runner's school email"
+            />
+            <small>{errors.receiverEmail?.message}</small>
+          </div>
 
           <div>
             <label htmlFor="perLapDonation">Per Lap Donation (NT)</label>
@@ -162,6 +161,10 @@ const HomeDonateForm = ({ toggleForm }) => {
             <small>{errors.flatDonation?.message}</small>
           </div>
 
+          <small style={{ color: 'gray', marginBottom: 10 }}>
+            Already have an account? <Link to="/login">Login here.</Link>
+          </small>
+
           <Controls>
             <ActionButton
               onClick={(e) => {
@@ -172,7 +175,16 @@ const HomeDonateForm = ({ toggleForm }) => {
             >
               Cancel
             </ActionButton>
-            <ActionButton type="submit">Submit</ActionButton>
+            <ActionButton type="submit">
+              {loading ? (
+                <>
+                  Sending email
+                  <Loading />
+                </>
+              ) : (
+                'Submit'
+              )}
+            </ActionButton>
           </Controls>
         </Form>
       </Body>

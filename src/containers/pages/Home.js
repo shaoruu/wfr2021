@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Background from '../../assets/background1.jpg';
@@ -311,6 +311,7 @@ const TwoEventsWrapper = styled.section`
 
 const Home = () => {
   const [showDonate, setShowDonate] = useState(false);
+  const history = useHistory();
   const { data } = useAuth();
 
   const toggleForm = () => {
@@ -333,9 +334,14 @@ const Home = () => {
         <RegularNavButton href="#two-events">Walkathon</RegularNavButton>
         <RegularNavButton href="#two-events">Teacher Karaoke</RegularNavButton>
         {data ? (
-          <Link to="/dashboard">
-            <ActionButton>Dashboard</ActionButton>
-          </Link>
+          <>
+            <Link to="/dashboard">
+              <ActionButton>Dashboard</ActionButton>
+            </Link>
+            <Link to="/logout">
+              <ActionButton>Logout</ActionButton>
+            </Link>
+          </>
         ) : (
           <>
             <Link to="/login">
@@ -355,7 +361,17 @@ const Home = () => {
             <p>
               WALKING FOR: <span>BLACK LIVES</span>
             </p>
-            <ActionButton onClick={toggleForm}>Donate Now</ActionButton>
+            <ActionButton
+              onClick={() => {
+                if (data) {
+                  history.push('/dashboard');
+                  return;
+                }
+                toggleForm();
+              }}
+            >
+              Donate Now
+            </ActionButton>
           </div>
         </ImageHolder>
         <ReadyToRun>

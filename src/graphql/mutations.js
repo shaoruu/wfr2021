@@ -78,10 +78,34 @@ export const CONFIRM_ACCOUNT_MUTATION = gql`
   }
 `;
 
+export const CONFIRM_PLEDGE_MUTATION = gql`
+  mutation ConfirmPledge($id: ID!) {
+    confirmPledge(id: $id)
+  }
+`;
+
 export const BUY_TSHIRT_MUTATION = gql`
   mutation BuyTShirt($sCount: Int!, $mCount: Int!, $lCount: Int!) {
     buyTShirt(input: { sCount: $sCount, mCount: $mCount, lCount: $lCount }) {
       pickedUp
     }
+  }
+`;
+
+export const OUTSIDER_PLEDGE_MUTATION = gql`
+  mutation OutsiderPledge(
+    $flatDonation: Int!
+    $perLapDonation: Int!
+    $outsiderEmail: String!
+    $receiverEmail: String!
+  ) {
+    outsiderPledge(
+      input: {
+        flatDonation: $flatDonation
+        perLapDonation: $perLapDonation
+        outsiderEmail: $outsiderEmail
+        receiverEmail: $receiverEmail
+      }
+    )
   }
 `;

@@ -44,24 +44,25 @@ const LatestPledges = ({ pledges }) => {
             .reverse()
             .map(
               (
-                {
-                  pledger: { fullName: pledger },
-                  receiver: { fullName: receiver },
-                  createdAt,
-                  flatDonation,
-                  perLapDonation,
-                },
+                { pledger, receiver, createdAt, flatDonation, perLapDonation },
                 i,
-              ) => (
-                <Pledge
-                  key={'pledges' + i}
-                  createdAt={new Date(parseInt(createdAt, 10)).toLocaleString()}
-                  pledger={pledger}
-                  receiver={receiver}
-                  perLapDonation={perLapDonation}
-                  flatDonation={flatDonation}
-                />
-              ),
+              ) => {
+                const { fullName: pledgerName } = pledger || {};
+                const { fullName: receiverName } = receiver || {};
+
+                return (
+                  <Pledge
+                    key={'pledges' + i}
+                    createdAt={new Date(
+                      parseInt(createdAt, 10),
+                    ).toLocaleString()}
+                    pledger={pledgerName}
+                    receiver={receiverName}
+                    perLapDonation={perLapDonation}
+                    flatDonation={flatDonation}
+                  />
+                );
+              },
             )
         ) : (
           <NoPledges>

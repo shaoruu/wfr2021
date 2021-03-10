@@ -27,6 +27,10 @@ const EventWide = styled.span`
   color: green;
 `;
 
+const Outsider = styled.span`
+  color: purple;
+`;
+
 const ReceivedTable = ({ received }) => {
   return (
     <StyledSection>
@@ -43,18 +47,18 @@ const ReceivedTable = ({ received }) => {
         <tbody>
           {received.map(
             (
-              {
-                collected,
-                flatDonation,
-                perLapDonation,
-                eventWide,
-                pledger: { fullName: pledgerName },
-              },
+              { collected, flatDonation, perLapDonation, eventWide, pledger },
               i,
             ) => (
               <tr key={'received-table' + i}>
                 <td>
-                  {eventWide ? <EventWide>Event-Wide</EventWide> : pledgerName}
+                  {eventWide ? (
+                    <EventWide>Event-Wide</EventWide>
+                  ) : pledger ? (
+                    pledger.fullName
+                  ) : (
+                    <Outsider>External Donor</Outsider>
+                  )}
                 </td>
                 <td>
                   <Money>

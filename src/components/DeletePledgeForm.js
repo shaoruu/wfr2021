@@ -7,6 +7,7 @@ import { DASHBOARD_QUERY } from '../graphql/queries';
 
 import Backdrop from './Backdrop';
 import Card from './Card';
+import Loading from './Loading';
 
 const Title = styled.h1`
   font-size: 1.6em;
@@ -46,7 +47,7 @@ const Controls = styled.section`
 `;
 
 const DeletePledgeForm = ({ toDelete, setToDelete }) => {
-  const [removePledge] = useMutation(REMOVE_PLEDGE_MUTATION, {
+  const [removePledge, { loading }] = useMutation(REMOVE_PLEDGE_MUTATION, {
     refetchQueries: [{ query: DASHBOARD_QUERY }],
   });
 
@@ -71,7 +72,14 @@ const DeletePledgeForm = ({ toDelete, setToDelete }) => {
               setToDelete(null);
             }}
           >
-            Confirm
+            {loading ? (
+              <>
+                Confirming
+                <Loading />
+              </>
+            ) : (
+              'Confirm'
+            )}
           </button>
         </Controls>
       </Body>

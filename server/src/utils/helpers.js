@@ -103,12 +103,13 @@ class Helpers {
   };
 
   static sendConfirmation = async (email, userId) => {
+    // TODO: make this more protected.
     await Helpers.sendEmail(
       email,
       'Email Confirmation',
       `Click this link: ${
         process.env.FRONTEND_URL || 'http://localhost:3000'
-      }/confirm?id=${userId}`,
+      }/confirm/${userId}`,
     );
   };
 }
