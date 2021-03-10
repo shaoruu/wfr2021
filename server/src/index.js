@@ -1,5 +1,6 @@
 import path from 'path';
 
+import express from 'express';
 import { GraphQLServer, PubSub } from 'graphql-yoga';
 
 import resolvers from './graphql/resolvers';
@@ -24,8 +25,28 @@ const server = new GraphQLServer({
   },
 });
 
-server.start({ port: process.env.PORT | 4000 }, () => {
-  console.log(
-    `The server is up on http://localhost:${process.env.PORT | 4000}`,
-  );
-});
+server.start(
+  {
+    port: process.env.PORT | 4000,
+    playground: process.env.NODE_ENV !== 'production',
+  },
+  () => {
+    console.log(
+      `The server is up on http://localhost:${process.env.PORT | 4000}`,
+    );
+  },
+);
+
+const app = server.express;
+
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  const publicPath = path.join(__dirname, '..', '..', 'build');
+
+  app.use(express.static(publicPath));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+  });
+}
