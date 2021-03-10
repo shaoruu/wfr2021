@@ -102,7 +102,7 @@ const schema = yup.object().shape({
     .required('Password is required.'),
   passwordConfirmation: yup
     .string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .oneOf([yup.ref('password'), null], 'Passwords must match.'),
   schoolId: yup
     .string()
     .test(
@@ -231,7 +231,7 @@ const Register = () => {
             )}
           </div>
           <ActionButton type="submit" disabled={loading}>
-            {loading ? 'Hold on...' : 'Join the Run!'}
+            {loading ? 'Hold up...' : 'Join the Run!'}
           </ActionButton>
           <small>
             Already have an account? <Link to="/login">Login here.</Link>

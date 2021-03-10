@@ -155,7 +155,7 @@ const Login = () => {
     <AuthContent>
       <Wrapper>
         <FormLogo />
-        <Titles>Login to WFR 2021!</Titles>
+        <Titles>Login to W4R 2021!</Titles>
 
         <LoginForm onSubmit={handleSubmit(onSubmit)}>
           <div>
@@ -183,7 +183,7 @@ const Login = () => {
             )}
           </div>
           <ActionButton type="submit" disabled={loading}>
-            {loading ? 'Hold on...' : 'Login'}
+            {loading ? 'Hold up...' : 'Login'}
           </ActionButton>
           <small>
             Don't have an account? <Link to="/register">Register here.</Link>

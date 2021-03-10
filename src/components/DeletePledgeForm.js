@@ -1,30 +1,12 @@
 import { useMutation } from '@apollo/client';
 import styled from 'styled-components';
 
-import {
-  GENERAL_TRANSITION,
-  THEME_COLOR_3,
-  THEME_COLOR_4,
-  THEME_COLOR_C,
-} from '../config';
+import { THEME_COLOR_3, THEME_COLOR_4, THEME_COLOR_C } from '../config';
 import { REMOVE_PLEDGE_MUTATION } from '../graphql/mutations';
 import { DASHBOARD_QUERY } from '../graphql/queries';
 
+import Backdrop from './Backdrop';
 import Card from './Card';
-
-const Wrapper = styled.section`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000000;
-  background: #00000033;
-  transition: all ${GENERAL_TRANSITION};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 const Title = styled.h1`
   font-size: 1.6em;
@@ -69,7 +51,7 @@ const DeletePledgeForm = ({ toDelete, setToDelete }) => {
   });
 
   return (
-    <Wrapper>
+    <Backdrop>
       <Body>
         <Title>Remove this pledge?</Title>
 
@@ -93,7 +75,7 @@ const DeletePledgeForm = ({ toDelete, setToDelete }) => {
           </button>
         </Controls>
       </Body>
-    </Wrapper>
+    </Backdrop>
   );
 };
 

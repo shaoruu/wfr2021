@@ -7,14 +7,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
-import {
-  GENERAL_TRANSITION,
-  THEME_COLOR_0,
-  THEME_COLOR_1,
-  THEME_COLOR_3,
-  THEME_COLOR_4,
-  THEME_COLOR_C,
-} from '../config';
+import { THEME_COLOR_3, THEME_COLOR_4, THEME_COLOR_C } from '../config';
 import {
   PLEDGE_EVENT_MUTATION,
   PLEDGE_TO_MUTATION,
@@ -22,22 +15,10 @@ import {
 import { DASHBOARD_QUERY, USER_EMAILS_QUERY } from '../graphql/queries';
 
 import ActionButton from './ActionButton';
+import Backdrop from './Backdrop';
 import Card from './Card';
+import Form from './Form';
 import FullPageSpinner from './FullPageSpinner';
-
-const Wrapper = styled.section`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000000;
-  background: #00000033;
-  transition: all ${GENERAL_TRANSITION};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 const Title = styled.h1`
   font-size: 1.6em;
@@ -48,79 +29,6 @@ const Title = styled.h1`
 
 const Body = styled(Card)`
   width: 400px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  padding: 1em;
-
-  & > small {
-    margin-top: 1em;
-    color: ${THEME_COLOR_1};
-
-    & a {
-      color: ${THEME_COLOR_0};
-    }
-  }
-
-  & div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    margin: 0.4em 0;
-  }
-
-  & div.isEventWide {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-
-    input {
-      width: fit-content;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-  }
-
-  & section {
-    display: flex;
-  }
-
-  & div label {
-    color: ${THEME_COLOR_0};
-    font-size: 0.8em;
-    margin-left: 0.4em;
-  }
-
-  & div small {
-    color: red;
-  }
-
-  & select {
-    position: relative;
-    background: transparent;
-
-    & option {
-      padding: 1em;
-    }
-  }
-
-  & input,
-  & select {
-    width: 100%;
-    padding: 1em;
-    border-radius: 5px;
-    outline: none;
-    margin: 0.5em 0;
-    border: 1px solid gray;
-  }
 `;
 
 const Controls = styled.section`
@@ -195,11 +103,11 @@ const PledgeForm = ({ toggleForm }) => {
 
   if (loading) {
     return (
-      <Wrapper>
+      <Backdrop>
         <Body>
           <FullPageSpinner />
         </Body>
-      </Wrapper>
+      </Backdrop>
     );
   }
 
@@ -220,7 +128,7 @@ const PledgeForm = ({ toggleForm }) => {
   };
 
   return (
-    <Wrapper>
+    <Backdrop>
       <Body>
         <Title>Make a pledge!</Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -286,7 +194,7 @@ const PledgeForm = ({ toggleForm }) => {
           </Controls>
         </Form>
       </Body>
-    </Wrapper>
+    </Backdrop>
   );
 };
 

@@ -1,7 +1,6 @@
 import {
   IoCashOutline,
   IoLogOutOutline,
-  IoPersonOutline,
   IoShirtOutline,
   IoStatsChartOutline,
 } from 'react-icons/io5';
@@ -110,11 +109,6 @@ const NavBar = () => {
             to="/products"
             text="Products"
             icon={<IoShirtOutline className="nav-button-icon" />}
-          />
-          <NavButton
-            to="/runner"
-            text="Runner"
-            icon={<IoPersonOutline className="nav-button-icon" />}
           />
           <NavButton
             to="/logout"

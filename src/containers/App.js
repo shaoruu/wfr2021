@@ -18,7 +18,6 @@ import Logout from './pages/Logout';
 import Pledge from './pages/Pledge';
 import Products from './pages/Products';
 import Register from './pages/Register';
-import Runner from './pages/Runner';
 
 const CoreContent = styled.div`
   z-index: 0;
@@ -72,9 +71,6 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/products">
             <Products />
-          </PrivateRoute>
-          <PrivateRoute path="/runner">
-            <Runner />
           </PrivateRoute>
           <Redirect to="/" />
         </Switch>

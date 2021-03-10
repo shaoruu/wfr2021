@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -15,6 +17,7 @@ import {
   THEME_COLOR_4,
   THEME_COLOR_B,
 } from '../../config';
+import { useAuth } from '../../contexts/authContext';
 
 const NAV_HEIGHT = '4em';
 
@@ -303,13 +306,16 @@ const TwoEventsWrapper = styled.section`
 `;
 
 const Home = () => {
+  const [showDonate, setShowDonate] = useState(false);
+  const { data } = useAuth();
+
   return (
     <Wrapper>
       <NavBar>
         <Link to="/">
           <h1>
             <img src={Logo} alt="logo" />
-            WFR
+            W4R
           </h1>
         </Link>
         <div />
@@ -317,12 +323,20 @@ const Home = () => {
         <RegularNavButton href="#2021theme">2021 Theme</RegularNavButton>
         <RegularNavButton href="#two-events">Walkathon</RegularNavButton>
         <RegularNavButton href="#two-events">Teacher Karaoke</RegularNavButton>
-        <Link to="/login">
-          <ActionButton>Login</ActionButton>
-        </Link>
-        <Link to="/register">
-          <ActionButton>Register</ActionButton>
-        </Link>
+        {data ? (
+          <Link to="/dashboard">
+            <ActionButton>Dashboard</ActionButton>
+          </Link>
+        ) : (
+          <>
+            <Link to="/login">
+              <ActionButton>Login</ActionButton>
+            </Link>
+            <Link to="/register">
+              <ActionButton>Register</ActionButton>
+            </Link>
+          </>
+        )}
       </NavBar>
       <IntroSection>
         <ImageHolder className="image-holder">
@@ -330,8 +344,7 @@ const Home = () => {
           <div>
             <h1>WALK FOR REFUGEES</h1>
             <p>
-              WALKING FOR:{' '}
-              <span>BLACK LIVES✊🏿</span>
+              WALKING FOR: <span>BLACK LIVES✊🏿</span>
             </p>
             <Link to="/register">
               <ActionButton>Donate Now</ActionButton>
@@ -341,15 +354,27 @@ const Home = () => {
         <ReadyToRun>
           <div className="info">
             <h1>Ready to run?</h1>
-            <h3>Sign up for 2021 Walkathon</h3>
+            <h3>
+              {data ? 'Start making pledges!!!' : 'Sign up for 2021 Walkathon'}
+            </h3>
           </div>
           <div>
-            <Link to="/register">
-              <ActionButton>Register</ActionButton>
-            </Link>
-            <Link to="#aboutus">
+            {data ? (
+              <Link to="/dashboard">
+                <ActionButton>Dashboard</ActionButton>
+              </Link>
+            ) : (
+              <Link to="/register">
+                <ActionButton>Register</ActionButton>
+              </Link>
+            )}
+            <a
+              href="https://www.instagram.com/walk4refugees/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <WhiteActionButton>Learn More</WhiteActionButton>
-            </Link>
+            </a>
           </div>
         </ReadyToRun>
       </IntroSection>
@@ -416,7 +441,11 @@ const Home = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore...
           </p>
-          <Link to="/register">Sign Up Now</Link>
+          {data ? (
+            <Link to="/pledge">Start pledging!</Link>
+          ) : (
+            <Link to="/register">Sign Up Now</Link>
+          )}
         </div>
         <div>
           <h1>TEACHER KARAOKE - APR 27TH</h1>
@@ -424,7 +453,7 @@ const Home = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore...
           </p>
-          <Link to="/register">Support Us</Link>
+          <Link to={data ? '/pledge' : '/register'}>Support us!</Link>
         </div>
       </TwoEventsWrapper>
     </Wrapper>

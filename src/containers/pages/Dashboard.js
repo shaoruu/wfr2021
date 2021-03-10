@@ -50,17 +50,18 @@ const Dashboard = () => {
     me: { fullName, pledges, received },
   } = data;
 
-
   return (
     <Wrapper>
       <TitleBar>
         <h1>Hi, {fullName}</h1>
         <p>{quotes[Math.floor(quotes.length * Math.random())]}</p>
       </TitleBar>
-      <StatusBar pledges={pledges} received={received} allPledges={allPledges} />
+      <StatusBar
+        pledges={pledges}
+        received={received}
+        allPledges={allPledges}
+      />
       <LatestPledges pledges={allPledges} />
-      {/* <MyPledges /> */}
-      {/* TODO: ADD PLEDGE STATS */}
     </Wrapper>
   );
 };
