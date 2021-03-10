@@ -3,7 +3,13 @@ import ReceivedTable from './ReceivedTable';
 import SectionHolder from './SectionHolder';
 import TShirtAd from './TShirtAd';
 
-const MyPledges = ({ pledges, received, toggleForm, setToDelete }) => {
+const MyPledges = ({
+  pledges,
+  received,
+  eventWide,
+  toggleForm,
+  setToDelete,
+}) => {
   return (
     <SectionHolder>
       <PledgeTable
@@ -11,7 +17,7 @@ const MyPledges = ({ pledges, received, toggleForm, setToDelete }) => {
         toggleForm={toggleForm}
         setToDelete={setToDelete}
       />
-      <ReceivedTable received={received} />
+      <ReceivedTable received={[...received, ...eventWide]} />
       <TShirtAd />
     </SectionHolder>
   );

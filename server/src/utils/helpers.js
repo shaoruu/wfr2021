@@ -55,6 +55,7 @@ class Helpers {
       perLapDonation,
       pledger,
       receiver,
+      createdAt: Date.now(),
     });
 
     await pledge.save();

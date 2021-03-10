@@ -23,6 +23,10 @@ const NoReceives = styled.div`
   }
 `;
 
+const EventWide = styled.span`
+  color: green;
+`;
+
 const ReceivedTable = ({ received }) => {
   return (
     <StyledSection>
@@ -43,12 +47,15 @@ const ReceivedTable = ({ received }) => {
                 collected,
                 flatDonation,
                 perLapDonation,
+                eventWide,
                 pledger: { fullName: pledgerName },
               },
               i,
             ) => (
               <tr key={'received-table' + i}>
-                <td>{pledgerName}</td>
+                <td>
+                  {eventWide ? <EventWide>Event-Wide</EventWide> : pledgerName}
+                </td>
                 <td>
                   <Money>
                     NT<span>{perLapDonation}</span>

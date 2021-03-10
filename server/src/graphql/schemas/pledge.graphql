@@ -6,6 +6,7 @@ type Pledge {
   collected: Boolean!
 
   eventWide: Boolean!
+  createdAt: String!
 
   pledger: User!
   receiver: User

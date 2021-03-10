@@ -39,16 +39,30 @@ const LatestPledges = ({ pledges }) => {
       <SectionTitle>Latest Pledges</SectionTitle>
       <PledgesWrapper>
         {pledges.length ? (
-          pledges.map(
-            ({ pledger: { fullName }, flatDonation, perLapDonation }, i) => (
-              <Pledge
-                key={'pledges' + i}
-                username={fullName}
-                perLapDonation={perLapDonation}
-                flatDonation={flatDonation}
-              />
-            ),
-          )
+          pledges
+            .slice(0)
+            .reverse()
+            .map(
+              (
+                {
+                  pledger: { fullName: pledger },
+                  receiver: { fullName: receiver },
+                  createdAt,
+                  flatDonation,
+                  perLapDonation,
+                },
+                i,
+              ) => (
+                <Pledge
+                  key={'pledges' + i}
+                  createdAt={new Date(parseInt(createdAt, 10)).toLocaleString()}
+                  pledger={pledger}
+                  receiver={receiver}
+                  perLapDonation={perLapDonation}
+                  flatDonation={flatDonation}
+                />
+              ),
+            )
         ) : (
           <NoPledges>
             No pledges or receives yet.{' '}

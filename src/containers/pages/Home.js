@@ -10,6 +10,7 @@ import Logo from '../../assets/logo.png';
 import Shape1 from '../../assets/shape1.svg';
 import Shape2 from '../../assets/shape2.svg';
 import ActionButton from '../../components/ActionButton';
+import HomeDonateForm from '../../components/HomeDonateForm';
 import {
   THEME_COLOR_1,
   THEME_COLOR_2,
@@ -97,6 +98,7 @@ const ImageHolder = styled.div`
 
     & span {
       color: black;
+      background: white;
     }
 
     & h1 {
@@ -311,8 +313,13 @@ const Home = () => {
   const [showDonate, setShowDonate] = useState(false);
   const { data } = useAuth();
 
+  const toggleForm = () => {
+    setShowDonate(!showDonate);
+  };
+
   return (
     <Wrapper>
+      {showDonate && <HomeDonateForm toggleForm={toggleForm} />}
       <NavBar>
         <Link to="/">
           <h1>
@@ -348,7 +355,7 @@ const Home = () => {
             <p>
               WALKING FOR: <span>BLACK LIVES</span>
             </p>
-            <ActionButton>Donate Now</ActionButton>
+            <ActionButton onClick={toggleForm}>Donate Now</ActionButton>
           </div>
         </ImageHolder>
         <ReadyToRun>

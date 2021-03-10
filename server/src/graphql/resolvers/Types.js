@@ -14,7 +14,6 @@ const getReceived = async (userId) => {
 
 const getEventWide = async (userId) => {
   return PledgeModel.find({
-    pledger: await UserModel.findById(userId),
     eventWide: true,
   });
 };

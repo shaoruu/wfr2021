@@ -9,7 +9,6 @@ const id2emailSrcRAW = fs.readFileSync('./server/id2email.json');
 const id2email = JSON.parse(id2emailSrcRAW);
 
 const id2emailExists = (testId, testEmail) => {
-  console.log(testId, testEmail);
   return !!id2email.find(
     ({ id, email }) =>
       id.toLowerCase() === testId && email.toLowerCase() === testEmail,
@@ -72,7 +71,6 @@ const UserMutations = {
 
     user.confirmed = true;
     await user.save();
-    console.log(user);
 
     return true;
   },
@@ -128,6 +126,7 @@ const UserMutations = {
       perLapDonation,
       eventWide: true,
       pledger,
+      createdAt: Date.now(),
     });
 
     await pledge.save();

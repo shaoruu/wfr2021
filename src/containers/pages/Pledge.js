@@ -53,7 +53,7 @@ const Pledge = () => {
   if (loading) return <FullPageSpinner />;
 
   const {
-    me: { pledges, received, confirmed },
+    me: { pledges, received, eventWide, confirmed },
   } = data;
 
   const toggleForm = () => {
@@ -75,6 +75,7 @@ const Pledge = () => {
           <MyPledges
             pledges={pledges}
             received={received}
+            eventWide={eventWide}
             toggleForm={toggleForm}
             setToDelete={setToDelete}
           />

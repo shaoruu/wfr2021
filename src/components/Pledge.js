@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import Money from '../components/Money';
-import { THEME_COLOR_3 } from '../config';
+import { THEME_COLOR_0, THEME_COLOR_2, THEME_COLOR_3 } from '../config';
 
 import Card from './Card';
 
@@ -13,6 +13,16 @@ const PledgeWrapper = styled(Card)`
 
   & h2 {
     color: ${THEME_COLOR_3};
+
+    & span {
+      color: ${THEME_COLOR_0};
+    }
+  }
+
+  & small {
+    color: gray;
+    margin-top: 1em;
+    display: block;
   }
 
   & ul {
@@ -27,10 +37,20 @@ const PledgeWrapper = styled(Card)`
   }
 `;
 
-const Pledge = ({ username, perLapDonation, flatDonation }) => {
+const Pledge = ({
+  pledger,
+  receiver,
+  createdAt,
+  perLapDonation,
+  flatDonation,
+}) => {
   return (
     <PledgeWrapper>
-      <h2>{username}</h2>
+      <h2>{pledger}</h2>
+      <h2>
+        <span>→ </span>
+        {receiver}
+      </h2>
       <ul>
         <li>
           <Money>
@@ -43,6 +63,7 @@ const Pledge = ({ username, perLapDonation, flatDonation }) => {
           </Money>
         </li>
       </ul>
+      <small>@ {createdAt}</small>
     </PledgeWrapper>
   );
 };

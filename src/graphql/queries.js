@@ -15,6 +15,7 @@ export const DASHBOARD_QUERY = gql`
     pledges {
       id
       collected
+      createdAt
       flatDonation
       perLapDonation
       pledger {
@@ -54,6 +55,7 @@ export const DASHBOARD_QUERY = gql`
       eventWide {
         id
         collected
+        eventWide
         flatDonation
         perLapDonation
         pledger {

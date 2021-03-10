@@ -1,17 +1,183 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
+
+import { useMutation } from '@apollo/client';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import * as yup from 'yup';
 
-import { GENERAL_TRANSITION } from '../config';
+import { THEME_COLOR_3, THEME_COLOR_4, THEME_COLOR_C } from '../config';
+import {
+  PLEDGE_EVENT_MUTATION,
+  PLEDGE_TO_MUTATION,
+} from '../graphql/mutations';
+import { DASHBOARD_QUERY } from '../graphql/queries';
 
-const Wrapper = styled.section`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000000;
-  background: #00000033;
-  transition: all ${GENERAL_TRANSITION};
+import ActionButton from './ActionButton';
+import Backdrop from './Backdrop';
+import Card from './Card';
+import Form from './Form';
+
+const Title = styled.h1`
+  font-size: 1.6em;
+  font-weight: 600;
+  color: ${THEME_COLOR_4};
+  text-align: center;
+`;
+
+const Body = styled(Card)`
+  width: 600px;
+`;
+
+const Controls = styled.section`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+
+  & button {
+    padding: 1em;
+    flex: 0.45;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+
+  & button:first-of-type {
+    background: ${THEME_COLOR_3}dd;
+    color: white;
+    margin: 0.5em 0;
+  }
+
+  & button:last-of-type {
+    background: ${THEME_COLOR_C}dd;
+    color: white;
+    margin: 0.5em 0;
+  }
 `;
+
+const schema = yup.object().shape({
+  // receiverEmail: yup.string().required('Runner is required.'),
+  perLapDonation: yup
+    .number()
+    .typeError('Please enter a number.')
+    .min(0, 'Negative pledge not supported.')
+    .max(1000000, "That's a lot of money. Reconsider...?")
+    .required('Per lap donation is required.'),
+  flatDonation: yup
+    .number()
+    .typeError('Please enter a number.')
+    .min(0, 'Negative donation not supported.')
+    .max(1000000, "That's a lot of money. Reconsider...?")
+    .required('Flat donation is required.'),
+});
+
+const HomeDonateForm = ({ toggleForm }) => {
+  const { register, handleSubmit, errors, reset } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const [isEventWide, setIsEventWide] = useState(false);
+  const [pledgeTo] = useMutation(PLEDGE_TO_MUTATION, {
+    refetchQueries: [{ query: DASHBOARD_QUERY }],
+  });
+  const [pledgeEvent] = useMutation(PLEDGE_EVENT_MUTATION, {
+    refetchQueries: [{ query: DASHBOARD_QUERY }],
+  });
+
+  useEffect(() => {
+    const func = (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('keydown', func, false);
+
+    return () => {
+      document.removeEventListener('keydown', func, false);
+    };
+  }, []);
+
+  const onSubmit = async (data) => {
+    if (isEventWide) {
+      await pledgeEvent({
+        variables: data,
+      });
+    } else {
+      await pledgeTo({
+        variables: data,
+      });
+    }
+    reset();
+    toggleForm();
+  };
+
+  return (
+    <Backdrop>
+      <Body>
+        <Title>Donate without an Account</Title>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <div className="isEventWide">
+            <label htmlFor="isEventWide">Pledge event-wide</label>
+            <input
+              type="checkbox"
+              checked={isEventWide}
+              onChange={() => setIsEventWide(!isEventWide)}
+              name="isEventWide"
+            />
+          </div>
+
+          {!isEventWide && (
+            <div>
+              <label htmlFor="receiverEmail">Runner's Email</label>
+              <input
+                name="receiverEmail"
+                ref={register({ required: true })}
+                placeholder="Runner's school email"
+              />
+              <small>{errors.receiverEmail?.message}</small>
+            </div>
+          )}
+
+          <div>
+            <label htmlFor="perLapDonation">Per Lap Donation (NT)</label>
+            <input
+              name="perLapDonation"
+              type="number"
+              defaultValue="10"
+              ref={register({ required: true })}
+            />
+            <small>{errors.perLapDonation?.message}</small>
+          </div>
+
+          <div>
+            <label htmlFor="flatDonation">Flat Donation (NT)</label>
+            <input
+              name="flatDonation"
+              type="number"
+              defaultValue="10"
+              ref={register({ required: true })}
+            />
+            <small>{errors.flatDonation?.message}</small>
+          </div>
+
+          <Controls>
+            <ActionButton
+              onClick={(e) => {
+                e.preventDefault();
+                toggleForm();
+                reset();
+              }}
+            >
+              Cancel
+            </ActionButton>
+            <ActionButton type="submit">Submit</ActionButton>
+          </Controls>
+        </Form>
+      </Body>
+    </Backdrop>
+  );
+};
+
+export default HomeDonateForm;
