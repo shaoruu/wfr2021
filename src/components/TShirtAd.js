@@ -33,7 +33,7 @@ const Wrapper = styled(StyledSection)`
     }
   }
 
-  @media ${device.tablet} {
+  @media (min-width: 1200px) {
     width: 22em;
   }
 `;

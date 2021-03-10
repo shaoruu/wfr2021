@@ -17,14 +17,14 @@ const StatusBarWrapper = styled(Card)`
   & img {
     width: 100%;
 
-    @media ${device.tablet} {
-      width: unset;
-      height: 100%;
+    @media (min-width: 1200px) {
+      width: 16em;
+      /* height: 100%; */
     }
   }
 
-  @media ${device.tablet} {
-    height: 16em;
+  @media (min-width: 1200px) {
+    /* height: 16em; */
     flex-direction: row;
   }
 `;
@@ -33,7 +33,7 @@ const StatusContent = styled.div`
   color: ${THEME_COLOR_1};
   margin-top: 2em;
 
-  @media ${device.tablet} {
+  @media (min-width: 1200px) {
     margin: auto 3em;
   }
 `;

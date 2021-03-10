@@ -8,7 +8,7 @@ import DeletePledgeForm from '../../components/DeletePledgeForm';
 import FullPageSpinner from '../../components/FullPageSpinner';
 import MyPledges from '../../components/MyPledges';
 import PledgeForm from '../../components/PledgeForm';
-import { device, THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
+import { THEME_COLOR_0, THEME_COLOR_3 } from '../../config';
 import { DASHBOARD_QUERY } from '../../graphql/queries';
 
 const Wrapper = styled.div`
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   justify-content: center;
   position: relative;
 
-  @media ${device.tablet} {
+  @media (min-width: 1200px) {
     padding: 2em 4em;
     min-height: 100vh;
   }

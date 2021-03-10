@@ -31,7 +31,7 @@ const Body = styled(Card)`
     text-align: center;
     display: block;
     color: ${THEME_COLOR_4}cc;
-    width: 80%;
+    width: 60%;
     margin: 1em auto 0 auto;
   }
 `;
@@ -113,10 +113,10 @@ const HomeDonateForm = ({ toggleForm }) => {
   return (
     <Backdrop>
       <Body>
-        <Title>Donate without an Account</Title>
+        <Title>Pledge to Our Cause</Title>
         <small>
-          For donations outside of TAS, we email the donor to confirm the
-          donation. Once confirmed, we then save the pledge to our database.
+          Support our 2021 event by donating to a specific runner or our event
+          as a whole.
         </small>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div>

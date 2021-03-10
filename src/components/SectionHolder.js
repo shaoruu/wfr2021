@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 const Grid = styled.div`
   width: 100%;
 
-  @media ${device.tablet} {
+  @media (min-width: 1200px) {
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -27,7 +27,10 @@ const Wrapper = styled.div`
   align-items: flex-start;
   justify-content: center;
   position: relative;
-  height: 100vh;
+
+  @media (min-width: 1200px) {
+    height: 100vh;
+  }
 `;
 
 const TitleBar = styled.div`
@@ -47,15 +50,22 @@ const TitleBar = styled.div`
 
 const Background = styled.img`
   width: 20em;
-  position: absolute;
-  bottom: 0;
-  right: 0;
   margin: 1em;
+
+  @media (min-width: 1200px) {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 `;
 
 const TShirtWrapper = styled(Card)`
   background: ${THEME_COLOR_B};
   display: flex;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const TShirt = styled(Card)`

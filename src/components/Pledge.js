@@ -5,7 +5,7 @@ import { THEME_COLOR_0, THEME_COLOR_3 } from '../config';
 
 import Card from './Card';
 
-const TITLE_SIZE = '1.4em';
+const TITLE_SIZE = '1.6em';
 
 const PledgeWrapper = styled(Card)`
   min-width: 17em;
@@ -45,6 +45,11 @@ const Outsider = styled.h3`
   color: purple;
 `;
 
+const EventWide = styled.span`
+  color: green !important;
+  display: inline;
+`;
+
 const Pledge = ({
   pledger,
   receiver,
@@ -57,7 +62,7 @@ const Pledge = ({
       {pledger ? <h2>{pledger}</h2> : <Outsider>External Donor</Outsider>}
       <h2>
         <span>→ </span>
-        {receiver}
+        {receiver ? receiver : <EventWide>Event-Wide</EventWide>}
       </h2>
       <ul>
         <li>
