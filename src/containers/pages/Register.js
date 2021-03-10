@@ -123,7 +123,6 @@ const Register = () => {
   const { data } = useAuth();
   const [regMutate, { loading }] = useMutation(REGISTER_MUTATION, {
     onError(error) {
-      console.log(error);
       setError('server', {
         type: 'server',
         message: error.message,

@@ -77,3 +77,11 @@ export const CONFIRM_ACCOUNT_MUTATION = gql`
     confirm(id: $id)
   }
 `;
+
+export const BUY_TSHIRT_MUTATION = gql`
+  mutation BuyTShirt($sCount: Int!, $mCount: Int!, $lCount: Int!) {
+    buyTShirt(input: { sCount: $sCount, mCount: $mCount, lCount: $lCount }) {
+      pickedUp
+    }
+  }
+`;

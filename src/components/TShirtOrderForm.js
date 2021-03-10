@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { useMutation, useQuery } from '@apollo/client';
@@ -15,11 +14,8 @@ import {
   THEME_COLOR_4,
   THEME_COLOR_C,
 } from '../config';
-import {
-  PLEDGE_EVENT_MUTATION,
-  PLEDGE_TO_MUTATION,
-} from '../graphql/mutations';
-import { DASHBOARD_QUERY, USER_EMAILS_QUERY } from '../graphql/queries';
+import { BUY_TSHIRT_MUTATION } from '../graphql/mutations';
+import { ME_TSHIRT_ORDER_QUERY } from '../graphql/queries';
 
 import ActionButton from './ActionButton';
 import Card from './Card';
@@ -99,6 +95,12 @@ const Form = styled.form`
     margin-left: 0.4em;
   }
 
+  & div .error {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
   & div small {
     color: red;
   }
@@ -151,32 +153,39 @@ const Controls = styled.section`
 `;
 
 const schema = yup.object().shape({
-  // receiverEmail: yup.string().required('Runner is required.'),
-  perLapDonation: yup
+  sCount: yup
     .number()
     .typeError('Please enter a number.')
-    .min(0, 'Negative pledge not supported.')
-    .max(1000000, "That's a lot of money. Reconsider...?")
-    .required('Per lap donation is required.'),
-  flatDonation: yup
+    .min(0, 'Negative?')
+    .max(20, 'Maximum is 20 t-shirts per-size....')
+    .required('# of small t-shirt cannot be blank.'),
+  mCount: yup
     .number()
     .typeError('Please enter a number.')
-    .min(0, 'Negative donation not supported.')
-    .max(1000000, "That's a lot of money. Reconsider...?")
-    .required('Flat donation is required.'),
+    .min(0, 'Negative?')
+    .max(20, 'Maximum is 20 t-shirts per-size....')
+    .required('# of medium t-shirt cannot be blank.'),
+  lCount: yup
+    .number()
+    .typeError('Please enter a number.')
+    .min(0, 'Negative?')
+    .max(20, 'Maximum is 20 t-shirts per-size....')
+    .required('# of large t-shirt cannot be blank.'),
 });
 
 const PledgeForm = ({ toggleForm }) => {
-  const { register, handleSubmit, errors, reset } = useForm({
+  const { data, loading } = useQuery(ME_TSHIRT_ORDER_QUERY);
+  const { register, handleSubmit, errors, reset, setError } = useForm({
     resolver: yupResolver(schema),
   });
-  const { loading, data } = useQuery(USER_EMAILS_QUERY);
-  const [isEventWide, setIsEventWide] = useState(false);
-  const [pledgeTo] = useMutation(PLEDGE_TO_MUTATION, {
-    refetchQueries: [{ query: DASHBOARD_QUERY }],
-  });
-  const [pledgeEvent] = useMutation(PLEDGE_EVENT_MUTATION, {
-    refetchQueries: [{ query: DASHBOARD_QUERY }],
+  const [buyTShirt] = useMutation(BUY_TSHIRT_MUTATION, {
+    refetchQueries: [{ query: ME_TSHIRT_ORDER_QUERY }],
+    onError(error) {
+      setError('server', {
+        type: 'server',
+        message: 'Something went wrong...',
+      });
+    },
   });
 
   useEffect(() => {
@@ -193,28 +202,16 @@ const PledgeForm = ({ toggleForm }) => {
     };
   }, []);
 
-  if (loading) {
-    return (
-      <Wrapper>
-        <Body>
-          <FullPageSpinner />
-        </Body>
-      </Wrapper>
-    );
-  }
+  if (loading) return <FullPageSpinner />;
 
-  const { users } = data;
+  const {
+    me: {
+      tShirtOrder: { sCount, mCount, lCount },
+    },
+  } = data;
 
   const onSubmit = async (data) => {
-    if (isEventWide) {
-      await pledgeEvent({
-        variables: data,
-      });
-    } else {
-      await pledgeTo({
-        variables: data,
-      });
-    }
+    await buyTShirt({ variables: data });
     reset();
     toggleForm();
   };
@@ -222,54 +219,45 @@ const PledgeForm = ({ toggleForm }) => {
   return (
     <Wrapper>
       <Body>
-        <Title>Make a pledge!</Title>
+        <Title>Order a T-Shirt!</Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <div className="isEventWide">
-            <label htmlFor="isEventWide">Pledge event-wide</label>
-            <input
-              type="checkbox"
-              checked={isEventWide}
-              onChange={() => setIsEventWide(!isEventWide)}
-              name="isEventWide"
-            />
-          </div>
-
-          {!isEventWide && (
-            <div>
-              <label htmlFor="receiverEmail">Runner</label>
-              <select
-                placeholder="Select a runner"
-                name="receiverEmail"
-                ref={register({ required: true })}
-              >
-                {users.map(({ email }, i) => (
-                  <option key={'option' + i}>{email}</option>
-                ))}
-              </select>
-              <small>{errors.receiverEmail?.message}</small>
-            </div>
-          )}
-
           <div>
-            <label htmlFor="perLapDonation">Per Lap Donation (NT)</label>
+            <label htmlFor="sCount"># of Small T-Shirts</label>
             <input
-              name="perLapDonation"
+              name="sCount"
               type="number"
-              defaultValue="10"
+              defaultValue={sCount}
               ref={register({ required: true })}
             />
-            <small>{errors.perLapDonation?.message}</small>
+            <small>{errors.sCount?.message}</small>
           </div>
 
           <div>
-            <label htmlFor="flatDonation">Flat Donation (NT)</label>
+            <label htmlFor="mCount"># of Medium T-Shirts</label>
             <input
-              name="flatDonation"
+              name="mCount"
               type="number"
-              defaultValue="10"
+              defaultValue={mCount}
               ref={register({ required: true })}
             />
-            <small>{errors.flatDonation?.message}</small>
+            <small>{errors.mCount?.message}</small>
+          </div>
+
+          <div>
+            <label htmlFor="lCount"># of Large T-Shirts</label>
+            <input
+              name="lCount"
+              type="number"
+              defaultValue={lCount}
+              ref={register({ required: true })}
+            />
+            <small>{errors.lCount?.message}</small>
+          </div>
+
+          <div>
+            {errors.server && (
+              <small className="error">{errors.server?.message}</small>
+            )}
           </div>
 
           <Controls>
@@ -282,7 +270,7 @@ const PledgeForm = ({ toggleForm }) => {
             >
               Cancel
             </ActionButton>
-            <ActionButton type="submit">Submit</ActionButton>
+            <ActionButton type="submit">Buy!</ActionButton>
           </Controls>
         </Form>
       </Body>

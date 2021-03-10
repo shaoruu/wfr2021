@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
@@ -5,6 +7,7 @@ import Cart from '../../assets/cart.svg';
 import TShirtPng from '../../assets/tshirt.png';
 import Card from '../../components/Card';
 import FullPageSpinner from '../../components/FullPageSpinner';
+import TShirtOrderForm from '../../components/TShirtOrderForm';
 import {
   GENERAL_TRANSITION,
   THEME_COLOR_0,
@@ -77,6 +80,10 @@ const TShirt = styled(Card)`
     width: 100%;
   }
 
+  & small {
+    color: green;
+  }
+
   & button {
     margin-top: 1.5em;
     border-radius: 20px;
@@ -97,6 +104,7 @@ const TShirt = styled(Card)`
 `;
 
 const Products = () => {
+  const [showOrder, setShowOrder] = useState(false);
   const { data, loading } = useQuery(ME_TSHIRT_ORDER_QUERY);
 
   if (loading) return <FullPageSpinner />;
@@ -105,21 +113,40 @@ const Products = () => {
     me: { confirmed, tShirtOrder },
   } = data;
 
-  console.log(tShirtOrder);
+  const { sCount, mCount, lCount } = tShirtOrder;
+
+  const toggleForm = (e) => {
+    if (e) e.preventDefault();
+    setShowOrder(!showOrder);
+  };
 
   return (
     <Wrapper>
-      <TitleBar>
-        <h1>Buy a T-Shirt!</h1>
-        <p>{quotes[Math.floor(Math.random() * quotes.length)]}</p>
-      </TitleBar>
-      <TShirtWrapper>
-        <TShirt>
-          <h2>W4R T</h2>
-          <img src={TShirtPng} alt="tshirt" />
-          <button>Order</button>
-        </TShirt>
-      </TShirtWrapper>
+      {confirmed ? (
+        <>
+          {showOrder && <TShirtOrderForm toggleForm={toggleForm} />}
+          <TitleBar>
+            <h1>Buy a T-Shirt!</h1>
+            <p>{quotes[Math.floor(Math.random() * quotes.length)]}</p>
+          </TitleBar>
+          <TShirtWrapper>
+            <TShirt>
+              <h2>W4R T-Shirt</h2>
+              <img src={TShirtPng} alt="tshirt" />
+              <small>
+                Your order(s): {sCount} small, {mCount} medium, {lCount} large
+                t-shirts.
+              </small>
+              <button onClick={toggleForm}>Order</button>
+            </TShirt>
+          </TShirtWrapper>
+        </>
+      ) : (
+        <TitleBar>
+          <h1>Buy a T-Shirt!</h1>
+          <p>Check your inbox. Confirm your email to buy a t-shirt!</p>
+        </TitleBar>
+      )}
 
       <Background src={Cart} />
     </Wrapper>

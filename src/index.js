@@ -68,6 +68,11 @@ const client = new ApolloClient({
               return incoming;
             },
           },
+          me: {
+            merge(_, incoming) {
+              return incoming;
+            },
+          },
         },
       },
     },
