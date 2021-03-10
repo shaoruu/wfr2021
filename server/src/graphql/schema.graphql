@@ -25,7 +25,7 @@ type Mutation {
   pledgeEvent(input: PledgeEventInput!): Pledge!
   outsiderPledge(input: OutsiderPledgeInput!): Boolean!
   removePledge(id: ID!): Boolean!
-  confirmPledge(id: ID!): Boolean!
+  cancelPledge(id: ID!): Boolean!
 
   # TShirt Mutations
   buyTShirt(input: BuyTShirtInput!): TShirtOrder!

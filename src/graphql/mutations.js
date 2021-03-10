@@ -78,9 +78,9 @@ export const CONFIRM_ACCOUNT_MUTATION = gql`
   }
 `;
 
-export const CONFIRM_PLEDGE_MUTATION = gql`
-  mutation ConfirmPledge($id: ID!) {
-    confirmPledge(id: $id)
+export const CANCEL_PLEDGE_MUTATION = gql`
+  mutation CancelPledge($id: ID!) {
+    cancelPledge(id: $id)
   }
 `;
 
