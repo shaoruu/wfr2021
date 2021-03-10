@@ -64,8 +64,15 @@ const Controls = styled.section`
 `;
 
 const schema = yup.object().shape({
-  outsiderEmail: yup.string().required('Your email is required.'),
-  receiverEmail: yup.string().required("Runner's email is required."),
+  outsiderName: yup.string().required('Your name is required.'),
+  outsiderEmail: yup
+    .string()
+    .email('Email invalid.')
+    .required('Your email is required.'),
+  receiverEmail: yup
+    .string()
+    .email('Email invalid.')
+    .required("Runner's email is required."),
   perLapDonation: yup
     .number()
     .typeError('Please enter a number.')
@@ -119,6 +126,16 @@ const HomeDonateForm = ({ toggleForm }) => {
           as a whole.
         </small>
         <Form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label htmlFor="outsiderName">Your Name</label>
+            <input
+              name="outsiderName"
+              ref={register({ required: true })}
+              placeholder="Your full name"
+            />
+            <small>{errors.outsiderName?.message}</small>
+          </div>
+
           <div>
             <label htmlFor="outsiderEmail">Your Email</label>
             <input

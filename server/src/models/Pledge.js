@@ -18,6 +18,10 @@ const pledgeSchema = new Schema(
       type: String,
       default: '',
     },
+    outsiderName: {
+      type: String,
+      default: '',
+    },
     eventWide: {
       type: Boolean,
       default: false,

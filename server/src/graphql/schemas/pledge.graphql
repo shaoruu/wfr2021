@@ -6,6 +6,7 @@ type Pledge {
   collected: Boolean!
 
   outsiderEmail: String
+  outsiderName: String
   confirmed: Boolean!
   eventWide: Boolean!
   createdAt: String!
@@ -35,5 +36,6 @@ input OutsiderPledgeInput {
   flatDonation: Int!
   perLapDonation: Int!
   outsiderEmail: String!
+  outsiderName: String!
   receiverEmail: String!
 }

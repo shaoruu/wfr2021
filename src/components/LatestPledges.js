@@ -44,7 +44,14 @@ const LatestPledges = ({ pledges }) => {
             .reverse()
             .map(
               (
-                { pledger, receiver, createdAt, flatDonation, perLapDonation },
+                {
+                  pledger,
+                  receiver,
+                  outsiderName,
+                  createdAt,
+                  flatDonation,
+                  perLapDonation,
+                },
                 i,
               ) => {
                 const { fullName: pledgerName } = pledger || {};
@@ -56,6 +63,7 @@ const LatestPledges = ({ pledges }) => {
                     createdAt={new Date(
                       parseInt(createdAt, 10),
                     ).toLocaleString()}
+                    outsiderName={outsiderName}
                     pledger={pledgerName}
                     receiver={receiverName}
                     perLapDonation={perLapDonation}

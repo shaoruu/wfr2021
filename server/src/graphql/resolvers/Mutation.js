@@ -147,7 +147,15 @@ const UserMutations = {
   },
   async outsiderPledge(
     parent,
-    { input: { flatDonation, perLapDonation, outsiderEmail, receiverEmail } },
+    {
+      input: {
+        flatDonation,
+        perLapDonation,
+        outsiderEmail,
+        outsiderName,
+        receiverEmail,
+      },
+    },
   ) {
     const receiver = await UserModel.findOne({
       email: receiverEmail,
@@ -159,6 +167,7 @@ const UserMutations = {
       flatDonation,
       perLapDonation,
       outsiderEmail,
+      outsiderName,
       receiver,
       createdAt: Date.now(),
     });

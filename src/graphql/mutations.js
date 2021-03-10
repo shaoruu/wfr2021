@@ -97,6 +97,7 @@ export const OUTSIDER_PLEDGE_MUTATION = gql`
     $flatDonation: Int!
     $perLapDonation: Int!
     $outsiderEmail: String!
+    $outsiderName: String!
     $receiverEmail: String!
   ) {
     outsiderPledge(
@@ -104,6 +105,7 @@ export const OUTSIDER_PLEDGE_MUTATION = gql`
         flatDonation: $flatDonation
         perLapDonation: $perLapDonation
         outsiderEmail: $outsiderEmail
+        outsiderName: $outsiderName
         receiverEmail: $receiverEmail
       }
     )

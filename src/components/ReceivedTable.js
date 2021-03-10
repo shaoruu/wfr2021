@@ -1,3 +1,4 @@
+import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
 import { THEME_COLOR_1, THEME_COLOR_2 } from '../config';
@@ -47,7 +48,14 @@ const ReceivedTable = ({ received }) => {
         <tbody>
           {received.map(
             (
-              { collected, flatDonation, perLapDonation, eventWide, pledger },
+              {
+                collected,
+                flatDonation,
+                perLapDonation,
+                eventWide,
+                pledger,
+                outsiderName,
+              },
               i,
             ) => (
               <tr key={'received-table' + i}>
@@ -57,7 +65,9 @@ const ReceivedTable = ({ received }) => {
                   ) : pledger ? (
                     pledger.fullName
                   ) : (
-                    <Outsider>External Donor</Outsider>
+                    <Outsider data-tip="External Donor">
+                      {outsiderName}
+                    </Outsider>
                   )}
                 </td>
                 <td>
@@ -89,6 +99,7 @@ const ReceivedTable = ({ received }) => {
           <p>No receives yet. Ask a friend? </p>
         </NoReceives>
       )}
+      <ReactTooltip />
     </StyledSection>
   );
 };

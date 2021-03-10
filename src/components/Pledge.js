@@ -1,3 +1,4 @@
+import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
 import Money from '../components/Money';
@@ -52,6 +53,7 @@ const EventWide = styled.span`
 
 const Pledge = ({
   pledger,
+  outsiderName,
   receiver,
   createdAt,
   perLapDonation,
@@ -59,7 +61,11 @@ const Pledge = ({
 }) => {
   return (
     <PledgeWrapper>
-      {pledger ? <h2>{pledger}</h2> : <Outsider>External Donor</Outsider>}
+      {pledger ? (
+        <h2>{pledger}</h2>
+      ) : (
+        <Outsider data-tip="External Donor">{outsiderName}</Outsider>
+      )}
       <h2>
         <span>→ </span>
         {receiver ? receiver : <EventWide>Event-Wide</EventWide>}
@@ -77,6 +83,7 @@ const Pledge = ({
         </li>
       </ul>
       <small>@ {createdAt}</small>
+      <ReactTooltip />
     </PledgeWrapper>
   );
 };

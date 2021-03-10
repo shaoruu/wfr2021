@@ -18,6 +18,7 @@ export const DASHBOARD_QUERY = gql`
       createdAt
       flatDonation
       perLapDonation
+      outsiderName
       pledger {
         fullName
       }
@@ -33,6 +34,7 @@ export const DASHBOARD_QUERY = gql`
         collected
         flatDonation
         perLapDonation
+        outsiderName
         pledger {
           fullName
         }
@@ -45,6 +47,7 @@ export const DASHBOARD_QUERY = gql`
         collected
         flatDonation
         perLapDonation
+        outsiderName
         pledger {
           fullName
         }
@@ -58,6 +61,7 @@ export const DASHBOARD_QUERY = gql`
         eventWide
         flatDonation
         perLapDonation
+        outsiderName
         pledger {
           fullName
         }
