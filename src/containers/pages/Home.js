@@ -188,6 +188,7 @@ const ReadyToRun = styled.div`
 
       @media (min-width: 1300px) {
         font-size: 1.3em;
+        width: 240px;
         padding: 1em 3em;
       }
     }
