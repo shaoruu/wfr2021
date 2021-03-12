@@ -1,64 +1,16 @@
 import React from 'react';
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-  split,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { WebSocketLink } from '@apollo/client/link/ws';
-import { getMainDefinition } from '@apollo/client/utilities';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import ReactDOM from 'react-dom';
 
 import App from './containers/App';
 import { AuthProvider } from './contexts/authContext';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { getToken } from './utils/getToken';
-
-const { hostname } = window.location;
-const httpLink = createHttpLink({
-  uri: `http://${hostname}:4000`,
-  credentials: 'same-origin',
-});
-
-const wsLink = new WebSocketLink({
-  uri: `ws://${hostname}:4000`,
-  options: {
-    reconnect: true,
-  },
-});
-
-const splitLink = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    );
-  },
-  wsLink,
-  httpLink,
-);
-
-const authLink = setContext((_, { headers }) => {
-  const token = getToken();
-
-  return {
-    headers: {
-      ...headers,
-      Authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
 
 const client = new ApolloClient({
-  connectToDevTools: process.browser,
-  ssrMode: !process.browser,
-  ssrForceFetchDelay: 100,
-  link: authLink.concat(splitLink),
+  uri: `/graphql`,
+  credentials: 'same-origin',
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
@@ -82,9 +34,7 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <AuthProvider>
-      {/* <React.StrictMode> */}
       <App />
-      {/* </React.StrictMode> */}
     </AuthProvider>
   </ApolloProvider>,
   document.getElementById('root'),

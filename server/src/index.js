@@ -12,15 +12,12 @@ require('dotenv-defaults').config();
 
 mongo.connect();
 
-const pubsub = new PubSub();
-
 const server = new GraphQLServer({
   typeDefs: path.join(__dirname, 'graphql', 'schema.graphql'),
   resolvers,
   async context(request) {
     return {
       user: await UserModel.findById(Helpers.getUserId(request)),
-      pubsub,
     };
   },
 });
@@ -28,7 +25,8 @@ const server = new GraphQLServer({
 server.start(
   {
     port: process.env.PORT || 4000,
-    playground: process.env.NODE_ENV !== 'production',
+    endpoint: '/graphql',
+    playground: process.env.NODE_ENV !== 'production' ? '/graphql' : false,
   },
   () => {
     console.log(

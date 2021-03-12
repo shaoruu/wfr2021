@@ -14,7 +14,12 @@ const AuthProvider = (props) => {
     return <FullPageSpinner />;
   }
 
-  return <AuthContext.Provider value={{ data: data ? data.me : undefined }} {...props} />;
+  return (
+    <AuthContext.Provider
+      value={{ data: data ? data.me : undefined }}
+      {...props}
+    />
+  );
 };
 
 const useAuth = () => useContext(AuthContext);

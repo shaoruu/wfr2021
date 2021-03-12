@@ -126,10 +126,6 @@ const Login = () => {
     return <Redirect to="/dashboard" />;
   }
 
-  // useEffect(() => {
-  //   removeAllCookies();
-  // }, []);
-
   const onSubmit = async (data) => {
     const loginResults = await login({
       variables: data,
