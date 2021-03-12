@@ -1,0 +1,30 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Ubuntu', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f3f8fe;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+}
+
+h1 {
+  color: rgb(25, 59, 104);
+}
+
+p {
+  color: rgb(158, 175, 195);
+  font-size: 1.2em;
+  margin-top: 1em;
+}
