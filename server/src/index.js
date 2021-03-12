@@ -1,7 +1,7 @@
 import path from 'path';
 
 import express from 'express';
-import { GraphQLServer, PubSub } from 'graphql-yoga';
+import { GraphQLServer } from 'graphql-yoga';
 
 import resolvers from './graphql/resolvers';
 import { UserModel } from './models';
@@ -22,16 +22,15 @@ const server = new GraphQLServer({
   },
 });
 
+const port = process.env.PORT || 4000;
 server.start(
   {
-    port: process.env.PORT || 4000,
+    port,
     endpoint: '/graphql',
-    playground: process.env.NODE_ENV !== 'production' ? '/graphql' : false,
+    playground: process.env.NODE_ENV !== 'production' ? '/playground' : false,
   },
   () => {
-    console.log(
-      `The server is up on http://localhost:${process.env.PORT | 4000}`,
-    );
+    console.log(`The server is up on http://localhost:${port}`);
   },
 );
 
