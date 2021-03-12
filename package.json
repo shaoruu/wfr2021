@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server/src/index.js --ext js,graphql --watch server --exec babel-node",
-    "start": "yarn run server"
+    "start": "cross-env NODE_ENV=production yarn run server"
   },
   "eslintConfig": {
     "extends": [
@@ -87,7 +87,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
+  "dependancies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
