@@ -10,6 +10,8 @@ const Wrapper = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100vw;
+  padding: 0 10vw;
+  text-align: center;
 
   & img {
     width: 200px;
