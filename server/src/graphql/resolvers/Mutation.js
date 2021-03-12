@@ -161,7 +161,9 @@ const UserMutations = {
       `Thank you for donating to ${receiver.firstName} ${
         receiver.lastName
       }! Click this link if you want to cancel this pledge: ${
-        process.env.FRONTEND_URL || 'http://localhost:3000'
+        process.env.NODE_ENV === 'production'
+          ? process.env.FRONTEND_URL_PROD
+          : process.env.FRONTEND_URL
       }/cancel/${pledge.id}`,
     );
 
