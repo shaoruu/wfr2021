@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server/src/index.js --ext js,graphql --watch server --exec babel-node",
-    "start": "cross-env NODE_ENV=production yarn run server"
+    "start": "yarn run server"
   },
   "eslintConfig": {
     "extends": [
