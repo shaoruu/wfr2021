@@ -422,6 +422,14 @@ const Home = () => {
     setShowDonate(!showDonate);
   };
 
+  const handleFormOpen = () => {
+    if (data) {
+      history.push('/dashboard');
+      return;
+    }
+    toggleForm();
+  };
+
   return (
     <Wrapper>
       {showDonate && <HomeDonateForm toggleForm={toggleForm} />}
@@ -453,11 +461,9 @@ const Home = () => {
             </>
           ) : (
             <>
-              <Link to="/login">
-                <ActionButton>Login</ActionButton>
-              </Link>
+              <ActionButton onClick={handleFormOpen}>Pledge</ActionButton>
               <Link to="/register">
-                <ActionButton>Register</ActionButton>
+                <ActionButton>Participate</ActionButton>
               </Link>
             </>
           )}
@@ -471,17 +477,7 @@ const Home = () => {
             <p>
               WALKING FOR: <span>BLACK LIVES</span>
             </p>
-            <ActionButton
-              onClick={() => {
-                if (data) {
-                  history.push('/dashboard');
-                  return;
-                }
-                toggleForm();
-              }}
-            >
-              Donate Now
-            </ActionButton>
+            <ActionButton onClick={handleFormOpen}>Donate Now</ActionButton>
           </div>
         </ImageHolder>
         <ReadyToRun>
