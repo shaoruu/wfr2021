@@ -541,7 +541,7 @@ const Home = () => {
         </div>
         <div>
           <h1>
-            2021 THEME: <span>#BlackLives</span>
+            2021 THEME: <span>Syria</span>
           </h1>
           <p>
             We are marking ten years since the onset of Syria’s refugee crisis—a
