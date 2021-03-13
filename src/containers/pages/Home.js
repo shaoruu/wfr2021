@@ -422,6 +422,14 @@ const Home = () => {
     setShowDonate(!showDonate);
   };
 
+  const handleFormOpen = () => {
+    if (data) {
+      history.push('/dashboard');
+      return;
+    }
+    toggleForm();
+  };
+
   return (
     <Wrapper>
       {showDonate && <HomeDonateForm toggleForm={toggleForm} />}
@@ -453,11 +461,9 @@ const Home = () => {
             </>
           ) : (
             <>
-              <Link to="/login">
-                <ActionButton>Login</ActionButton>
-              </Link>
+              <ActionButton onClick={handleFormOpen}>Pledge</ActionButton>
               <Link to="/register">
-                <ActionButton>Register</ActionButton>
+                <ActionButton>Participate</ActionButton>
               </Link>
             </>
           )}
@@ -469,19 +475,9 @@ const Home = () => {
           <div>
             <h1>WALK FOR REFUGEES</h1>
             <p>
-              WALKING FOR: <span>BLACK LIVES</span>
+              WALKING FOR: <span>Syria</span>
             </p>
-            <ActionButton
-              onClick={() => {
-                if (data) {
-                  history.push('/dashboard');
-                  return;
-                }
-                toggleForm();
-              }}
-            >
-              Donate Now
-            </ActionButton>
+            <ActionButton onClick={handleFormOpen}>Donate Now</ActionButton>
           </div>
         </ImageHolder>
         <ReadyToRun>
@@ -548,29 +544,40 @@ const Home = () => {
             2021 THEME: <span>#BlackLives</span>
           </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac proin
-            tortor, malesuada at nisi mi. Quisque risus amet sed morbi. Quis
-            tristique vulputate consequat sed id non egestas tellus cursus.
-            Mattis tortor, mattis tempus, congue quisque sagittis, interdum
-            auctor non. Nibh laoreet porttitor sit risus, in. Vitae, bibendum
-            tortor laoreet morbi. Auctor lacinia odio pellentesque condimentum
-            enim, id arcu sit. Viverra at lobortis egestas sit consequat nisl
-            tortor feugiat lectus. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Hac proin tortor, malesuada at nisi mi. Quisque
-            risus amet sed morbi. Quis tristique vulputate consequat sed id non
-            egestas tellus cursus. Mattis tortor, mattis tempus, congue quisque
-            sagittis, interdum auctor non. Nibh laoreet porttitor sit risus, in.
-            Vitae, bibendum tortor laoreet morbi. Auctor lacinia odio
-            pellentesque condimentum enim, id arcu sit. Viverra at lobortis
-            egestas sit consequat nisl tortor feugiat lectus.
+            We are marking ten years since the onset of Syria’s refugee crisis—a
+            period during which 6.6 million people have fled from the country,
+            with an additional 6.7 million having been internally displaced (
+            <a href="https://www.unrefugees.org/news/syria-refugee-crisis-explained/">
+              UNHCR, 2021
+            </a>
+            ). Of these refugees, over 70% are living in poverty, with
+            inadequate access to food, housing, and education; basic needs are
+            struggling to be met, and child labor and other forms of
+            exploitation are on the rise.
+            <br />
+            <br /> In the three years since our last Syrian event, the crisis
+            has largely fallen out of the news, and our attention has shifted as
+            a global pandemic has ravaged the world. That is why, this year, we
+            hope to have a personal and poignant revisit to what remains as the
+            world’s largest refugee crisis—a visit that will highlight, as we
+            reflect on the past three years, the lasting effects of internal
+            conflict and war.
           </p>
         </div>
         <img className="shape" src={Shape2} alt="shape" />
       </Theme2021>
       <TwoEventsWrapper id="two-events">
         <div>
-          <h1>WALKATHON - APR 19TH</h1>
+          <h1>WALKATHON - APR 16TH</h1>
           <p>
+            Come walk with us on <strong>Friday, 4/16 from 3:45-7:30 pm</strong>
+            ! Walk for Refugees officers will be there to get you set up with a
+            lap-counting barcode.
+            <br />
+            <br />
+            Register to walk by visiting “Participate” in the upper-right
+            corner. Merchandise and pledging options are also available through
+            that portal. To pledge without signing up, simply click “Pledge”.
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore...
           </p>
@@ -581,10 +588,14 @@ const Home = () => {
           )}
         </div>
         <div>
-          <h1>TEACHER KARAOKE - APR 27TH</h1>
+          <h1>TEACHER KARAOKE - APR 23TH</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore...
+            Save the date for <strong>Friday, 4/23 during Flex</strong>, to
+            watch your favorite teachers sing and perform!
+            <br />
+            <br />
+            Donations will begin Monday, 4/19; donate towards seeing your
+            teacher of choice perform under the Upper School Sky Bridge.
           </p>
           <Link to={data ? '/pledge' : '/register'}>Support us!</Link>
         </div>

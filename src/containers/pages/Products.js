@@ -19,7 +19,10 @@ import {
 } from '../../config';
 import { ME_TSHIRT_ORDER_QUERY } from '../../graphql/queries';
 
-const quotes = ['T-shirts come in three sizes, S-M-L!'];
+const quotes = [
+  'T-shirts come in three sizes, S-M-L!',
+  'All proceeds go towards supporting Syrian refugees.',
+];
 
 const Wrapper = styled.div`
   padding: 2em 4em;
