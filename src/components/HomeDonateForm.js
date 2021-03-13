@@ -34,7 +34,7 @@ const Body = styled(Card)`
     text-align: center;
     display: block;
     color: ${THEME_COLOR_4}cc;
-    width: 60%;
+    width: 80%;
     margin: 1em auto 0 auto;
   }
 `;
@@ -135,8 +135,9 @@ const HomeDonateForm = ({ toggleForm }) => {
       <Body>
         <Title>Pledge to Our Cause</Title>
         <small>
-          Support our 2021 event by donating to a specific runner or our event
-          as a whole.
+          Support our event by pledging to a specific runner, or donate to our
+          event as a whole. To walk or buy merchandise, please visit
+          “Participate” in the upper-right corner of our home page.
         </small>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="isEventWide">
