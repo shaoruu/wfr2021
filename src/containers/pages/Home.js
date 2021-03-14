@@ -260,7 +260,7 @@ const AboutUsSection = styled.section`
     margin-top: 2em;
 
     & img {
-      width: 60vw;
+      width: 70vw;
       height: auto;
     }
 
@@ -271,7 +271,7 @@ const AboutUsSection = styled.section`
 
       & img {
         width: auto;
-        height: 200px;
+        height: 250px;
       }
     }
   }
@@ -332,7 +332,7 @@ const Theme2021 = styled.section`
     width: 100%;
 
     & img {
-      width: 60vw;
+      width: 70vw;
       height: auto;
     }
 
@@ -343,7 +343,7 @@ const Theme2021 = styled.section`
 
       & img {
         width: auto;
-        height: 200px;
+        height: 250px;
       }
     }
   }
