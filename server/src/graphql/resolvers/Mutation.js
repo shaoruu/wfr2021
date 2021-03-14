@@ -20,7 +20,10 @@ const UserMutations = {
     const { password, ...args } = input;
 
     const existing = await UserModel.findOne({ email: args.email });
-    if (!id2emailExists(args.schoolId, args.email))
+    if (
+      args.schoolId.length === 8 &&
+      !id2emailExists(args.schoolId, args.email)
+    )
       throw new Error('TAS ID and Email did not match any records.');
     if (existing) throw new Error('Email already in use.');
 

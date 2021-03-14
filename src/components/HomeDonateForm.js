@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,6 +13,7 @@ import {
   OUTSIDER_PLEDGE_EVENT_MUTATION,
 } from '../graphql/mutations';
 import { DASHBOARD_QUERY } from '../graphql/queries';
+import { useOutsideClick } from '../utils';
 
 import ActionButton from './ActionButton';
 import Backdrop from './Backdrop';
@@ -102,6 +103,12 @@ const HomeDonateForm = ({ toggleForm }) => {
     },
   );
 
+  const ref = useRef();
+
+  useOutsideClick(ref, () => {
+    toggleForm();
+  });
+
   useEffect(() => {
     const func = (e) => {
       if (e.keyCode === 13) {
@@ -132,7 +139,7 @@ const HomeDonateForm = ({ toggleForm }) => {
 
   return (
     <Backdrop>
-      <Body>
+      <Body ref={ref}>
         <Title>Pledge to Our Cause</Title>
         <small>
           Support our event by pledging to a specific runner, or donate to our
