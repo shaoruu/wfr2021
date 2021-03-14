@@ -508,21 +508,17 @@ const Home = () => {
             ABOUT <span>WALK FOR REFUGEES</span>
           </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hac proin
-            tortor, malesuada at nisi mi. Quisque risus amet sed morbi. Quis
-            tristique vulputate consequat sed id non egestas tellus cursus.
-            Mattis tortor, mattis tempus, congue quisque sagittis, interdum
-            auctor non. Nibh laoreet porttitor sit risus, in. Vitae, bibendum
-            tortor laoreet morbi. Auctor lacinia odio pellentesque condimentum
-            enim, id arcu sit. Viverra at lobortis egestas sit consequat nisl
-            tortor feugiat lectus. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Hac proin tortor, malesuada at nisi mi. Quisque
-            risus amet sed morbi. Quis tristique vulputate consequat sed id non
-            egestas tellus cursus. Mattis tortor, mattis tempus, congue quisque
-            sagittis, interdum auctor non. Nibh laoreet porttitor sit risus, in.
-            Vitae, bibendum tortor laoreet morbi. Auctor lacinia odio
-            pellentesque condimentum enim, id arcu sit. Viverra at lobortis
-            egestas sit consequat nisl tortor feugiat lectus.
+            Walk for Refugees is TAS’s largest student-led fundraiser, with the
+            mission of raising funds and promoting awareness for the plight of
+            refugees around the world. We host an annual walkathon that raises
+            upwards of 500,000 NTD a year, coupled with awareness-oriented
+            efforts; these have included invited speakers, refugee
+            “simulations”, and other educational activities. Beginning in 2020,
+            we also introduced a teacher karaoke competition, in which the TAS
+            community donates towards watching teachers sing and perform
+            publicly for the upper school. Through both of these events, we hope
+            to broaden the horizons of the TAS community, uniting it to support
+            refugee crises from across the globe.
           </p>
         </div>
         <div>

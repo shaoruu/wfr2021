@@ -202,7 +202,14 @@ const PledgeForm = ({ toggleForm }) => {
               />
               <label htmlFor="agreement">
                 I agree to the W4R{' '}
-                <a href="http://typehere.co/">terms and conditions</a>.
+                <a
+                  href="https://pastebin.com/raw/rAyj1zBA"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  terms and conditions
+                </a>
+                .
               </label>
             </div>
             <small className="error">{errors.agreement?.message}</small>

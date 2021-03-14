@@ -156,18 +156,28 @@ const UserMutations = {
 
     await pledge.save();
 
+    const frontendURL =
+      process.env.NODE_ENV === 'production'
+        ? process.env.FRONTEND_URL_PROD
+        : process.env.FRONTEND_URL;
+    const cancelLink = `${frontendURL}/cancel/${pledge.id}`;
+
     // send email to pledger & receiver
     // TODO: make this more protected.
     await Helpers.sendEmail(
       outsiderEmail,
       'Donating to WalkForRefugees',
-      `Thank you for donating to ${receiver.firstName} ${
-        receiver.lastName
-      }! Click this link if you want to cancel this pledge: ${
-        process.env.NODE_ENV === 'production'
-          ? process.env.FRONTEND_URL_PROD
-          : process.env.FRONTEND_URL
-      }/cancel/${pledge.id}`,
+      `Thank you for donating to ${receiver.firstName} ${receiver.lastName}! Click this link if you want to cancel this pledge: ${cancelLink}`,
+      `<p>Dear pledger,</p><br/>
+<p>Thank you for supporting Walk for Refugees 2021 with your pledge. If you believe that this donation was made in error, you can cancel it at any time before April 16th, 15:35 GMT+8 by clicking <a href="${cancelLink}">here</a></p><br/>
+<p>To register to walk in our walkathon, please click <a href="${frontendURL}/register">here</a>.</p>
+<p>To buy an event T-shirt, please click <a href="${frontendURL}/products">here</a>.</p>
+<p>To make an additional pledge, please click <a href="${frontendURL}/pledge">here</a>.</p><br/>
+
+<p>As a reminder, ID card holders have agreed to have their donations automatically deducted from their ID cards, and non-ID card holders have agreed to have their donations paid in cash. Thank you very much for supporting our cause!</p><br/>
+<p>Best,</p>
+<p>The W4R Team</p>
+`,
     );
 
     return true;
@@ -187,14 +197,28 @@ const UserMutations = {
 
     await pledge.save();
 
+    const frontendURL =
+      process.env.NODE_ENV === 'production'
+        ? process.env.FRONTEND_URL_PROD
+        : process.env.FRONTEND_URL;
+    const cancelLink = `${frontendURL}/cancel/${pledge.id}`;
+
     // send email to pledger & receiver
     // TODO: make this more protected.
     await Helpers.sendEmail(
       outsiderEmail,
       'Donating to WalkForRefugees',
-      `Thank you for donating to our event!! Click this link if you want to cancel this pledge: ${
-        process.env.FRONTEND_URL || 'http://localhost:3000'
-      }/cancel/${pledge.id}`,
+      `Thank you for donating to the event! Click this link if you want to cancel this pledge: ${cancelLink}`,
+      `<p>Dear pledger,</p><br/>
+<p>Thank you for supporting Walk for Refugees 2021 with your pledge. If you believe that this donation was made in error, you can cancel it at any time before April 16th, 15:35 GMT+8 by clicking <a href="${cancelLink}">here</a></p><br/>
+<p>To register to walk in our walkathon, please click <a href="${frontendURL}/register">here</a>.</p>
+<p>To buy an event T-shirt, please click <a href="${frontendURL}/products">here</a>.</p>
+<p>To make an additional pledge, please click <a href="${frontendURL}/pledge">here</a>.</p><br/>
+
+<p>As a reminder, ID card holders have agreed to have their donations automatically deducted from their ID cards, and non-ID card holders have agreed to have their donations paid in cash. Thank you very much for supporting our cause!</p><br/>
+<p>Best,</p>
+<p>The W4R Team</p>
+`,
     );
 
     return true;

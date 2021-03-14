@@ -230,7 +230,7 @@ const HomeDonateForm = ({ toggleForm }) => {
             >
               Cancel
             </ActionButton>
-            <ActionButton type="submit">
+            <ActionButton type="submit" disabled={loading || eventLoading}>
               {loading || eventLoading ? (
                 <>
                   Sending email

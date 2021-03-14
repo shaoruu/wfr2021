@@ -112,15 +112,24 @@ class Helpers {
   };
 
   static sendConfirmation = async (email, userId) => {
+    const confirmLink = `${
+      process.env.NODE_ENV === 'production'
+        ? process.env.FRONTEND_URL_PROD
+        : process.env.FRONTEND_URL
+    }/confirm/${userId}`;
+
     // TODO: make this more protected.
     await Helpers.sendEmail(
       email,
-      'Email Confirmation',
-      `Click this link: ${
-        process.env.NODE_ENV === 'production'
-          ? process.env.FRONTEND_URL_PROD
-          : process.env.FRONTEND_URL
-      }/confirm/${userId}`,
+      'Email Confirmation for W4R',
+      `Click this link to confirm registration: ${confirmLink}`,
+      `<p>Dear Participant</p><br/>
+<p>Thank you for joining Walk for Refugees 2021. To enable full functionality of your account, please verify it by clicking <a href="${confirmLink}">here</a>.</p><br/>
+<p>Within your dashboard, you will find options to pledge to others, track your incoming pledges, and view your outgoing pledges. In addition, you will have access to the ordering form for this year’s event T-shirt.</p><br/>
+<p>As a reminder, you have agreed to have all transactions automatically deducted from your ID card. Thank you very much for supporting our cause!</p><br/>
+<p>Best,</p>
+<p>The W4R Team</p>
+`,
     );
   };
 }
