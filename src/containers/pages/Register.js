@@ -27,6 +27,14 @@ const Wrapper = styled(Card)`
   justify-content: center;
   padding: auto;
   text-align: center;
+
+  & > small {
+    text-align: center;
+    display: block;
+    color: ${THEME_COLOR_4}cc;
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 
 const Title = styled.h1`
@@ -130,7 +138,7 @@ const schema = yup.object().shape({
     .required('School ID is required.'),
   agreement: yup
     .string()
-    .oneOf([`on`], 'Please agree to our terms and conditions.'),
+    .oneOf(['on'], 'Please agree to our terms and conditions.'),
 });
 
 const Register = () => {
@@ -185,6 +193,10 @@ const Register = () => {
       <Wrapper>
         <FormLogo />
         <Title>Register To Walk</Title>
+
+        <small>
+          T-shirt orders and pledging dashboard available upon sign-up.
+        </small>
 
         <RegisterForm onSubmit={handleSubmit(onSubmit)}>
           <div>

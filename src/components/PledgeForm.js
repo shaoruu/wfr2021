@@ -73,6 +73,9 @@ const schema = yup.object().shape({
     .min(0, 'Negative donation not supported.')
     .max(1000000, "That's a lot of money. Reconsider...?")
     .required('Flat donation is required.'),
+  agreement: yup
+    .string()
+    .oneOf(['on'], 'Please agree to our terms and conditions.'),
 });
 
 const PledgeForm = ({ toggleForm }) => {
@@ -121,6 +124,8 @@ const PledgeForm = ({ toggleForm }) => {
   const { users } = data;
 
   const onSubmit = async (data) => {
+    delete data.agreement;
+
     if (isEventWide) {
       await pledgeEvent({
         variables: data,
@@ -130,6 +135,7 @@ const PledgeForm = ({ toggleForm }) => {
         variables: data,
       });
     }
+
     reset();
     toggleForm();
   };
@@ -185,6 +191,21 @@ const PledgeForm = ({ toggleForm }) => {
               ref={register({ required: true })}
             />
             <small>{errors.flatDonation?.message}</small>
+          </div>
+
+          <div className="agreement">
+            <div>
+              <input
+                type="checkbox"
+                name="agreement"
+                ref={register({ required: true })}
+              />
+              <label htmlFor="agreement">
+                I agree to the W4R{' '}
+                <a href="http://typehere.co/">terms and conditions</a>.
+              </label>
+            </div>
+            <small className="error">{errors.agreement?.message}</small>
           </div>
 
           <Controls>

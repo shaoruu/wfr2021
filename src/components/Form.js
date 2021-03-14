@@ -28,6 +28,28 @@ const Form = styled.form`
     margin: 0.4em 0;
   }
 
+  & .agreement {
+    & div {
+      flex-direction: row;
+      align-items: center;
+
+      & input {
+        width: 20%;
+        margin: 0;
+      }
+
+      & label {
+        width: 80%;
+      }
+    }
+
+    & small {
+      display: block;
+      text-align: center;
+      width: 100%;
+    }
+  }
+
   & div.isEventWide {
     flex-direction: row;
     align-items: center;
