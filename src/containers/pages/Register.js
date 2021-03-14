@@ -56,6 +56,22 @@ const RegisterForm = styled.form`
     margin: 0.4em 0;
   }
 
+  & .agreement {
+    & div {
+      flex-direction: row;
+      align-items: center;
+
+      & input {
+        width: 20%;
+        margin: 0;
+      }
+
+      & label {
+        width: 80%;
+      }
+    }
+  }
+
   & div label {
     color: ${THEME_COLOR_3};
     font-size: 0.8em;
@@ -112,6 +128,9 @@ const schema = yup.object().shape({
       (val) => val.length === 4 || val.length === 8,
     )
     .required('School ID is required.'),
+  agreement: yup
+    .string()
+    .oneOf([`on`], 'Please agree to our terms and conditions.'),
 });
 
 const Register = () => {
@@ -140,6 +159,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     delete data.passwordConfirmation;
+    delete data.agreement;
 
     const registerResults = await regMutate({
       variables: data,
@@ -226,9 +246,26 @@ const Register = () => {
             />
             <small>{errors.passwordConfirmation?.message}</small>
           </div>
+          <div className="agreement">
+            <div>
+              <input
+                type="checkbox"
+                name="agreement"
+                ref={register({ required: true })}
+              />
+              <label htmlFor="agreement">
+                I agree to the W4R{' '}
+                <a href="http://typehere.co/">terms and conditions</a>.
+              </label>
+            </div>
+          </div>
           <div>
-            {errors.server && (
-              <small className="error">{errors.server?.message}</small>
+            {(errors.server || errors.agreement) && (
+              <small className="error">
+                {errors.server
+                  ? errors.server.message
+                  : errors.agreement?.message}
+              </small>
             )}
           </div>
           <ActionButton type="submit" disabled={loading}>
