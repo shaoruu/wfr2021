@@ -89,6 +89,7 @@ const schema = yup.object().shape({
 });
 
 const HomeDonateForm = ({ toggleForm }) => {
+  const [agree, setAgree] = useState(false);
   const [isEventWide, setIsEventWide] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
@@ -216,6 +217,29 @@ const HomeDonateForm = ({ toggleForm }) => {
             <small>{errors.flatDonation?.message}</small>
           </div>
 
+          <div className="agreement">
+            <div style={{ justifyContent: 'center' }}>
+              <input
+                type="checkbox"
+                name="agreement"
+                style={{ width: '8%' }}
+                checked={agree}
+                onChange={() => setAgree(!agree)}
+              />
+              <label htmlFor="agreement" style={{ width: 'unset' }}>
+                I agree to the W4R{' '}
+                <a
+                  href="https://pastebin.com/raw/rAyj1zBA"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  terms and conditions
+                </a>
+                .
+              </label>
+            </div>
+          </div>
+
           <small style={{ color: 'gray', marginBottom: 16 }}>
             Already have an account? <Link to="/login">Login here.</Link>
           </small>
@@ -230,7 +254,10 @@ const HomeDonateForm = ({ toggleForm }) => {
             >
               Cancel
             </ActionButton>
-            <ActionButton type="submit" disabled={loading || eventLoading}>
+            <ActionButton
+              type="submit"
+              disabled={loading || eventLoading || !agree}
+            >
               {loading || eventLoading ? (
                 <>
                   Sending email

@@ -36,6 +36,7 @@ const Form = styled.form`
       & input {
         width: 20%;
         margin: 0;
+        cursor: pointer;
       }
 
       & label {

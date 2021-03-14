@@ -20,7 +20,7 @@ const ActionButton = styled.button`
   }
 
   &:disabled {
-    cursor: progress;
+    cursor: not-allowed;
     filter: grayscale(1);
   }
 `;

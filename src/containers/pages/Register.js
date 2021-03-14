@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { useApolloClient, useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -65,6 +65,8 @@ const RegisterForm = styled.form`
   }
 
   & .agreement {
+    margin-bottom: 1em;
+
     & div {
       flex-direction: row;
       align-items: center;
@@ -136,12 +138,10 @@ const schema = yup.object().shape({
       (val) => val.length === 4 || val.length === 8,
     )
     .required('School ID is required.'),
-  agreement: yup
-    .string()
-    .oneOf(['on'], 'Please agree to our terms and conditions.'),
 });
 
 const Register = () => {
+  const [agree, setAgree] = useState(false);
   const client = useApolloClient();
   const history = useHistory();
 
@@ -167,7 +167,6 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     delete data.passwordConfirmation;
-    delete data.agreement;
 
     const registerResults = await regMutate({
       variables: data,
@@ -259,13 +258,15 @@ const Register = () => {
             <small>{errors.passwordConfirmation?.message}</small>
           </div>
           <div className="agreement">
-            <div>
+            <div style={{ justifyContent: 'center' }}>
               <input
                 type="checkbox"
                 name="agreement"
-                ref={register({ required: true })}
+                style={{ width: '8%' }}
+                checked={agree}
+                onChange={() => setAgree(!agree)}
               />
-              <label htmlFor="agreement">
+              <label htmlFor="agreement" style={{ width: 'unset' }}>
                 I agree to the W4R{' '}
                 <a
                   href="https://pastebin.com/raw/rAyj1zBA"
@@ -278,16 +279,12 @@ const Register = () => {
               </label>
             </div>
           </div>
-          <div>
-            {(errors.server || errors.agreement) && (
-              <small className="error">
-                {errors.server
-                  ? errors.server.message
-                  : errors.agreement?.message}
-              </small>
-            )}
-          </div>
-          <ActionButton type="submit" disabled={loading}>
+          {errors.server && (
+            <div>
+              <small className="error">{errors.server?.message}</small>
+            </div>
+          )}
+          <ActionButton type="submit" disabled={loading || !agree}>
             {loading ? (
               <>
                 Hold up

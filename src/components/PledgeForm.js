@@ -73,12 +73,10 @@ const schema = yup.object().shape({
     .min(0, 'Negative donation not supported.')
     .max(1000000, "That's a lot of money. Reconsider...?")
     .required('Flat donation is required.'),
-  agreement: yup
-    .string()
-    .oneOf(['on'], 'Please agree to our terms and conditions.'),
 });
 
 const PledgeForm = ({ toggleForm }) => {
+  const [agree, setAgree] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
@@ -124,8 +122,6 @@ const PledgeForm = ({ toggleForm }) => {
   const { users } = data;
 
   const onSubmit = async (data) => {
-    delete data.agreement;
-
     if (isEventWide) {
       await pledgeEvent({
         variables: data,
@@ -194,13 +190,15 @@ const PledgeForm = ({ toggleForm }) => {
           </div>
 
           <div className="agreement">
-            <div>
+            <div style={{ justifyContent: 'center' }}>
               <input
                 type="checkbox"
                 name="agreement"
-                ref={register({ required: true })}
+                style={{ width: '8%' }}
+                checked={agree}
+                onChange={() => setAgree(!agree)}
               />
-              <label htmlFor="agreement">
+              <label htmlFor="agreement" style={{ width: 'unset' }}>
                 I agree to the W4R{' '}
                 <a
                   href="https://pastebin.com/raw/rAyj1zBA"
@@ -212,7 +210,6 @@ const PledgeForm = ({ toggleForm }) => {
                 .
               </label>
             </div>
-            <small className="error">{errors.agreement?.message}</small>
           </div>
 
           <Controls>
@@ -225,7 +222,10 @@ const PledgeForm = ({ toggleForm }) => {
             >
               Cancel
             </ActionButton>
-            <ActionButton type="submit">
+            <ActionButton
+              type="submit"
+              disabled={loadingPledgeEvent || loadingPledgeTo || !agree}
+            >
               {loadingPledgeEvent || loadingPledgeTo ? (
                 <>
                   Submitting
