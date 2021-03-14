@@ -107,11 +107,6 @@ const ImageHolder = styled.div`
     align-items: center;
     justify-content: center;
 
-    & span {
-      color: black;
-      background: white;
-    }
-
     & h1 {
       font-size: 2em;
 
