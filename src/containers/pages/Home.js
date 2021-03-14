@@ -64,11 +64,6 @@ const NavBar = styled.nav`
     }
   }
 
-  & a:first-of-type {
-    text-decoration: none;
-    color: black;
-  }
-
   & a:last-of-type {
     margin-right: 2em;
   }
