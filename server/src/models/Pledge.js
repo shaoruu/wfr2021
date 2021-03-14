@@ -14,6 +14,10 @@ const pledgeSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isTAS: {
+      type: Boolean,
+      default: false,
+    },
     outsiderEmail: {
       type: String,
       default: '',

@@ -55,6 +55,7 @@ class Helpers {
       perLapDonation,
       pledger,
       receiver,
+      isTAS: true,
       createdAt: Date.now(),
     });
 

@@ -1,25 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
-import { THEME_COLOR_3, THEME_COLOR_4, THEME_COLOR_C } from '../config';
+import ActionButton from '../../components/ActionButton';
+import Backdrop from '../../components/Backdrop';
+import Card from '../../components/Card';
+import Form from '../../components/Form';
+import FullPageSpinner from '../../components/FullPageSpinner';
+import Loading from '../../components/Loading';
+import { THEME_COLOR_3, THEME_COLOR_4, THEME_COLOR_C } from '../../config';
+import { useAuth } from '../../contexts/authContext';
 import {
   OUTSIDER_PLEDGE_MUTATION,
   OUTSIDER_PLEDGE_EVENT_MUTATION,
-} from '../graphql/mutations';
-import { DASHBOARD_QUERY } from '../graphql/queries';
-import { useOutsideClick } from '../utils';
-
-import ActionButton from './ActionButton';
-import Backdrop from './Backdrop';
-import Card from './Card';
-import Form from './Form';
-import Loading from './Loading';
+} from '../../graphql/mutations';
+import { DASHBOARD_QUERY, USER_EMAILS_QUERY } from '../../graphql/queries';
+import { useOutsideClick } from '../../utils';
 
 const Title = styled.h1`
   font-size: 1.6em;
@@ -36,7 +37,7 @@ const Body = styled(Card)`
     display: block;
     color: ${THEME_COLOR_4}cc;
     width: 80%;
-    margin: 1em auto 0 auto;
+    margin: 1.4em auto 0 auto;
   }
 `;
 
@@ -73,7 +74,7 @@ const schema = yup.object().shape({
     .string()
     .email('Email invalid.')
     .required('Your email is required.'),
-  receiverEmail: yup.string().email('Email invalid.'),
+  // receiverEmail: yup.string().email('Email invalid.'),
   perLapDonation: yup
     .number()
     .typeError('Please enter a number.')
@@ -88,14 +89,20 @@ const schema = yup.object().shape({
     .required('Flat donation is required.'),
 });
 
-const HomeDonateForm = ({ toggleForm }) => {
+const AdminPledge = () => {
+  const history = useHistory();
+  const { data } = useAuth();
   const [isEventWide, setIsEventWide] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
-  const [outsiderPledge, { loading }] = useMutation(OUTSIDER_PLEDGE_MUTATION, {
-    refetchQueries: [{ query: DASHBOARD_QUERY }],
-  });
+  const { loading, data: usersData } = useQuery(USER_EMAILS_QUERY);
+  const [outsiderPledge, { loading: outsiderLoading }] = useMutation(
+    OUTSIDER_PLEDGE_MUTATION,
+    {
+      refetchQueries: [{ query: DASHBOARD_QUERY }],
+    },
+  );
   const [outsiderPledgeEvent, { loading: eventLoading }] = useMutation(
     OUTSIDER_PLEDGE_EVENT_MUTATION,
     {
@@ -106,7 +113,7 @@ const HomeDonateForm = ({ toggleForm }) => {
   const ref = useRef();
 
   useOutsideClick(ref, () => {
-    toggleForm();
+    history.push('/dashboard');
   });
 
   useEffect(() => {
@@ -123,6 +130,22 @@ const HomeDonateForm = ({ toggleForm }) => {
     };
   }, []);
 
+  if (loading) {
+    return (
+      <Backdrop>
+        <Body>
+          <FullPageSpinner />
+        </Body>
+      </Backdrop>
+    );
+  }
+
+  if (!data?.isAdmin) {
+    return <Redirect to="/" />;
+  }
+
+  const { users } = usersData;
+
   const onSubmit = async (data) => {
     if (isEventWide) {
       await outsiderPledgeEvent({
@@ -134,7 +157,7 @@ const HomeDonateForm = ({ toggleForm }) => {
       });
     }
     reset();
-    toggleForm();
+    history.push('/dashboard');
   };
 
   return (
@@ -143,8 +166,7 @@ const HomeDonateForm = ({ toggleForm }) => {
         <Title>Pledge to Our Cause</Title>
         <small>
           Support our event by pledging to a specific runner, or donate to our
-          event as a whole. To walk or buy merchandise, please visit
-          “Participate” in the upper-right corner of our home page.
+          event as a whole.
         </small>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="isEventWide">
@@ -180,16 +202,15 @@ const HomeDonateForm = ({ toggleForm }) => {
           {!isEventWide && (
             <div>
               <label htmlFor="receiverEmail">Runner's Email</label>
-              <input
+              <select
+                placeholder="Select a runner"
                 name="receiverEmail"
-                ref={register({
-                  required: {
-                    value: true,
-                    message: "Runner's email is required.",
-                  },
-                })}
-                placeholder="Runner's school email"
-              />
+                ref={register({ required: true })}
+              >
+                {users.map(({ email }, i) => (
+                  <option key={('option2', i)}>{email}</option>
+                ))}
+              </select>
               <small>{errors.receiverEmail?.message}</small>
             </div>
           )}
@@ -224,14 +245,17 @@ const HomeDonateForm = ({ toggleForm }) => {
             <ActionButton
               onClick={(e) => {
                 e.preventDefault();
-                toggleForm();
+                history.push('/dashboard');
                 reset();
               }}
             >
               Cancel
             </ActionButton>
-            <ActionButton type="submit" disabled={loading || eventLoading}>
-              {loading || eventLoading ? (
+            <ActionButton
+              type="submit"
+              disabled={outsiderLoading || eventLoading}
+            >
+              {outsiderLoading || eventLoading ? (
                 <>
                   Sending email
                   <Loading />
@@ -247,4 +271,4 @@ const HomeDonateForm = ({ toggleForm }) => {
   );
 };
 
-export default HomeDonateForm;
+export default AdminPledge;

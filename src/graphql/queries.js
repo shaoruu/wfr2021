@@ -4,6 +4,7 @@ export const ME_QUERY = gql`
   query MeQuery {
     me {
       id
+      isAdmin
       fullName
       confirmed
     }

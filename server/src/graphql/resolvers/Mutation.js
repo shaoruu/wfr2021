@@ -8,6 +8,25 @@ import Helpers from '../../utils/helpers';
 const id2emailSrcRAW = fs.readFileSync('./server/id2email.json');
 const id2email = JSON.parse(id2emailSrcRAW);
 
+const adminEmails = [
+  '22ethany@students.tas.tw',
+  '21cheskac@tas.tw',
+  '23adaml@students.tas.tw',
+  '24andreay@students.tas.tw',
+  '21gracec@students.tas.tw',
+  '22evelynh@students.tas.tw',
+  '23patrickh@students.tas.tw',
+  '21jessicao@students.tas.tw',
+  '23benjaminc@students.tas.tw',
+  '23emilyh@students.tas.tw',
+  '24sophiew@students.tas.tw',
+  '22selinal@students.tas.tw',
+  '21ianh1@students.tas.tw',
+  '23charlenec@students.tas.tw',
+  '22daniellel@students.tas.tw',
+  '21hironorik@students.tas.tw',
+];
+
 const id2emailExists = (testId, testEmail) => {
   return !!id2email.find(
     ({ id, email }) =>
@@ -29,8 +48,10 @@ const UserMutations = {
 
     const hashedPassword = await Helpers.hashPassword(password);
     const user = new UserModel({
-      password: hashedPassword,
       ...args,
+      password: hashedPassword,
+      email: args.email.toLowerCase(),
+      isAdmin: adminEmails.includes(args.email.toLowerCase()),
     });
 
     await user.save();
@@ -115,6 +136,7 @@ const UserMutations = {
       perLapDonation,
       eventWide: true,
       pledger,
+      isTAS: true,
       createdAt: Date.now(),
     });
 
@@ -151,6 +173,7 @@ const UserMutations = {
       outsiderEmail,
       outsiderName,
       receiver,
+      isTAS: outsiderEmail.toLowerCase().includes('tas.tw'),
       createdAt: Date.now(),
     });
 
@@ -168,7 +191,7 @@ const UserMutations = {
       outsiderEmail,
       'Donating to WalkForRefugees',
       `Thank you for donating to ${receiver.firstName} ${receiver.lastName}! Click this link if you want to cancel this pledge: ${cancelLink}`,
-      `<p>Dear pledger,</p><br/>
+      `<p>Dear Pledger,</p><br/>
 <p>Thank you for supporting Walk for Refugees 2021 with your pledge. If you believe that this donation was made in error, you can cancel it at any time before April 16th, 15:35 GMT+8 by clicking <a href="${cancelLink}">here</a></p><br/>
 <p>To register to walk in our walkathon, please click <a href="${frontendURL}/register">here</a>.</p>
 <p>To buy an event T-shirt, please click <a href="${frontendURL}/products">here</a>.</p>
@@ -191,6 +214,7 @@ const UserMutations = {
       perLapDonation,
       outsiderEmail,
       outsiderName,
+      isTAS: outsiderEmail.toLowerCase().includes('tas.tw'),
       createdAt: Date.now(),
       eventWide: true,
     });
@@ -209,7 +233,7 @@ const UserMutations = {
       outsiderEmail,
       'Donating to WalkForRefugees',
       `Thank you for donating to the event! Click this link if you want to cancel this pledge: ${cancelLink}`,
-      `<p>Dear pledger,</p><br/>
+      `<p>Dear Pledger,</p><br/>
 <p>Thank you for supporting Walk for Refugees 2021 with your pledge. If you believe that this donation was made in error, you can cancel it at any time before April 16th, 15:35 GMT+8 by clicking <a href="${cancelLink}">here</a></p><br/>
 <p>To register to walk in our walkathon, please click <a href="${frontendURL}/register">here</a>.</p>
 <p>To buy an event T-shirt, please click <a href="${frontendURL}/products">here</a>.</p>
