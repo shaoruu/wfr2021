@@ -42,6 +42,7 @@ const NavBar = styled.nav`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: ${THEME_COLOR_4};
 
     & img {
       width: 1.6em;
