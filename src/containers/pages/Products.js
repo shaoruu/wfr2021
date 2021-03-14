@@ -161,7 +161,16 @@ const Products = () => {
                 Your order(s): {sCount} small, {mCount} medium, {lCount} large
                 t-shirts.
               </small>
-              <button onClick={toggleForm}>Order</button>
+              <small>
+                <a
+                  href="mailto:walk4refugees@students.tas.tw"
+                  style={{ color: 'green', textDecoration: 'underline' }}
+                >
+                  Email us
+                </a>{' '}
+                if something is wrong.
+              </small>
+              <button onClick={toggleForm}>Place Order</button>
             </TShirt>
           </TShirtWrapper>
         </>

@@ -262,9 +262,9 @@ const UserMutations = {
       });
     }
 
-    tShirtOrder.sCount = input.sCount;
-    tShirtOrder.mCount = input.mCount;
-    tShirtOrder.lCount = input.lCount;
+    tShirtOrder.sCount = tShirtOrder.sCount + input.sCount;
+    tShirtOrder.mCount = tShirtOrder.mCount + input.mCount;
+    tShirtOrder.lCount = tShirtOrder.lCount + input.lCount;
 
     await tShirtOrder.save();
 

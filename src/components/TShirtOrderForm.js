@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -14,7 +14,6 @@ import ActionButton from './ActionButton';
 import Backdrop from './Backdrop';
 import Card from './Card';
 import Form from './Form';
-import FullPageSpinner from './FullPageSpinner';
 import Loading from './Loading';
 
 const Title = styled.h1`
@@ -26,6 +25,14 @@ const Title = styled.h1`
 
 const Body = styled(Card)`
   width: 400px;
+
+  & > small {
+    text-align: center;
+    display: block;
+    color: ${THEME_COLOR_4}cc;
+    width: 80%;
+    margin: 1em auto 0 auto;
+  }
 `;
 
 const Controls = styled.section`
@@ -77,7 +84,6 @@ const schema = yup.object().shape({
 });
 
 const PledgeForm = ({ toggleForm }) => {
-  const { data, loading } = useQuery(ME_TSHIRT_ORDER_QUERY);
   const { register, handleSubmit, errors, reset, setError } = useForm({
     resolver: yupResolver(schema),
   });
@@ -108,14 +114,6 @@ const PledgeForm = ({ toggleForm }) => {
     };
   }, []);
 
-  if (loading) return <FullPageSpinner />;
-
-  const {
-    me: {
-      tShirtOrder: { sCount, mCount, lCount },
-    },
-  } = data;
-
   const onSubmit = async (data) => {
     await buyTShirt({ variables: data });
     reset();
@@ -125,14 +123,18 @@ const PledgeForm = ({ toggleForm }) => {
   return (
     <Backdrop>
       <Body>
-        <Title>Order a T-Shirt!</Title>
+        <Title>Order more T-Shirts!</Title>
+        <small>
+          By pressing "Buy!", you agree to purchase these{' '}
+          <strong>additional</strong> amounts of t-shirts.
+        </small>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label htmlFor="sCount"># of Small T-Shirts</label>
             <input
               name="sCount"
               type="number"
-              defaultValue={sCount}
+              defaultValue={0}
               ref={register({ required: true })}
             />
             <small>{errors.sCount?.message}</small>
@@ -143,7 +145,7 @@ const PledgeForm = ({ toggleForm }) => {
             <input
               name="mCount"
               type="number"
-              defaultValue={mCount}
+              defaultValue={0}
               ref={register({ required: true })}
             />
             <small>{errors.mCount?.message}</small>
@@ -154,7 +156,7 @@ const PledgeForm = ({ toggleForm }) => {
             <input
               name="lCount"
               type="number"
-              defaultValue={lCount}
+              defaultValue={0}
               ref={register({ required: true })}
             />
             <small>{errors.lCount?.message}</small>
