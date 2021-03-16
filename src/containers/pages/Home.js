@@ -186,6 +186,10 @@ const ReadyToRun = styled.div`
   }
 
   & div:last-of-type {
+    @media (min-width: 1000px) {
+      margin-left: 3em;
+    }
+
     display: flex;
     flex-wrap: wrap;
   }

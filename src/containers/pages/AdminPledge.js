@@ -92,6 +92,7 @@ const schema = yup.object().shape({
 const AdminPledge = () => {
   const history = useHistory();
   const { data } = useAuth();
+  const [agree, setAgree] = useState(false);
   const [isEventWide, setIsEventWide] = useState(false);
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
@@ -194,7 +195,7 @@ const AdminPledge = () => {
             <input
               name="outsiderEmail"
               ref={register({ required: true })}
-              placeholder="Your personal email"
+              placeholder="TAS email (if TAS student/faculty)"
             />
             <small>{errors.outsiderEmail?.message}</small>
           </div>
@@ -237,6 +238,29 @@ const AdminPledge = () => {
             <small>{errors.flatDonation?.message}</small>
           </div>
 
+          <div className="agreement">
+            <div style={{ justifyContent: 'center' }}>
+              <input
+                type="checkbox"
+                name="agreement"
+                style={{ width: '8%' }}
+                checked={agree}
+                onChange={() => setAgree(!agree)}
+              />
+              <label htmlFor="agreement" style={{ width: 'unset' }}>
+                I agree to the W4R{' '}
+                <a
+                  href="https://pastebin.com/raw/rAyj1zBA"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  terms and conditions
+                </a>
+                .
+              </label>
+            </div>
+          </div>
+
           <small style={{ color: 'gray', marginBottom: 16 }}>
             Already have an account? <Link to="/login">Login here.</Link>
           </small>
@@ -253,7 +277,7 @@ const AdminPledge = () => {
             </ActionButton>
             <ActionButton
               type="submit"
-              disabled={outsiderLoading || eventLoading}
+              disabled={outsiderLoading || eventLoading || !agree}
             >
               {outsiderLoading || eventLoading ? (
                 <>

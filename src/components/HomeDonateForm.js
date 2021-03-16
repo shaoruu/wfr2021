@@ -173,7 +173,7 @@ const HomeDonateForm = ({ toggleForm }) => {
             <input
               name="outsiderEmail"
               ref={register({ required: true })}
-              placeholder="Your personal email"
+              placeholder="TAS email (if TAS student/faculty)"
             />
             <small>{errors.outsiderEmail?.message}</small>
           </div>
