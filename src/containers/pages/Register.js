@@ -230,10 +230,8 @@ const Register = () => {
             <label htmlFor="schoolId">TAS School ID</label>
             <input
               name="schoolId"
-              placeholder="School ID (8 Digits)"
+              placeholder="TAS ID (8 digits for students, 4 digits for faculty)"
               ref={register()}
-              minLength="8"
-              maxLength="8"
             />
             <small>{errors.schoolId?.message}</small>
           </div>
