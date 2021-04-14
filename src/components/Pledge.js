@@ -52,6 +52,7 @@ const EventWide = styled.span`
 `;
 
 const Pledge = ({
+  id,
   pledger,
   outsiderName,
   receiver,
@@ -60,7 +61,7 @@ const Pledge = ({
   flatDonation,
 }) => {
   return (
-    <PledgeWrapper>
+    <PledgeWrapper id={id}>
       {pledger ? (
         <h2>{pledger}</h2>
       ) : (
