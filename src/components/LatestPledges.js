@@ -45,6 +45,7 @@ const LatestPledges = ({ pledges }) => {
             .map(
               (
                 {
+                  id,
                   pledger,
                   receiver,
                   outsiderName,
@@ -59,6 +60,7 @@ const LatestPledges = ({ pledges }) => {
 
                 return (
                   <Pledge
+                    id={id}
                     key={'pledges' + i}
                     createdAt={new Date(
                       parseInt(createdAt, 10),
