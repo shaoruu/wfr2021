@@ -6,11 +6,15 @@
 type Query {
   # User Queries
   me: User
+  user(email: String!): User
   users: [User!]!
 
   # Pledge Queries
-  pledge(id: ID!): Pledge!
+  pledge(id: ID!): Pledge
   pledges: [Pledge!]!
+
+  # TShirt Queries
+  tShirtOrders: [TShirtOrder!]!
 }
 
 type Mutation {

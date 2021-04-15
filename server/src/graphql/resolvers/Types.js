@@ -19,9 +19,11 @@ const getEventWide = async (userId) => {
 };
 
 const getTShirtOrder = async (userId) => {
-  return TShirtOrderModel.findOne({
-    buyer: await UserModel.findById(userId),
-  });
+  return (
+    TShirtOrderModel.findOne({
+      buyer: await UserModel.findById(userId),
+    }) || { sCount: 0, mCount: 0, lCount: 0 }
+  );
 };
 
 const getUser = async (userId) => {
@@ -60,6 +62,12 @@ const Types = {
     receiver(parent) {
       const { receiver } = parent || {};
       return getUser(receiver);
+    },
+  },
+  TShirtOrder: {
+    buyer(parent) {
+      const { buyer } = parent;
+      return getUser(buyer);
     },
   },
 };

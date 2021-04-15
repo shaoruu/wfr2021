@@ -1,4 +1,4 @@
-import { PledgeModel, UserModel } from '../../models';
+import { PledgeModel, UserModel, TShirtOrderModel } from '../../models';
 
 // (async () => {
 //   const { received } = await UserModel.findOne({
@@ -20,6 +20,9 @@ const Query = {
   me(_, __, { user }) {
     return user;
   },
+  user(_, { email }) {
+    return UserModel.findOne({ email });
+  },
   users() {
     return UserModel.find();
   },
@@ -28,6 +31,12 @@ const Query = {
   },
   pledges() {
     return PledgeModel.find();
+  },
+  async tShirtOrders() {
+    const allTShirts = await TShirtOrderModel.find();
+    return allTShirts.filter(
+      ({ sCount, mCount, lCount }) => sCount + mCount + lCount !== 0,
+    );
   },
 };
 

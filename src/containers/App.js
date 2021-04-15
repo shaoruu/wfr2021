@@ -11,6 +11,7 @@ import { device, NAVBAR_MOBILE, NAVBAR_WIDTH, THEME_COLOR_1 } from '../config';
 import { useAuth } from '../contexts/authContext';
 
 import AdminPledge from './pages/AdminPledge';
+import AdminUsers from './pages/AdminUsers';
 import Cancel from './pages/Cancel';
 import Confirm from './pages/Confirm';
 import Dashboard from './pages/Dashboard';
@@ -76,6 +77,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/pledge-a">
             <AdminPledge />
+          </PrivateRoute>
+          <PrivateRoute path="/admin">
+            <AdminUsers />
           </PrivateRoute>
           <Redirect to="/" />
         </Switch>
