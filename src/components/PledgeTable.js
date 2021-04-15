@@ -58,9 +58,9 @@ const NoPledges = styled.div`
 
 const EventWide = styled.span`
   color: green;
-`
+`;
 
-const PledgeTable = ({ pledges, toggleForm, setToDelete }) => {
+const PledgeTable = ({ pledges, toggleForm, setToDelete, isAdmin }) => {
   const AddPledgeButton = () => (
     <AddPledge onClick={toggleForm}>
       <IoAddOutline />
@@ -85,26 +85,35 @@ const PledgeTable = ({ pledges, toggleForm, setToDelete }) => {
         </thead>
         <tbody>
           {pledges.map(
-            (
-              {
-                id,
-                collected,
-                flatDonation,
-                perLapDonation,
-                receiver
-              },
-              i,
-            ) => (
+            ({ id, collected, flatDonation, perLapDonation, receiver }, i) => (
               <tr key={'pledge-table' + id}>
-                <td>{receiver ? receiver.fullName : <EventWide>Event-Wide</EventWide>}</td>
+                <td>
+                  {receiver ? (
+                    receiver.fullName
+                  ) : (
+                    <EventWide>Event-Wide</EventWide>
+                  )}
+                </td>
                 <td>
                   <Money>
-                    NT<span>{perLapDonation}</span>
+                    {isAdmin ? (
+                      perLapDonation
+                    ) : (
+                      <>
+                        NT<span>{perLapDonation}</span>
+                      </>
+                    )}
                   </Money>
                 </td>
                 <td>
                   <Money>
-                    NT<span>{flatDonation}</span>
+                    {isAdmin ? (
+                      flatDonation
+                    ) : (
+                      <>
+                        NT<span>{flatDonation}</span>
+                      </>
+                    )}
                   </Money>
                 </td>
                 <td>

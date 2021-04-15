@@ -30,7 +30,7 @@ const Query = {
     return PledgeModel.findById(id);
   },
   pledges() {
-    return PledgeModel.find();
+    return PledgeModel.find({ eventWide: false });
   },
   async tShirtOrders() {
     const allTShirts = await TShirtOrderModel.find();

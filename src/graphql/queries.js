@@ -38,6 +38,8 @@ export const USER_QUERY = gql`
         outsiderEmail
         pledger {
           fullName
+          email
+          schoolId
         }
         receiver {
           fullName
@@ -50,8 +52,11 @@ export const USER_QUERY = gql`
         flatDonation
         perLapDonation
         outsiderName
+        outsiderEmail
         pledger {
           fullName
+          email
+          schoolId
         }
         receiver {
           fullName
@@ -61,6 +66,27 @@ export const USER_QUERY = gql`
         sCount
         mCount
         lCount
+      }
+    }
+  }
+`;
+
+export const ALL_PLEDGES = gql`
+  query Pledges {
+    pledges {
+      id
+      collected
+      flatDonation
+      perLapDonation
+      outsiderName
+      outsiderEmail
+      pledger {
+        fullName
+        email
+        schoolId
+      }
+      receiver {
+        fullName
       }
     }
   }

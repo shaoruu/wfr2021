@@ -32,10 +32,10 @@ const Outsider = styled.span`
   color: purple;
 `;
 
-const ReceivedTable = ({ received }) => {
+const ReceivedTable = ({ received, isAdmin, title, isAllPledges }) => {
   return (
     <StyledSection>
-      <TableTitle>Received From</TableTitle>
+      <TableTitle>{title ? title : 'Received From'}</TableTitle>
       <Table>
         <thead>
           <tr>
@@ -43,6 +43,13 @@ const ReceivedTable = ({ received }) => {
             <th>Per Lap Donation</th>
             <th>Flat Donation</th>
             <th>Status</th>
+            {isAdmin && (
+              <>
+                <th>{isAllPledges ? 'Receiver' : 'Full Name'}</th>
+                <th>Email</th>
+                <th>ID</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -54,7 +61,9 @@ const ReceivedTable = ({ received }) => {
                 perLapDonation,
                 eventWide,
                 pledger,
+                receiver,
                 outsiderName,
+                outsiderEmail,
               },
               i,
             ) => (
@@ -72,12 +81,24 @@ const ReceivedTable = ({ received }) => {
                 </td>
                 <td>
                   <Money>
-                    NT<span>{perLapDonation}</span>
+                    {isAdmin ? (
+                      perLapDonation
+                    ) : (
+                      <>
+                        NT<span>{perLapDonation}</span>
+                      </>
+                    )}
                   </Money>
                 </td>
                 <td>
                   <Money>
-                    NT<span>{flatDonation}</span>
+                    {isAdmin ? (
+                      flatDonation
+                    ) : (
+                      <>
+                        NT<span>{flatDonation}</span>
+                      </>
+                    )}
                   </Money>
                 </td>
                 <td>
@@ -87,6 +108,22 @@ const ReceivedTable = ({ received }) => {
                     <Status.Pending>Pending</Status.Pending>
                   )}
                 </td>
+                {isAdmin &&
+                  (pledger ? (
+                    <>
+                      <td>
+                        {isAllPledges ? receiver.fullName : pledger.fullName}
+                      </td>
+                      <td>{pledger.email}</td>
+                      <td>{pledger.schoolId}</td>
+                    </>
+                  ) : (
+                    <>
+                      <td>{isAllPledges ? receiver.fullName : outsiderName}</td>
+                      <td>{outsiderEmail}</td>
+                      <td>none</td>
+                    </>
+                  ))}
               </tr>
             ),
           )}

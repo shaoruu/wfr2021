@@ -9,6 +9,7 @@ import ReceivedTable from '../../components/ReceivedTable';
 import StatusBar from '../../components/StatusBar';
 import { useAuth } from '../../contexts/authContext';
 import {
+  ALL_PLEDGES,
   ALL_TSHIRTS_QUERY,
   USER_EMAILS_QUERY,
   USER_QUERY,
@@ -56,16 +57,17 @@ const SpecificUsers = () => {
           </p>
         </div>
         <div style={{ margin: '20px 0' }}>
-          <p>the pledges combined is not calculated</p>
           <StatusBar pledges={pledges} received={received} allPledges={[]} />
         </div>
-        <div style={{ display: 'flex' }}>
+        <div>
           <PledgeTable
+            isAdmin={true}
             pledges={pledges}
             toggleForm={() => {}}
             setToDelete={() => {}}
           />
-          <ReceivedTable received={[...received, ...eventWide]} />
+          <ReceivedTable isAdmin={true} received={received} />
+          <ReceivedTable isAdmin={true} received={eventWide} />
         </div>
         <div>
           <h3>list of emails of outsiders related to this person</h3>
@@ -174,6 +176,23 @@ const AllTShirts = () => {
   );
 };
 
+const AllPledges = () => {
+  const { loading, data } = useQuery(ALL_PLEDGES);
+
+  if (loading) return <p>loading.....</p>;
+
+  const { pledges } = data;
+
+  return (
+    <ReceivedTable
+      isAllPledges={true}
+      title="ALL PLEDGES"
+      isAdmin={true}
+      received={pledges}
+    />
+  );
+};
+
 const AdminUsers = () => {
   const { data } = useAuth();
 
@@ -185,6 +204,7 @@ const AdminUsers = () => {
     <Wrapper>
       <SpecificUsers />
       <AllTShirts />
+      <AllPledges />
     </Wrapper>
   );
 };
