@@ -87,6 +87,8 @@ export const ALL_PLEDGES = gql`
       }
       receiver {
         fullName
+        email
+        schoolId
       }
     }
   }

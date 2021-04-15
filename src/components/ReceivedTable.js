@@ -46,8 +46,14 @@ const ReceivedTable = ({ received, isAdmin, title, isAllPledges }) => {
             {isAdmin && (
               <>
                 <th>{isAllPledges ? 'Receiver' : 'Full Name'}</th>
-                <th>Email</th>
-                <th>ID</th>
+                <th>{isAllPledges ? 'P Email' : 'Email'}</th>
+                <th>{isAllPledges ? 'P ID' : 'ID'}</th>
+              </>
+            )}
+            {isAllPledges && (
+              <>
+                <th>R Email</th>
+                <th>R ID</th>
               </>
             )}
           </tr>
@@ -124,6 +130,12 @@ const ReceivedTable = ({ received, isAdmin, title, isAllPledges }) => {
                       <td>none</td>
                     </>
                   ))}
+                {isAllPledges && (
+                  <>
+                    <td>{receiver.email}</td>
+                    <td>{receiver.schoolId}</td>
+                  </>
+                )}
               </tr>
             ),
           )}
