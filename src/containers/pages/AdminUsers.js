@@ -69,22 +69,47 @@ const SpecificUsers = () => {
         </div>
         <div>
           <h3>list of emails of outsiders related to this person</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>name</th>
-                <th>email</th>
+          <table style={{ border: '1px solid black' }}>
+            <thead style={{ border: '1px solid black' }}>
+              <tr style={{ border: '1px solid black' }}>
+                <th style={{ border: '1px solid black' }}>name</th>
+                <th style={{ border: '1px solid black' }}>email</th>
+                <th style={{ border: '1px solid black' }}>per lap</th>
+                <th style={{ border: '1px solid black' }}>flat</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ border: '1px solid black' }}>
               {received
                 .filter(({ outsiderName }) => !!outsiderName)
-                .map(({ outsiderName, outsiderEmail }, i) => (
-                  <tr key={'mdafasfd' + i}>
-                    <td>{outsiderName}</td>
-                    <td>{outsiderEmail}</td>
-                  </tr>
-                ))}
+                .map(
+                  (
+                    {
+                      outsiderName,
+                      outsiderEmail,
+                      perLapDonation,
+                      flatDonation,
+                    },
+                    i,
+                  ) => (
+                    <tr
+                      style={{ border: '1px solid black' }}
+                      key={'mdafasfd' + i}
+                    >
+                      <td style={{ border: '1px solid black' }}>
+                        {outsiderName}
+                      </td>
+                      <td style={{ border: '1px solid black' }}>
+                        {outsiderEmail}
+                      </td>
+                      <td style={{ border: '1px solid black' }}>
+                        {perLapDonation}
+                      </td>
+                      <td style={{ border: '1px solid black' }}>
+                        {flatDonation}
+                      </td>
+                    </tr>
+                  ),
+                )}
             </tbody>
           </table>
         </div>
