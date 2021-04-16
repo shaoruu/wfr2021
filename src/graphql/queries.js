@@ -62,11 +62,6 @@ export const USER_QUERY = gql`
           fullName
         }
       }
-      tShirtOrder {
-        sCount
-        mCount
-        lCount
-      }
     }
   }
 `;

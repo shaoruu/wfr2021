@@ -38,24 +38,12 @@ const SpecificUsers = () => {
   let userEle;
   if (userData.user) {
     const {
-      user: {
-        fullName,
-        eventWide,
-        pledges,
-        received,
-        tShirtOrder: { sCount, mCount, lCount },
-      },
+      user: { fullName, eventWide, pledges, received },
     } = userData;
 
     userEle = (
       <div>
         <h1 style={{ margin: 20 }}>{fullName}</h1>
-        <div style={{ margin: 20 }}>
-          <h2>TShirt Order</h2>
-          <p>
-            S: {sCount} m: {mCount} L: {lCount}
-          </p>
-        </div>
         <div style={{ margin: '20px 0' }}>
           <StatusBar pledges={pledges} received={received} allPledges={[]} />
         </div>
